@@ -90,15 +90,48 @@
     <h1 class="text-4xl font-bold text-blue-400 underline-animate">Kyluesky</h1>
     <p id="typedText" class="text-lg mt-2 text-gray-300 h-6"></p>
     <p class="text-sm text-gray-400 mt-2 italic">✨ Mewujudkan impian digital-mu, satu baris kode dalam satu waktu ~</p>
+    <div class="max-w-xl mx-auto mt-10 px-6">
+  <div class="bg-white/5 border border-blue-500/30 rounded-xl p-6 shadow-xl backdrop-blur-md relative overflow-hidden group hover:scale-105 transition-transform duration-500">
+    <div class="absolute -top-10 -left-10 w-40 h-40 bg-blue-400 opacity-10 rounded-full blur-2xl group-hover:opacity-20 transition-all duration-700"></div>
+    <p class="text-blue-300 text-lg italic text-center">
+      “Desain bukan hanya apa yang kamu lihat dan rasakan. Desain adalah bagaimana sesuatu itu bekerja.”
+    </p>
+    <p class="text-right text-sm text-gray-400 mt-4">— Steve Jobs</p>
+  </div>
   </header>
 
-  <!-- Navigasi -->
-  <nav class="flex justify-center gap-6 py-4 bg-white/10 backdrop-blur-md text-sm font-semibold border-t border-b border-white/10 relative z-10">
-    <a href="index.html" class="text-blue-400">Beranda</a>
-    <a href="portofolio.html" class="hover:text-blue-400">Portofolio</a>
-    <a href="kontak.html" class="hover:text-blue-400">Kontak</a>
-    <a href="galeri.html" class="hover:text-blue-400">Galeri</a>
-  </nav>
+<!-- Header -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 py-4 bg-black/60 backdrop-blur-md shadow">
+  <!-- Hamburger Button -->
+  <button id="navToggle" class="z-50 flex flex-col justify-between w-7 h-5 focus:outline-none">
+    <span class="block h-0.5 bg-white transition-all duration-300 origin-left"></span>
+    <span class="block h-0.5 bg-white transition-all duration-300 origin-left"></span>
+    <span class="block h-0.5 bg-white transition-all duration-300 origin-left"></span>
+  </button>
+
+  <!-- Centered Logo -->
+  <div class="absolute left-1/2 transform -translate-x-1/2">
+    <h1 class="text-white font-bold text-lg tracking-wide">✦ Kyluesky</h1>
+  </div>
+</header>
+
+<!-- Floating Nav Menu -->
+<div id="floatingMenu" class="fixed inset-0 z-40 hidden flex items-center justify-center bg-black bg-opacity-90">
+  <!-- Wrapper kotak menu -->
+  <div style="
+      background-color: #0f172a;
+      border: 2px solid #ec4899;
+      border-radius: 1rem;
+      box-shadow: 0 0 30px #ec4899;
+      padding: 2rem 3rem;
+      text-align: center;
+    ">
+    <a href="index.html" style="display: block; color: white; font-weight: 600; margin-bottom: 1rem; transition: 0.3s;" onmouseover="this.style.color='#ec4899'" onmouseout="this.style.color='white'">🏠 Beranda</a>
+    <a href="portofolio.html" style="display: block; color: white; font-weight: 600; margin-bottom: 1rem; transition: 0.3s;" onmouseover="this.style.color='#ec4899'" onmouseout="this.style.color='white'">💼 Portofolio</a>
+    <a href="kontak.html" style="display: block; color: white; font-weight: 600; margin-bottom: 1rem; transition: 0.3s;" onmouseover="this.style.color='#ec4899'" onmouseout="this.style.color='white'">📞 Kontak</a>
+    <a href="galeri.html" style="display: block; color: white; font-weight: 600; transition: 0.3s;" onmouseover="this.style.color='#ec4899'" onmouseout="this.style.color='white'">🖼️ Galeri</a>
+  </div>
+</div>
 
   <!-- Tentang -->
   <section id="tentang" class="max-w-3xl mx-auto px-6 py-20 fade-up relative z-10">
@@ -285,5 +318,38 @@
     }, { threshold: 0.1 });
     fadeItems.forEach(item => fadeInObserver.observe(item));
   </script>
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const floatingMenu = document.getElementById('floatingMenu');
+  const bars = navToggle.querySelectorAll('span');
+  let isOpen = false;
+
+  navToggle.addEventListener('click', () => {
+    isOpen = !isOpen;
+    floatingMenu.classList.toggle('hidden');
+
+    // Animate hamburger to X
+    if (isOpen) {
+      bars[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+      bars[1].style.opacity = '0';
+      bars[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+    } else {
+      bars[0].style.transform = 'rotate(0) translate(0, 0)';
+      bars[1].style.opacity = '1';
+      bars[2].style.transform = 'rotate(0) translate(0, 0)';
+    }
+  });
+
+  // Optional: Close menu when link clicked
+  document.querySelectorAll('#floatingMenu a').forEach(link => {
+    link.addEventListener('click', () => {
+      floatingMenu.classList.add('hidden');
+      isOpen = false;
+      bars[0].style.transform = 'rotate(0) translate(0, 0)';
+      bars[1].style.opacity = '1';
+      bars[2].style.transform = 'rotate(0) translate(0, 0)';
+    });
+  });
+</script>
 </body>
 </html>
