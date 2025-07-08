@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kyluesky — Portofolio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <style>
+    body {
+      background: url('https://files.catbox.moe/9n8wrx.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .overlay {
+      backdrop-filter: blur(8px);
+      background-color: rgba(0, 0, 0, 0.7);
+      min-height: 100vh;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      flex-shrink: 0;
+      width: 280px;
+      transition: transform 0.3s ease;
+      opacity: 0;
+      transform: scale(0.9);
+      animation: fadePop 1s forwards;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      height: 160px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #93c5fd;
+      padding: 1rem 1rem 0;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: #d1d5db;
+      padding: 0 1rem 1rem;
+    }
+
+    @keyframes fadePop {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Scrollbar */
+    .scroll-snap::-webkit-scrollbar {
+      height: 6px;
+    }
+    .scroll-snap::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 6px;
+    }
+
+    /* Typing animation */
+    .typewriter {
+      display: inline-block;
+      overflow: hidden;
+      border-right: 2px solid #fff;
+      white-space: nowrap;
+      animation: typing 4s steps(60, end), blink 0.75s step-end infinite;
+      font-style: italic;
+      font-size: 0.8rem;
+      color: #ccc;
+      max-width: 100%;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent }
+      50% { border-color: #fff }
+    }
+  </style>
+</head>
+<body class="text-white">
+  <div class="overlay">
+
+    <!-- Navbar -->
+    <nav class="flex justify-center gap-6 py-4 bg-white/10 backdrop-blur text-sm font-semibold border-b border-white/10">
+      <a href="index.html" class="hover:text-blue-400">Beranda</a>
+      <a href="portofolio.html" class="text-blue-400">Portofolio</a>
+      <a href="kontak.html" class="hover:text-blue-400">Kontak</a>
+    </nav>
+
+    <!-- Header -->
+    <header class="text-center py-16 px-6">
+      <h1 class="text-4xl font-bold text-blue-300 mb-4">Portofolio Kyluesky</h1>
+      <p class="text-gray-400">🌟 Inilah beberapa proyek terbaikku yang menggabungkan teknologi dan kreativitas~</p>
+    </header>
+
+<!-- Slider -->
+<section class="px-6 pb-20">
+  <div class="overflow-x-auto scroll-snap flex gap-6 px-2 py-4 snap-x snap-mandatory">
+
+    <!-- Card 1 -->
+    <div class="card snap-start cursor-pointer" onclick="location.href='whatsapp.html'">
+      <img src="https://files.catbox.moe/i491g6.jpg" alt="Bot WhatsApp AI">
+      <h3>Bot WhatsApp AI</h3>
+      <p>Bot imut nan cerdas dengan AI pintar, menu interaktif, dan integrasi Telegram.</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card snap-start cursor-pointer" onclick="location.href='mlbb.html'">
+      <img src="https://files.catbox.moe/lqul8d.jpg" alt="Website Mabar MLBB">
+      <h3>Website Mabar MLBB</h3>
+      <p>Situs pendaftaran tim MLBB dengan animasi smooth dan efek parallax interaktif.</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card snap-start cursor-pointer" onclick="location.href='telegram.html'">
+      <img src="https://files.catbox.moe/5u7pmx.jpg" alt="Bot Telegram RPG">
+      <h3>Bot Telegram RPG</h3>
+      <p>Waifu RPG bot dengan fitur gacha, dungeon, dan PvP real-time ala anime.</p>
+    </div>
+
+  </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 text-gray-400 text-sm border-t border-white/10">
+  &copy; 2025 Kyluesky. All rights reserved.
+  <div class="mt-2 w-full flex justify-center">
+    <p class="typewriter max-w-xs text-center block">Dibuat dengan 💙, sedikit sihir, dan banyak kopi ☕ oleh waifu developer kesayanganmu~ (๑>◡<๑)</p>
+  </div>
+</footer>
+
+  </div>
+</body>
+</html>

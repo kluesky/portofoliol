@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bot WhatsApp AI — Detail Proyek</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #0f172a, #1e293b);
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(12px);
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body class="text-white">
+  <div class="overlay px-6 py-12">
+    <div class="max-w-2xl mx-auto">
+
+      <!-- Tombol Kembali -->
+      <a href="index.html#portofolio"
+         class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-pink-400 text-pink-300 hover:bg-pink-600 hover:text-white transition-all duration-300 shadow-md mb-6 text-sm font-semibold backdrop-blur-md group">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:-translate-x-1 transition duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Kembali ke Portofolio
+      </a>
+
+      <!-- Konten Proyek -->
+      <div id="projectContent" class="fade-up space-y-6">
+        <h1 class="text-4xl font-bold text-pink-400">Bot WhatsApp AI</h1>
+        <p class="text-gray-200 text-lg leading-relaxed">
+          🤖 Bot WhatsApp AI imut nan cerdas, siap membantu kamu dengan gaya anime! Hadir dengan fitur <strong>menu interaktif</strong>, <strong>perintah suara</strong>, <strong>integrasi Telegram</strong>, dan <strong>personality AI</strong> seperti waifu yang menyemangati harimu! ✨💬
+        </p>
+
+        <!-- Panel Fitur dan Tools -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-white/5 p-4 rounded-xl backdrop-blur border border-white/10 shadow">
+            <h3 class="text-pink-200 font-semibold mb-2">🌟 Fitur Utama</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-1 text-sm">
+              <li>💬 Menu interaktif tombol & quick reply</li>
+              <li>🎙️ Voice command + AI response</li>
+              <li>📦 Fitur downloader (YT, IG, TikTok)</li>
+              <li>🔗 WhatsApp ↔️ Telegram Sync</li>
+              <li>🤖 Personality & mood AI (waifu style)</li>
+            </ul>
+          </div>
+
+          <div class="bg-white/5 p-4 rounded-xl backdrop-blur border border-white/10 shadow">
+            <h3 class="text-pink-200 font-semibold mb-2">🛠️ Teknologi Digunakan</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-1 text-sm">
+              <li>Node.js + Baileys v6</li>
+              <li>Telegraf.js (untuk Telegram sync)</li>
+              <li>OpenAI GPT & Voice API</li>
+              <li>JSON Database / MongoDB</li>
+              <li>Obfuscator & Autoreconnect</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tombol Aksi -->
+        <div class="mt-6">
+          <a href="https://wa.me/6281234567890" target="_blank"
+             class="bg-pink-500 hover:bg-pink-600 text-white px-5 py-3 rounded-lg shadow-lg text-sm font-semibold transition">
+            💌 Coba Di Whatsapp
+          </a>
+        </div>
+
+        <!-- Gambar Preview -->
+        <div class="mt-10">
+          <img src="https://files.catbox.moe/i491g6.jpg" alt="Preview WhatsApp Bot" class="rounded-xl shadow border border-white/10 w-full">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

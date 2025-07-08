@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bot Telegram RPG — Detail Proyek</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+    }
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .glass {
+      background-color: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .neon-border {
+      border: 2px solid rgba(255, 105, 180, 0.5);
+      box-shadow: 0 0 12px rgba(255, 105, 180, 0.5);
+    }
+  </style>
+</head>
+<body class="text-white font-sans">
+  <div class="min-h-screen px-6 py-12">
+    <div class="max-w-2xl mx-auto">
+      <a href="index.html#portofolio"
+   class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-pink-400 text-pink-300 hover:bg-pink-600 hover:text-white transition-all duration-300 shadow-md mb-6 text-sm font-semibold backdrop-blur-md group">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:-translate-x-1 transition duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+  </svg>
+  Kembali ke Portofolio
+</a>
+
+      <div class="space-y-6 glass p-6 rounded-2xl neon-border shadow-lg">
+        <h1 class="text-4xl font-bold text-pink-400 flex items-center gap-2">
+          <img src="https://em-content.zobj.net/thumbs/240/twitter/322/sparkles_2728.png" alt="✨" class="w-6 h-6">
+          Bot Telegram RPG
+        </h1>
+        <p class="text-gray-200 text-lg leading-relaxed">
+          🌟 Masuki dunia <span class="text-blue-300 font-semibold">RPG waifu</span> yang penuh aksi dan keimutan! Bot Telegram ini menghadirkan gameplay berbasis teks dengan fitur <strong class="text-white">PvP waifu battle</strong>, <strong class="text-white">explore dungeon</strong>, <strong class="text-white">gacha summon</strong>, dan <strong class="text-white">leaderboard ranking</strong>. Dibuat dengan cinta dan semangat waibu sejati~ 💘
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-white/10 p-4 rounded-xl border border-white/10 shadow">
+            <h3 class="text-blue-300 font-semibold mb-2">✨ Fitur Utama</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-1 text-sm">
+              <li>🎮 PvP Turn-based Waifu Battle</li>
+              <li>🎲 Gacha & Summon Sistem</li>
+              <li>🏆 Leaderboard & Rank PvP</li>
+              <li>🧭 Dungeon Eksplorasi</li>
+              <li>🧠 Sistem Stat & Element</li>
+            </ul>
+          </div>
+
+          <div class="bg-white/10 p-4 rounded-xl border border-white/10 shadow">
+            <h3 class="text-blue-300 font-semibold mb-2">🛠️ Teknologi Digunakan</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-1 text-sm">
+              <li>Telegraf.js & Telegram Bot API</li>
+              <li>Node.js (ESM)</li>
+              <li>MongoDB (Inventory, Stat, User)</li>
+              <li>Anime API / Custom JSON</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <a href="https://t.me/Seirennnnnn_bot" target="_blank" class="bg-pink-500 hover:bg-pink-600 text-white px-5 py-3 rounded-lg shadow-lg text-sm font-semibold transition flex items-center gap-2">
+            🚀 Coba Bot Di Telegram
+          </a>
+        </div>
+
+        <div class="mt-10">
+          <img src="https://files.catbox.moe/9n8wrx.jpg" alt="Preview RPG Bot" class="rounded-xl shadow border border-white/10 w-full">
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

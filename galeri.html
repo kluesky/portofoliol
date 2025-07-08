@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kyluesky — Galeri</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #0f172a, #1e293b);
+      background-attachment: fixed;
+      color: white;
+    }
+
+    .gallery-img {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 16px;
+      border-radius: 999px;
+      backdrop-filter: blur(4px);
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    .header-title {
+      background: linear-gradient(to right, #60a5fa, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="relative">
+
+  <a href="index.html" class="back-button text-sm text-white shadow hover:scale-105 transition">Kembali ke Beranda</a>
+
+  <header class="text-center py-16">
+    <h1 class="text-4xl font-bold header-title">🎴 Galeri Anime Kyluesky</h1>
+    <p class="text-gray-300 mt-2 italic">Koleksi visual anime yang menginspirasi setiap baris kodingku~</p>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 pb-20">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+      <!-- Gambar Galeri -->
+      <img src="https://files.catbox.moe/6tcy13.jpg" alt="Anime 1" class="rounded-lg gallery-img">
+      <img src="https://files.catbox.moe/1zg1pd.jpg" alt="Anime 2" class="rounded-lg gallery-img">
+      <img src="https://files.catbox.moe/7savsq.jpg" alt="Anime 3" class="rounded-lg gallery-img">
+      <img src="https://files.catbox.moe/6t6gkk.jpg" alt="Anime 4" class="rounded-lg gallery-img">
+      <img src="https://files.catbox.moe/uzyo6l.jpg" alt="Anime 5" class="rounded-lg gallery-img">
+      <img src="https://files.catbox.moe/dcu3gc.jpg" alt="Anime 6" class="rounded-lg gallery-img">
+      <img src="https://files.catbox.moe/ovcfgq.jpg" alt="Anime 7" class="rounded-lg gallery-img">
+      <img src="https://files.catbox.moe/2e9uy3.jpg" alt="Anime 8" class="rounded-lg gallery-img">
+    </div>
+  </main>
+
+  <footer class="text-center py-8 text-gray-400 text-sm">
+    &copy; 2025 Kyluesky. Semua hak cipta dilindungi. ✨
+  </footer>
+</body>
+</html>

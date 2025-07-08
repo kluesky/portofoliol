@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detail Proyek — Kyluesky</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-black text-white min-h-screen px-6 py-12 font-sans">
+  <div class="max-w-2xl mx-auto text-center fade-up">
+    <!-- Tombol kembali yang lebih keren -->
+    <a href="index.html#portofolio"
+       class="inline-flex items-center gap-2 mb-10 px-4 py-2 rounded-lg text-white bg-pink-500/10 border border-pink-400 hover:bg-pink-500/20 transition duration-300 shadow-md backdrop-blur text-sm">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Kembali ke Portofolio
+    </a>
+
+    <!-- Konten Proyek -->
+    <div id="projectContent" class="bg-white/5 backdrop-blur border border-white/10 p-6 rounded-xl shadow-lg">
+      <p class="text-gray-400">Memuat detail proyek...</p>
+    </div>
+
+    <!-- Tombol kunjungan -->
+    <div class="mt-8">
+      <a id="projectLink" href="#" target="_blank"
+         class="inline-block bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition shadow-lg text-sm font-semibold">
+        🚀 Kunjungi Proyek Ini
+      </a>
+    </div>
+  </div>
+
+<!-- Audio Musik Latar -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://files.catbox.moe/uj4xjv.mp3" type="audio/mp3">
+  Browser kamu tidak mendukung pemutar audio.
+</audio>
+
+<!-- Tombol Kontrol Musik -->
+<button id="musicToggle" class="fixed bottom-4 right-4 z-50 bg-white/10 backdrop-blur px-4 py-2 rounded-full shadow text-white hover:bg-white/20 transition">
+  🔇 Hidupkan Musik
+</button>
+
+<!-- Script untuk Musik -->
+<script>
+  const music = document.getElementById('bgMusic');
+  const musicToggle = document.getElementById('musicToggle');
+
+  let isPlaying = false;
+
+  function toggleMusic() {
+    if (isPlaying) {
+      music.pause();
+      musicToggle.textContent = '🔇 Hidupkan Musik';
+    } else {
+      music.play().then(() => {
+        musicToggle.textContent = '🔊 Matikan Musik';
+        isPlaying = true;
+      }).catch((err) => {
+        console.warn('Autoplay diblokir. Klik tombol untuk mulai musik.', err);
+      });
+    }
+  }
+
+  // Tombol diklik
+  musicToggle.addEventListener('click', toggleMusic);
+
+  // Mulai musik setelah klik pertama di halaman
+  document.addEventListener('click', () => {
+    if (!isPlaying) {
+      toggleMusic();
+    }
+  }, { once: true });
+</script>

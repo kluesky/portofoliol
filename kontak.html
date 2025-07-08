@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kyluesky — Kontak</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+      overflow-x: hidden;
+    }
+
+    /* Meteor particle */
+    .meteor {
+      position: fixed;
+      top: -10px;
+      width: 2px;
+      height: 100px;
+      background: linear-gradient(to bottom, #00f0ff, transparent);
+      animation: fall 5s linear infinite;
+      opacity: 0.4;
+      z-index: 0;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) translateX(0);
+        opacity: 0.4;
+      }
+      100% {
+        transform: translateY(100vh) translateX(80px);
+        opacity: 0;
+      }
+    }
+
+    .glow-box {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="text-white">
+
+  <!-- Meteor Particles -->
+  <script>
+    for (let i = 0; i < 15; i++) {
+      const meteor = document.createElement('div');
+      meteor.className = 'meteor';
+      meteor.style.left = `${Math.random() * 100}vw`;
+      meteor.style.animationDuration = `${3 + Math.random() * 4}s`;
+      document.body.appendChild(meteor);
+    }
+  </script>
+
+  <!-- Navigation -->
+  <nav class="flex justify-center gap-6 py-4 bg-white/10 backdrop-blur-md text-sm font-semibold border-b border-white/10">
+    <a href="index.html" class="hover:text-blue-400">Beranda</a>
+    <a href="portofolio.html" class="hover:text-blue-400">Portofolio</a>
+    <a href="kontak.html" class="text-blue-400">Kontak</a>
+  </nav>
+
+  <section class="max-w-3xl mx-auto px-6 py-20 fade-in relative z-10">
+    <div class="glow-box rounded-xl p-6">
+      <h2 class="text-3xl font-bold text-blue-300 mb-2">Kontak</h2>
+      <p class="text-gray-300 mb-6">Hubungi aku melalui media berikut jika kamu tertarik bekerja sama atau hanya ingin menyapa~ ✨</p>
+
+      <ul class="space-y-4 text-lg text-gray-200">
+        <li>📧 Email: <a href="mailto:kyluesky@domain.com" class="text-blue-400 underline">kyluesky@domain.com</a></li>
+        <li>📸 Instagram: <a href="https://instagram.com/me_kyluesky" class="text-blue-400 underline">@me_kyluesky</a></li>
+        <li>💬 WhatsApp: <a href="https://wa.me/6281234567890" class="text-blue-400 underline">+62 812-3456-7890</a></li>
+      </ul>
+
+      <!-- Status Online -->
+      <p class="text-sm mt-6 text-green-400 italic">🟢 Kyluesky sedang online sekarang</p>
+
+      <!-- Kirim Pesan Form -->
+      <form onsubmit="handleSubmit(event)" class="mt-10 space-y-4">
+        <input id="nama" type="text" required placeholder="Nama kamu" class="w-full px-4 py-2 rounded bg-white/10 text-white border border-white/20 placeholder-gray-400">
+        <textarea id="pesan" required rows="3" placeholder="Pesan..." class="w-full px-4 py-2 rounded bg-white/10 text-white border border-white/20 placeholder-gray-400"></textarea>
+        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition w-full">Kirim Lewat WhatsApp</button>
+
+        <!-- Progress Bar -->
+        <div id="progressBar" class="h-1 bg-blue-400 w-0 transition-all duration-700"></div>
+      </form>
+
+      <!-- Tombol -->
+      <div class="mt-10 flex gap-4 flex-wrap">
+        <a href="https://discord.gg/KZzsmUj6Qq" target="_blank" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded shadow">Join Discord</a>
+        <a href="https://chat.whatsapp.com/F3GYiNa2LUb2R2peOYIGot?mode=r_c" target="_blank" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded shadow">Gabung WhatsApp</a>
+         <a href="index.html" class="inline-block px-3 py-2 rounded-md border border-white/20 bg-white/5 backdrop-blur text-sm text-white hover:bg-blue-500/20 hover:border-blue-400 transition duration-300 shadow-md">
+     Kembali ke Beranda
+  </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const nama = document.getElementById("nama").value;
+      const pesan = document.getElementById("pesan").value;
+      const text = `Halo, saya ${nama}. ${pesan}`;
+      const url = "https://wa.me/6281234567890?text=" + encodeURIComponent(text);
+
+      // Progress bar animation
+      const bar = document.getElementById("progressBar");
+      bar.style.width = "100%";
+      setTimeout(() => {
+        bar.style.width = "0%";
+        window.open(url, "_blank");
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>

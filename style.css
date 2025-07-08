@@ -1,0 +1,149 @@
+/* Background dan tampilan utama */
+.fade-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-in-out;
+}
+
+.fade-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+body {
+  background-image: url('https://files.catbox.moe/9n8wrx.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-color: #0d0d0d;
+}
+
+.bg-overlay {
+  background-color: rgba(0, 0, 0, 0.85); /* lebih gelap agar teks kontras */
+  backdrop-filter: blur(6px);
+}
+
+/* Kontras teks agar jelas */
+body, p, h1, h2, h3, h4, a, li, span {
+  color: #f8f8f8 !important;
+  text-shadow: 1px 1px 2px #000;
+}
+
+/* Responsive teks */
+@media (max-width: 600px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  p, li, a { font-size: 1rem; }
+}
+
+/* Kartu portofolio */
+.card {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  color: #f0f0f0;
+  font-weight: bold;
+  text-align: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  background-color: rgba(0, 119, 255, 0.15);
+}
+
+/* Animasi muncul */
+.fade-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+#hpBar, #manaBar, #moodBar {
+  box-shadow: 0 0 4px rgba(255,255,255,0.4);
+}
+#testiText {
+  transition: opacity 0.4s ease-in-out;
+}
+#vnDialog {
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+<script>
+  const quotes = [
+    { text: '"Kreativitas adalah kode yang belum ditulis."', author: "— Dev Unknown" },
+    { text: '"Membangun masa depan dengan satu script pada satu waktu."', author: "— Kyluesky" },
+    { text: '"UI cantik + bot cerdas = kombinasi sempurna."', author: "— Chisato AI" },
+    { text: '"Bug hanyalah fitur yang belum dimengerti."', author: "— Developer Galau" }
+  ];
+
+  let quoteIndex = 0;
+  setInterval(() => {
+    quoteIndex = (quoteIndex + 1) % quotes.length;
+    document.getElementById("quoteText").classList.add("opacity-0");
+    setTimeout(() => {
+      document.getElementById("quoteText").textContent = quotes[quoteIndex].text;
+      document.getElementById("quoteAuthor").textContent = quotes[quoteIndex].author;
+      document.getElementById("quoteText").classList.remove("opacity-0");
+    }, 300);
+  }, 7000);
+</script>
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+.typewriter {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  max-width: 100%;
+}
+.card {
+  cursor: pointer;
+  /* ...style lainnya */
+}
+<style>
+  @keyframes loadBar {
+    from { width: 0%; }
+    to { width: var(--width); }
+  }
+  .animate-load-\[95\%\] { animation: loadBar 1.5s ease-out forwards; --width: 95%; }
+  .animate-load-\[90\%\] { animation: loadBar 1.5s ease-out forwards; --width: 90%; }
+  .animate-load-\[88\%\] { animation: loadBar 1.5s ease-out forwards; --width: 88%; }
+  .animate-load-\[96\%\] { animation: loadBar 1.5s ease-out forwards; --width: 96%; }
+</style>
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.quote-animate {
+  animation: fadeInUp 0.5s ease-in-out;
+}

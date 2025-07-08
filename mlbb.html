@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Website Mabar MLBB — Detail Proyek</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #0f172a, #1e293b);
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(12px);
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body class="text-white">
+  <div class="overlay px-6 py-12">
+    <div class="max-w-2xl mx-auto">
+
+      <!-- Tombol Kembali -->
+      <a href="index.html#portofolio"
+         class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-blue-400 text-blue-300 hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-md mb-6 text-sm font-semibold backdrop-blur-md group">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:-translate-x-1 transition duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Kembali ke Portofolio
+      </a>
+
+      <!-- Konten Proyek -->
+      <div id="projectContent" class="fade-up space-y-6">
+        <h1 class="text-4xl font-bold text-blue-300">Website Mabar MLBB</h1>
+        <p class="text-gray-200 text-lg leading-relaxed">
+          🎮 Situs pendaftaran tim <strong>Mobile Legends: Bang Bang</strong> dengan desain modern dan interaktif. Menggunakan efek parallax, animasi hover, dan sistem form real-time — cocok untuk turnamen komunitas atau mabar rutin~ 🌈✨
+        </p>
+
+        <!-- Panel Fitur dan Tools -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-white/5 p-4 rounded-xl backdrop-blur border border-white/10 shadow">
+            <h3 class="text-blue-200 font-semibold mb-2">🌟 Fitur Utama</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-1 text-sm">
+              <li>📋 Form Pendaftaran Tim Interaktif</li>
+              <li>💡 Efek Parallax dan Hover Animasi</li>
+              <li>🗂️ Tampilan Tim & Leaderboard</li>
+              <li>🎧 Efek Suara Hover & UI Responsif</li>
+              <li>🖼️ Tema gelap futuristik</li>
+            </ul>
+          </div>
+
+          <div class="bg-white/5 p-4 rounded-xl backdrop-blur border border-white/10 shadow">
+            <h3 class="text-blue-200 font-semibold mb-2">🛠️ Teknologi Digunakan</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-1 text-sm">
+              <li>HTML5, Tailwind CSS</li>
+              <li>Vanilla JS</li>
+              <li>Firebase Realtime DB</li>
+              <li>GSAP untuk animasi</li>
+              <li>Form validation via JS</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tombol CTA -->
+        <div class="mt-6">
+          <a href="https://mabaranjay.netlify.app/" target="_blank"
+             class="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded-lg shadow-lg text-sm font-semibold transition">
+            🚀 Kunjungi Website Mabar
+          </a>
+        </div>
+
+        <!-- Gambar Preview -->
+        <div class="mt-10">
+          <img src="https://files.catbox.moe/lqul8d.jpg" alt="Preview MLBB Website" class="rounded-xl shadow border border-white/10 w-full">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
