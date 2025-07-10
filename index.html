@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="style.css">
   <style>
     body {
-      background: radial-gradient(ellipse at bottom, #1a1a2e 0%, #000000 100%);
       overflow-x: hidden;
     }
 
@@ -64,260 +63,148 @@
 </head>
 <body class="text-white min-h-screen relative">
 
-  <!-- Bintang jatuh -->
-  <script>
-    for (let i = 0; i < 30; i++) {
-      const star = document.createElement('div');
-      star.className = 'star';
-      star.textContent = '★';
-      star.style.left = `${Math.random() * 100}vw`;
-      star.style.animationDuration = `${4 + Math.random() * 4}s`;
-      star.style.fontSize = `${0.6 + Math.random() * 1.4}rem`;
-      document.body.appendChild(star);
-    }
-  </script>
+<!-- Video Background -->
+<video id="bgvideo" autoplay muted loop playsinline preload="auto" poster="https://files.catbox.moe/5ff2m4.jpg" 
+  class="fixed top-0 left-0 w-full h-full object-cover z-[-1] opacity-0 transition-opacity duration-700 ease-in-out">
+  <source src="https://files.catbox.moe/tbe0yv.mp4" type="video/mp4">
+</video>
+<!-- Musik Autoplay -->
+<audio id="bgmusic" autoplay loop hidden>
+  <source src="https://files.catbox.moe/ir30iw.opus" type="audio/mpeg">
+</audio>
 
-  <!-- Toggle Dark -->
-  <div class="fixed top-4 right-4 z-50">
-    <button id="toggleDark" class="bg-white/10 border border-white text-white px-3 py-2 rounded-full shadow hover:scale-105 transition">
-      🌙
-    </button>
+<script>
+  const video = document.getElementById('bgvideo');
+  const music = document.getElementById('bgmusic');
+
+  video.addEventListener('canplay', () => {
+    video.classList.add('opacity-100');
+    music.play().catch(() => {
+      console.warn('Autoplay musik diblokir, menunggu interaksi pengguna.');
+    });
+  });
+
+  document.addEventListener('click', () => {
+    if (music.paused) music.play();
+  });
+</script>
+<script>
+  const video = document.getElementById('bgvideo');
+  video.addEventListener('canplay', () => {
+    video.classList.add('opacity-100');
+  });
+</script>
+
+
+<!-- HERO -->
+<header class="text-center py-24 px-6 relative z-10">
+  <img src="https://files.catbox.moe/av066j.jpg" alt="Kyluesky" class="w-32 h-32 rounded-full border-4 border-blue-400 mx-auto shadow-lg mb-6"/>
+  <h1 class="text-4xl font-bold text-white drop-shadow-md">Kyluesky</h1>
+  <p id="typedText" class="text-lg mt-2 text-gray-200 h-6"></p>
+  <p class="text-sm text-gray-300 mt-2 italic">✨ Mewujudkan impian digital-mu, satu baris kode dalam satu waktu ~</p>
+  <div class="max-w-xl mx-auto mt-10 px-6">
+    <div class="bg-white/5 border border-blue-500/30 rounded-xl p-6 shadow-xl backdrop-blur-md relative overflow-hidden group hover:scale-105 transition-transform duration-500">
+      <div class="absolute -top-10 -left-10 w-40 h-40 bg-blue-400 opacity-10 rounded-full blur-2xl group-hover:opacity-20 transition-all duration-700"></div>
+      <p class="text-blue-300 text-lg italic text-center">
+        “Desain bukan hanya apa yang kamu lihat dan rasakan. Desain adalah bagaimana sesuatu itu bekerja.”
+      </p>
+      <p class="text-right text-sm text-gray-400 mt-4">— Steve Jobs</p>
+    </div>
   </div>
+</header>
 
-  <!-- HERO -->
-  <header class="text-center py-24 px-6 relative z-10">
-    <img src="https://files.catbox.moe/av066j.jpg" alt="Kyluesky" class="w-32 h-32 rounded-full border-4 border-blue-400 mx-auto shadow-lg mb-6"/>
-    <h1 class="text-4xl font-bold text-blue-400 underline-animate">Kyluesky</h1>
-    <p id="typedText" class="text-lg mt-2 text-gray-300 h-6"></p>
-    <p class="text-sm text-gray-400 mt-2 italic">✨ Mewujudkan impian digital-mu, satu baris kode dalam satu waktu ~</p>
-    <div class="max-w-xl mx-auto mt-10 px-6">
-  <div class="bg-white/5 border border-blue-500/30 rounded-xl p-6 shadow-xl backdrop-blur-md relative overflow-hidden group hover:scale-105 transition-transform duration-500">
-    <div class="absolute -top-10 -left-10 w-40 h-40 bg-blue-400 opacity-10 rounded-full blur-2xl group-hover:opacity-20 transition-all duration-700"></div>
-    <p class="text-blue-300 text-lg italic text-center">
-      “Desain bukan hanya apa yang kamu lihat dan rasakan. Desain adalah bagaimana sesuatu itu bekerja.”
-    </p>
-    <p class="text-right text-sm text-gray-400 mt-4">— Steve Jobs</p>
-  </div>
-  </header>
-
-<!-- Header -->
+<!-- Navbar -->
 <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 py-4 bg-black/60 backdrop-blur-md shadow">
-  <!-- Hamburger Button -->
   <button id="navToggle" class="z-50 flex flex-col justify-between w-7 h-5 focus:outline-none">
     <span class="block h-0.5 bg-white transition-all duration-300 origin-left"></span>
     <span class="block h-0.5 bg-white transition-all duration-300 origin-left"></span>
     <span class="block h-0.5 bg-white transition-all duration-300 origin-left"></span>
   </button>
-
-  <!-- Centered Logo -->
   <div class="absolute left-1/2 transform -translate-x-1/2">
     <h1 class="text-white font-bold text-lg tracking-wide">✦ Kyluesky</h1>
   </div>
 </header>
 
-<!-- Floating Nav Menu -->
 <div id="floatingMenu" class="fixed inset-0 z-40 hidden flex items-center justify-center bg-black bg-opacity-90">
-  <!-- Wrapper kotak menu -->
-  <div style="
-      background-color: #0f172a;
-      border: 2px solid #ec4899;
-      border-radius: 1rem;
-      box-shadow: 0 0 30px #ec4899;
-      padding: 2rem 3rem;
-      text-align: center;
-    ">
-    <a href="index.html" style="display: block; color: white; font-weight: 600; margin-bottom: 1rem; transition: 0.3s;" onmouseover="this.style.color='#ec4899'" onmouseout="this.style.color='white'">🏠 Beranda</a>
-    <a href="portofolio.html" style="display: block; color: white; font-weight: 600; margin-bottom: 1rem; transition: 0.3s;" onmouseover="this.style.color='#ec4899'" onmouseout="this.style.color='white'">💼 Portofolio</a>
-    <a href="kontak.html" style="display: block; color: white; font-weight: 600; margin-bottom: 1rem; transition: 0.3s;" onmouseover="this.style.color='#ec4899'" onmouseout="this.style.color='white'">📞 Kontak</a>
-    <a href="galeri.html" style="display: block; color: white; font-weight: 600; transition: 0.3s;" onmouseover="this.style.color='#ec4899'" onmouseout="this.style.color='white'">🖼️ Galeri</a>
+  <div style="background-color: #0f172a; border: 2px solid #ec4899; border-radius: 1rem; box-shadow: 0 0 30px #ec4899; padding: 2rem 3rem; text-align: center;">
+    <a href="index.html" class="block text-white font-semibold mb-4 hover:text-pink-400">🏠 Beranda</a>
+    <a href="portofolio.html" class="block text-white font-semibold mb-4 hover:text-pink-400">💼 Portofolio</a>
+    <a href="kontak.html" class="block text-white font-semibold mb-4 hover:text-pink-400">📞 Kontak</a>
+    <a href="galeri.html" class="block text-white font-semibold hover:text-pink-400">🖼️ Galeri</a>
   </div>
 </div>
 
-  <!-- Tentang -->
-  <section id="tentang" class="max-w-3xl mx-auto px-6 py-20 fade-up relative z-10">
-    <h2 class="text-3xl font-bold text-blue-300 mb-4">Tentang Saya</h2>
-    <p class="text-gray-200 leading-relaxed">
-      🌟 Aku adalah pengembang web & bot AI yang berfokus pada menciptakan pengalaman pengguna yang modern, intuitif, dan tentunya menyenangkan~! Dengan sentuhan desain yang fresh dan teknologi AI yang cerdas, aku siap membawamu ke dunia digital yang lebih seru dan interaktif~ 💬💖
-    </p>
+<!-- Tentang -->
+<section id="tentang" class="max-w-3xl mx-auto px-6 py-20 fade-up relative z-10">
+  <h2 class="text-3xl font-bold text-blue-300 mb-4">Tentang Saya</h2>
+  <p class="text-gray-200 leading-relaxed">
+    Hai, Saya adalah pengembang web & bot AI yang berfokus pada menciptakan pengalaman pengguna yang modern, intuitif, dan tentunya menyenangkan~! Dengan sentuhan desain yang fresh dan teknologi AI yang cerdas, aku siap membawamu ke dunia digital yang lebih seru dan interaktif~
+  </p>
+  <div class="mt-6 flex justify-center gap-4">
+    <a href="cv-kyluesky.pdf" class="px-4 py-2 bg-blue-500 rounded-full hover:bg-blue-600 transition">📄 Unduh CV</a>
+  </div>
+</section>
 
-    <!-- Skill Bar -->
-    <section class="mt-12">
-      <h2 class="text-2xl font-semibold text-blue-300 mb-6">Skill Saya</h2>
-      <div class="space-y-6">
-        <div>
-          <div class="flex justify-between mb-1">
-            <span class="text-blue-300 font-medium">HTML</span>
-            <span class="text-gray-400 text-sm">95%</span>
-          </div>
-          <div class="w-full bg-gray-800 h-3 rounded-full overflow-hidden">
-            <div class="bg-blue-400 h-3 rounded-full" style="width: 95%"></div>
-          </div>
-        </div>
-        <div>
-          <div class="flex justify-between mb-1">
-            <span class="text-blue-300 font-medium">CSS / Tailwind</span>
-            <span class="text-gray-400 text-sm">90%</span>
-          </div>
-          <div class="w-full bg-gray-800 h-3 rounded-full overflow-hidden">
-            <div class="bg-blue-400 h-3 rounded-full" style="width: 90%"></div>
-          </div>
-        </div>
-        <div>
-          <div class="flex justify-between mb-1">
-            <span class="text-blue-300 font-medium">JavaScript</span>
-            <span class="text-gray-400 text-sm">88%</span>
-          </div>
-          <div class="w-full bg-gray-800 h-3 rounded-full overflow-hidden">
-            <div class="bg-blue-400 h-3 rounded-full" style="width: 88%"></div>
-          </div>
-        </div>
-      </div>
-    </section>
+<!-- Footer -->
+<footer class="text-center py-6 text-gray-400 text-sm border-t border-white/10 relative z-10">
+  &copy; 2025 Kyluesky. All rights reserved. <br>
+  <span class="text-xs italic">Terima kasih sudah mampir di dunia kecilku</span>
+</footer>
 
-    <a href="cv-kyluesky.pdf" download class="inline-block px-4 py-2 bg-white/10 border border-white/20 text-white rounded-lg shadow hover:bg-white/20 backdrop-blur transition mt-6">
-      📥 Unduh CV (PDF)
-    </a>
-  </section>
-
-  <!-- Timeline Perjalanan -->
-  <section class="max-w-3xl mx-auto px-6 pb-20 text-left relative z-10">
-    <h2 class="text-2xl font-bold text-blue-300 mb-6 text-center">📜 Perjalanan Kyluesky</h2>
-    <div class="space-y-6">
-      <div class="timeline-item fade-item">
-        <h3 class="text-lg font-semibold text-blue-400">2019</h3>
-        <p class="text-gray-300">🌱 Mulai belajar HTML & CSS untuk membuat halaman sederhana.</p>
-      </div>
-      <div class="timeline-item fade-item">
-        <h3 class="text-lg font-semibold text-blue-400">2020</h3>
-        <p class="text-gray-300">🌿 Menjelajahi dunia JavaScript, responsive design & Tailwind CSS.</p>
-      </div>
-      <div class="timeline-item fade-item">
-        <h3 class="text-lg font-semibold text-blue-400">2022</h3>
-        <p class="text-gray-300">🌲 Membuat bot Telegram & WhatsApp AI interaktif. Membangun komunitas.</p>
-      </div>
-      <div class="timeline-item fade-item">
-        <h3 class="text-lg font-semibold text-blue-400">2025</h3>
-        <p class="text-gray-300">🌳 Menciptakan sistem RPG Waifu, integrasi AI suara, dan website profesional ✨</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Statistik Lokal -->
-  <section class="max-w-3xl mx-auto px-6 pb-20 text-center relative z-10">
-    <h2 class="text-2xl font-bold text-blue-300 mb-4">Statistik Ringan</h2>
-    <div class="grid grid-cols-2 gap-4 text-gray-200 text-lg mb-4">
-      <div>👁️ Pengunjung: <span id="stat-visitors">0</span></div>
-      <div>🔁 Interaksi: <span id="stat-interactions">0</span></div>
-    </div>
-    <button onclick="addInteraction()" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-      Tambah Interaksi
-    </button>
-  </section>
-
-  <!-- Quote Slider -->
-  <section class="px-6 py-12 relative z-10">
-    <h2 class="text-2xl text-blue-300 font-semibold text-center mb-6">✨ Kata-Kata Penyelamat Mood ~</h2>
-    <div class="relative max-w-xl mx-auto overflow-hidden">
-      <div id="quoteContainer" class="transition duration-700 ease-in-out text-center">
-        <p class="text-lg italic text-gray-300" id="quoteText">"Belajar coding itu bukan soal jenius, tapi soal konsistensi."</p>
-        <span class="block mt-4 text-sm text-gray-500" id="quoteAuthor">— Kyluesky</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="text-center py-6 text-gray-400 text-sm border-t border-white/10 relative z-10">
-    &copy; 2025 Kyluesky. All rights reserved. <br>
-    <span class="text-xs italic">✨ Terima kasih sudah mampir di dunia kecilku~</span>
-  </footer>
-
-  <!-- Script -->
-  <script>
-    // Dark mode toggle
-    const toggleBtn = document.getElementById('toggleDark');
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark');
-        toggleBtn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
-      });
+<!-- Script -->
+<script>
+  const roles = ["Bot Developer", "Front-end Web Designer", "AI & Tech Enthusiast", "RPG Bot Creator", "Waifu System Engineer"];
+  let roleIndex = 0, charIndex = 0;
+  const typedText = document.getElementById("typedText");
+  function typeRole() {
+    if (charIndex < roles[roleIndex].length) {
+      typedText.textContent += roles[roleIndex].charAt(charIndex++);
+      setTimeout(typeRole, 100);
+    } else {
+      setTimeout(() => {
+        typedText.textContent = "";
+        charIndex = 0;
+        roleIndex = (roleIndex + 1) % roles.length;
+        typeRole();
+      }, 1500);
     }
+  }
+  document.addEventListener("DOMContentLoaded", typeRole);
 
-    // Typing animation
-    const roles = ["Bot Developer", "Front-end Web Designer", "AI & Tech Enthusiast", "RPG Bot Creator", "Waifu System Engineer"];
-    let roleIndex = 0, charIndex = 0;
-    const typedText = document.getElementById("typedText");
-    function typeRole() {
-      if (charIndex < roles[roleIndex].length) {
-        typedText.textContent += roles[roleIndex].charAt(charIndex++);
-        setTimeout(typeRole, 100);
-      } else {
-        setTimeout(() => {
-          typedText.textContent = "";
-          charIndex = 0;
-          roleIndex = (roleIndex + 1) % roles.length;
-          typeRole();
-        }, 1500);
+  const quotes = [
+    { text: `"Belajar coding itu bukan soal jenius, tapi soal konsistensi."`, author: "— Kyluesky" },
+    { text: `"Buat dulu aja, jelek nanti bisa dibenerin kok."`, author: "— Random Dev" },
+    { text: `"Impianku? Membuat AI waifu yang bisa menghibur dunia."`, author: "— Kamu 😆" },
+    { text: `"Setiap bug yang kamu temui, adalah langkah menuju versi dirimu yang lebih hebat."`, author: "— Mentor AI" },
+    { text: `"Coding itu seni, dan kamu adalah senimannya."`, author: "— Cyber Waifu" }
+  ];
+  let index = 0;
+  const quoteText = document.getElementById("quoteText");
+  const quoteAuthor = document.getElementById("quoteAuthor");
+
+  setInterval(() => {
+    index = (index + 1) % quotes.length;
+    quoteText.style.opacity = 0;
+    quoteAuthor.style.opacity = 0;
+    setTimeout(() => {
+      quoteText.textContent = quotes[index].text;
+      quoteAuthor.textContent = quotes[index].author;
+      quoteText.style.opacity = 1;
+      quoteAuthor.style.opacity = 1;
+    }, 300);
+  }, 5000);
+
+  const fadeItems = document.querySelectorAll('.fade-item');
+  const fadeInObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
       }
-    }
-    document.addEventListener("DOMContentLoaded", typeRole);
+    });
+  }, { threshold: 0.1 });
+  fadeItems.forEach(item => fadeInObserver.observe(item));
+</script>
 
-    // Statistik
-    let visitors = localStorage.getItem("kyluesky_visitors");
-    if (!visitors) {
-      visitors = 1;
-      localStorage.setItem("kyluesky_visitors", visitors);
-    }
-    document.getElementById("stat-visitors").textContent = visitors;
-
-    let interactions = localStorage.getItem("kyluesky_interactions") || 0;
-    document.getElementById("stat-interactions").textContent = interactions;
-
-    function addInteraction() {
-      interactions++;
-      localStorage.setItem("kyluesky_interactions", interactions);
-      document.getElementById("stat-interactions").textContent = interactions;
-    }
-
-    // Quote Slider
-    const quotes = [
-      { text: `"Belajar coding itu bukan soal jenius, tapi soal konsistensi."`, author: "— Kyluesky" },
-      { text: `"Buat dulu aja, jelek nanti bisa dibenerin kok."`, author: "— Random Dev" },
-      { text: `"Impianku? Membuat AI waifu yang bisa menghibur dunia."`, author: "— Kamu 😆" },
-      { text: `"Setiap bug yang kamu temui, adalah langkah menuju versi dirimu yang lebih hebat."`, author: "— Mentor AI" },
-      { text: `"Coding itu seni, dan kamu adalah senimannya."`, author: "— Cyber Waifu" }
-    ];
-    let index = 0;
-    const quoteText = document.getElementById("quoteText");
-    const quoteAuthor = document.getElementById("quoteAuthor");
-
-    setInterval(() => {
-  index = (index + 1) % quotes.length;
-  quoteText.style.opacity = 0;
-  quoteAuthor.style.opacity = 0;
-  quoteText.classList.remove('quote-animate');
-  quoteAuthor.classList.remove('quote-animate');
-
-  setTimeout(() => {
-    quoteText.textContent = quotes[index].text;
-    quoteAuthor.textContent = quotes[index].author;
-    quoteText.style.opacity = 1;
-    quoteAuthor.style.opacity = 1;
-    quoteText.classList.add('quote-animate');
-    quoteAuthor.classList.add('quote-animate');
-  }, 300);
-}, 5000);
-
-    // Timeline scroll animation
-    const fadeItems = document.querySelectorAll('.fade-item');
-    const fadeInObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-    fadeItems.forEach(item => fadeInObserver.observe(item));
-  </script>
 <script>
   const navToggle = document.getElementById('navToggle');
   const floatingMenu = document.getElementById('floatingMenu');
@@ -327,29 +214,21 @@
   navToggle.addEventListener('click', () => {
     isOpen = !isOpen;
     floatingMenu.classList.toggle('hidden');
-
-    // Animate hamburger to X
-    if (isOpen) {
-      bars[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-      bars[1].style.opacity = '0';
-      bars[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
-    } else {
-      bars[0].style.transform = 'rotate(0) translate(0, 0)';
-      bars[1].style.opacity = '1';
-      bars[2].style.transform = 'rotate(0) translate(0, 0)';
-    }
+    bars[0].style.transform = isOpen ? 'rotate(45deg) translate(5px, 5px)' : 'rotate(0)';
+    bars[1].style.opacity = isOpen ? '0' : '1';
+    bars[2].style.transform = isOpen ? 'rotate(-45deg) translate(5px, -5px)' : 'rotate(0)';
   });
 
-  // Optional: Close menu when link clicked
   document.querySelectorAll('#floatingMenu a').forEach(link => {
     link.addEventListener('click', () => {
       floatingMenu.classList.add('hidden');
       isOpen = false;
-      bars[0].style.transform = 'rotate(0) translate(0, 0)';
+      bars[0].style.transform = 'rotate(0)';
       bars[1].style.opacity = '1';
-      bars[2].style.transform = 'rotate(0) translate(0, 0)';
+      bars[2].style.transform = 'rotate(0)';
     });
   });
 </script>
+
 </body>
 </html>
