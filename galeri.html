@@ -16,6 +16,7 @@
 
     .gallery-img {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
     }
 
     .gallery-img:hover {
@@ -27,16 +28,20 @@
       position: fixed;
       top: 20px;
       left: 20px;
-      background-color: rgba(255,255,255,0.1);
+      background-color: #1e293b;
       border: 1px solid rgba(255,255,255,0.2);
       padding: 8px 16px;
       border-radius: 999px;
-      backdrop-filter: blur(4px);
-      transition: background-color 0.3s ease;
+      color: white;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      z-index: 50;
     }
 
     .back-button:hover {
-      background-color: rgba(255,255,255,0.2);
+      background-color: #334155;
+      transform: scale(1.05);
     }
 
     .header-title {
@@ -44,20 +49,64 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
+    .scroll-fade {
+      animation: fadeInUp 1s ease both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes zoomOut {
+      from { transform: scale(1); opacity: 1; }
+      to { transform: scale(0.8); opacity: 0; }
+    }
+
+    .animate-fadeIn { animation: fadeIn 0.3s ease forwards; }
+    .animate-fadeOut { animation: fadeOut 0.3s ease forwards; }
+    .animate-zoomIn { animation: zoomIn 0.3s ease forwards; }
+    .animate-zoomOut { animation: zoomOut 0.3s ease forwards; }
+
+    #imageOverlay img {
+      transition: transform 0.2s ease;
+    }
   </style>
 </head>
 <body class="relative">
 
-  <a href="index.html" class="back-button text-sm text-white shadow hover:scale-105 transition">Kembali ke Beranda</a>
+  <a href="index.html" class="back-button shadow">embali ke Beranda</a>
 
   <header class="text-center py-16">
-    <h1 class="text-4xl font-bold header-title">🎴 Galeri Anime Kyluesky</h1>
+    <h1 class="text-4xl font-bold header-title">🎴 Galeri Kyluesky</h1>
     <p class="text-gray-300 mt-2 italic">Koleksi visual anime yang menginspirasi setiap baris kodingku~</p>
   </header>
 
-  <main class="max-w-6xl mx-auto px-6 pb-20">
+  <!-- Galeri Anime -->
+  <main class="max-w-6xl mx-auto px-6 pb-20 scroll-fade">
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-      <!-- Gambar Galeri -->
       <img src="https://files.catbox.moe/6tcy13.jpg" alt="Anime 1" class="rounded-lg gallery-img">
       <img src="https://files.catbox.moe/1zg1pd.jpg" alt="Anime 2" class="rounded-lg gallery-img">
       <img src="https://files.catbox.moe/7savsq.jpg" alt="Anime 3" class="rounded-lg gallery-img">
@@ -69,8 +118,79 @@
     </div>
   </main>
 
+  <!-- Galeri Darksistem -->
+  <section class="max-w-4xl mx-auto px-6 pb-20 scroll-fade">
+    <h2 class="text-3xl font-bold text-pink-400 mb-4">💧 Galeri Darksistem</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <img src="https://files.catbox.moe/peg470.jpg" alt="Darksistem 1" class="rounded-xl gallery-img shadow-xl">
+      <img src="https://files.catbox.moe/wmw1ex.jpg" alt="Darksistem 2" class="rounded-xl gallery-img shadow-xl">
+      <img src="https://files.catbox.moe/e3n9s6.jpg" alt="Darksistem 3" class="rounded-xl gallery-img shadow-xl">
+      <img src="https://files.catbox.moe/0zi681.jpg" alt="Darksistem 4" class="rounded-xl gallery-img shadow-xl">
+      <img src="https://files.catbox.moe/vy431e.jpg" alt="Darksistem 5" class="rounded-xl gallery-img shadow-xl">
+    </div>
+    <p class="italic text-gray-300 text-center mt-4">"Ini adalah perkumpulan anomali rank yang sering dapat coklat..."</p>
+  </section>
+
+  <!-- Modal Fullscreen -->
+  <div id="imageOverlay" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 hidden animate-fadeIn">
+    <img id="modalImg" class="max-h-[90%] max-w-[90%] rounded-lg shadow-xl transform scale-100">
+    <button onclick="closeOverlay()" class="absolute top-6 right-6 text-white text-3xl font-bold">&times;</button>
+  </div>
+
   <footer class="text-center py-8 text-gray-400 text-sm">
     &copy; 2025 Kyluesky. Semua hak cipta dilindungi. ✨
   </footer>
+
+  <script>
+    const galleryImages = Array.from(document.querySelectorAll('.gallery-img'));
+    let currentIndex = 0;
+    let scale = 1;
+
+    function openImage(index) {
+      currentIndex = index;
+      scale = 1;
+      const overlay = document.getElementById('imageOverlay');
+      const modalImg = document.getElementById('modalImg');
+      modalImg.src = galleryImages[index].src;
+      modalImg.style.transform = 'scale(1)';
+      overlay.classList.remove('hidden');
+      document.addEventListener('keydown', handleKey);
+    }
+
+    function closeOverlay() {
+      document.getElementById('imageOverlay').classList.add('hidden');
+      document.removeEventListener('keydown', handleKey);
+    }
+
+    function handleKey(e) {
+      const modalImg = document.getElementById('modalImg');
+      if (e.key === 'ArrowRight') {
+        currentIndex = (currentIndex + 1) % galleryImages.length;
+        modalImg.src = galleryImages[currentIndex].src;
+        scale = 1;
+      } else if (e.key === 'ArrowLeft') {
+        currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+        modalImg.src = galleryImages[currentIndex].src;
+        scale = 1;
+      } else if (e.key === 'Escape') {
+        closeOverlay();
+      }
+    }
+
+    document.getElementById("imageOverlay").addEventListener("click", (e) => {
+      if (e.target.id === "imageOverlay") closeOverlay();
+    });
+
+    document.getElementById("modalImg").addEventListener("wheel", (e) => {
+      e.preventDefault();
+      scale += e.deltaY * -0.001;
+      scale = Math.min(Math.max(0.5, scale), 3);
+      document.getElementById("modalImg").style.transform = `scale(${scale})`;
+    });
+
+    galleryImages.forEach((img, index) => {
+      img.addEventListener('click', () => openImage(index));
+    });
+  </script>
 </body>
 </html>
