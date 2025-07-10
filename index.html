@@ -63,7 +63,6 @@
 </head>
 <body class="text-white min-h-screen relative">
 <div id="starterOverlay" class="fixed inset-0 z-[9999] bg-black flex items-center justify-center text-white text-xl cursor-pointer">
-  Klik untuk masuk
 </div>
 
 <!-- Bagian video background -->
@@ -106,6 +105,21 @@
 </header>
 
 <!-- Navbar -->
+<!-- Terminal Typing Section -->
+<section id="terminalText" class="text-green-400 font-mono px-6 py-8 text-sm whitespace-pre-line max-w-3xl mx-auto fade-item"></section>
+
+<!-- Navbar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 py-4 bg-black/60 backdrop-blur-md shadow">
+  <button id="navToggle" class="z-50 flex flex-col justify-between w-7 h-5 focus:outline-none">
+    <span class="block h-0.5 bg-white transition-all duration-300 origin-left"></span>
+    <span class="block h-0.5 bg-white transition-all duration-300 origin-left"></span>
+    <span class="block h-0.5 bg-white transition-all duration-300 origin-left"></span>
+  </button>
+  <div class="absolute left-1/2 transform -translate-x-1/2">
+    <h1 class="text-white font-bold text-lg tracking-wide">✦ Kyluesky</h1>
+  </div>
+</header>
+
 <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 py-4 bg-black/60 backdrop-blur-md shadow">
   <button id="navToggle" class="z-50 flex flex-col justify-between w-7 h-5 focus:outline-none">
     <span class="block h-0.5 bg-white transition-all duration-300 origin-left"></span>
@@ -145,7 +159,7 @@
 
 <!-- Script -->
 <script>
-  const roles = ["Suami Sah Chisato", "Kyluesky Love Chisato", "Nishiki Chisato", "Mencintai Chisato Selama 4 Tahun", "Waifu System Engineer"];
+  const roles = ["Suami Sah Chisato", "Kyluesky Love Chisato", "Nishiki Chisato", "Mencintai Chisato Selama 4", "Waifu System Engineer"];
   let roleIndex = 0, charIndex = 0;
   const typedText = document.getElementById("typedText");
   function typeRole() {
