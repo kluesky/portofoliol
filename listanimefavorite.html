@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kyluesky — Anime Favorit</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://files.catbox.moe/uu7jfn.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .glass {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card {
+      transform: translateY(50px);
+      opacity: 0;
+      transition: all 0.8s ease-out;
+    }
+
+    .card.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .btn-detail {
+      transition: all 0.3s ease;
+    }
+
+    .btn-detail:hover {
+      background-color: #3b82f6;
+    }
+  </style>
+</head>
+<body class="text-white py-16 px-4">
+
+  <div class="max-w-6xl mx-auto text-center">
+    <h1 class="text-4xl font-bold mb-3 text-pink-400">🌸 Anime Favorit Kyluesky</h1>
+    <p class="text-gray-300 mb-12">Daftar anime yang paling membekas di hatiku~</p>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Card 1 -->
+      <div class="glass rounded-xl overflow-hidden card">
+        <img src="https://files.catbox.moe/xc5j0q.jpg" alt="Lycoris Recoil" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h2 class="text-xl font-bold text-pink-300">Lycoris Recoil</h2>
+          <p class="text-sm text-gray-300 mt-1">Genre: Action, Slice of Life</p>
+          <a href="https://myanimelist.net/anime/50709/Lycoris_Recoil" target="_blank" class="inline-block mt-3 px-4 py-1 bg-blue-500 rounded btn-detail">Lihat Detail</a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="glass rounded-xl overflow-hidden card">
+        <img src="https://files.catbox.moe/wkgg2j.jpg" alt="Kimetsu no Yaiba" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h2 class="text-xl font-bold text-yellow-300">Kimetsu no Yaiba</h2>
+          <p class="text-sm text-gray-300 mt-1">Genre: Action, Supernatural</p>
+          <a href="https://myanimelist.net/anime/38000/Kimetsu_no_Yaiba" target="_blank" class="inline-block mt-3 px-4 py-1 bg-blue-500 rounded btn-detail">Lihat Detail</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="glass rounded-xl overflow-hidden card">
+        <img src="https://files.catbox.moe/oa7i72.jpg" alt="Tensei Slime" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h2 class="text-xl font-bold text-blue-300">Tensura</h2>
+          <p class="text-sm text-gray-300 mt-1">Genre: Isekai, Fantasy, Action</p>
+          <a href="https://myanimelist.net/anime/37430/Tensei_shitara_Slime_Datta_Ken" target="_blank" class="inline-block mt-3 px-4 py-1 bg-blue-500 rounded btn-detail">Lihat Detail</a>
+        </div>
+      </div>
+      
+<!-- Card 4 -->
+<div class="glass rounded-xl overflow-hidden card">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZTLdb8Ynny--46_bXghJyyqoWuU-tPDV_Kg&usqp=CAU" alt="Horimiya" class="w-full h-48 object-cover">
+  <div class="p-4">
+    <h2 class="text-xl font-bold text-orange-400">Horimiya</h2>
+    <p class="text-sm text-gray-300 mt-1">Genre: Romance, School, Shounen</p>
+    <a href="https://myanimelist.net/anime/42897/Horimiya" class="inline-block mt-3 px-4 py-1 bg-blue-500 rounded btn-detail">Lihat Detail</a>
+  </div>
+</div>
+      
+<!-- Card 5 -->
+<div class="glass rounded-xl overflow-hidden card">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7y1DNvcY3l5O-l1Aspfkn0gxrxuSY2evLcy-DbRehrH8r8F0dooa-fRD4&s=10" alt="Dandadan" class="w-full h-48 object-cover">
+  <div class="p-4">
+    <h2 class="text-xl font-bold text-red-500">Dandadan</h2>
+    <p class="text-sm text-gray-300 mt-1">Genre: Action, Comedy, Supernatural, Shounen</p>
+    <a href="https://myanimelist.net/anime/57334/Dandadan" class="inline-block mt-3 px-4 py-1 bg-blue-500 rounded btn-detail">Lihat Detail</a>
+  </div>
+</div>
+
+    </div>
+
+    <!-- Kembali --> 
+    <div class="mt-14">
+      <a href="index.html" class="text-sm text-blue-300 hover:underline">Kembali ke Beranda</a>
+    </div>
+  </div>
+
+  <!-- Script untuk animasi saat muncul -->
+  <script>
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    cards.forEach(card => {
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>
