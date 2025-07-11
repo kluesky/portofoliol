@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Profil | Kyluesky</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     body {
@@ -12,41 +11,34 @@
       background-size: cover;
     }
     .overlay {
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
       background-color: rgba(0, 0, 0, 0.6);
       min-height: 100vh;
-    }
-    .card {
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-    input {
-      background-color: rgba(255, 255, 255, 0.1);
     }
   </style>
 </head>
 <body class="text-white">
-  <div class="overlay flex items-center justify-center px-4 py-20">
-    <div class="card w-full max-w-md p-8 rounded-xl shadow-2xl">
-      <h2 class="text-2xl font-bold mb-4 text-center text-blue-300">Profil Pengguna</h2>
-      <div class="text-center mb-6">
-        <img id="avatarImg" src="https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff" alt="Avatar" class="w-24 h-24 mx-auto rounded-full border-4 border-blue-500 shadow mb-2">
-        <p class="text-sm text-gray-400">Avatar default</p>
+  <div class="overlay flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-md bg-black bg-opacity-60 p-8 rounded-xl shadow-lg">
+      <div class="flex flex-col items-center mb-6">
+        <img id="avatarImg" src="" alt="Avatar" class="w-24 h-24 rounded-full border-4 border-blue-500 shadow mb-4">
+        <h2 id="userName" class="text-2xl font-bold">Memuat...</h2>
+        <p id="userEmail" class="text-sm text-gray-300">Memuat...</p>
+        <p id="userID" class="text-xs text-gray-400 mt-1">Memuat...</p>
       </div>
-      <div class="mb-4">
-        <p><span class="text-blue-400 font-semibold">Nama:</span> <span id="userName">Memuat...</span></p>
-        <p><span class="text-blue-400 font-semibold">Email:</span> <span id="userEmail">Memuat...</span></p>
-        <p><span class="text-blue-400 font-semibold">ID Pengguna:</span> <span id="userID">Memuat...</span></p>
+
+      <div class="space-y-3 text-center">
+        <button onclick="editName()" class="w-full bg-blue-500 hover:bg-blue-600 py-2 rounded">Ubah Nama</button>
+        <button onclick="editEmail()" class="w-full bg-yellow-500 hover:bg-yellow-600 py-2 rounded">Ubah Email</button>
+        <button onclick="editPassword()" class="w-full bg-pink-500 hover:bg-pink-600 py-2 rounded">Ubah Password</button>
+        <button onclick="logout()" class="w-full bg-red-500 hover:bg-red-600 py-2 rounded">Keluar</button>
       </div>
-      <div class="space-y-3 mt-6">
-        <button onclick="editName()" class="w-full bg-blue-500 hover:bg-blue-600 py-2 rounded transition">✏️ Ubah Nama</button>
-        <button onclick="editEmail()" class="w-full bg-pink-500 hover:bg-pink-600 py-2 rounded transition">📧 Ubah Email</button>
-        <button onclick="editPassword()" class="w-full bg-yellow-500 hover:bg-yellow-600 py-2 rounded transition">🔒 Ubah Password</button>
-        <button onclick="logout()" class="w-full bg-red-600 hover:bg-red-700 py-2 rounded transition">🚪 Logout</button>
-      </div>
-      <p id="statusMsg" class="text-sm text-center mt-4 text-green-400"></p>
+
+      <p id="statusMsg" class="text-center text-sm mt-6 text-green-300"></p>
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="supabase.js"></script>
   <script>
     const userName = document.getElementById("userName");
@@ -55,18 +47,21 @@
     const statusMsg = document.getElementById("statusMsg");
 
     async function loadProfile() {
-      const { data: { user }, error } = await supabase.auth.getUser();
-      if (error || !user) {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const session = sessionData?.session;
+      if (!session) {
         alert("❌ Kamu belum login!");
-        location.href = "login.html";
+        window.location.href = "login.html";
         return;
       }
 
-      userName.textContent = user.user_metadata?.name || "Tanpa Nama";
+      const user = session.user;
+      const name = user.user_metadata?.name || "Tanpa Nama";
+      userName.textContent = name;
       userEmail.textContent = user.email;
       userID.textContent = user.id;
-
-      document.getElementById("avatarImg").src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.user_metadata?.name || "User")}&background=0D8ABC&color=fff`;
+      document.getElementById("avatarImg").src =
+        `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=0D8ABC&color=fff`;
     }
 
     async function editName() {
@@ -74,11 +69,12 @@
       if (!newName) return;
       const { error } = await supabase.auth.updateUser({ data: { name: newName } });
       if (error) {
-        statusMsg.textContent = "❌ Gagal memperbarui nama: " + error.message;
+        statusMsg.textContent = "❌ Gagal ubah nama: " + error.message;
       } else {
-        statusMsg.textContent = "✅ Nama berhasil diperbarui.";
         userName.textContent = newName;
-        document.getElementById("avatarImg").src = `https://ui-avatars.com/api/?name=${encodeURIComponent(newName)}&background=0D8ABC&color=fff`;
+        document.getElementById("avatarImg").src =
+          `https://ui-avatars.com/api/?name=${encodeURIComponent(newName)}&background=0D8ABC&color=fff`;
+        statusMsg.textContent = "✅ Nama berhasil diperbarui.";
       }
     }
 
@@ -87,18 +83,18 @@
       if (!newEmail) return;
       const { error } = await supabase.auth.updateUser({ email: newEmail });
       if (error) {
-        statusMsg.textContent = "❌ Gagal memperbarui email: " + error.message;
+        statusMsg.textContent = "❌ Gagal ubah email: " + error.message;
       } else {
-        statusMsg.textContent = "✅ Link konfirmasi dikirim ke email baru.";
+        statusMsg.textContent = "✅ Email berhasil diperbarui (cek inbox untuk konfirmasi).";
       }
     }
 
     async function editPassword() {
-      const newPassword = prompt("Masukkan password baru:");
-      if (!newPassword) return;
-      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      const newPass = prompt("Masukkan password baru:");
+      if (!newPass) return;
+      const { error } = await supabase.auth.updateUser({ password: newPass });
       if (error) {
-        statusMsg.textContent = "❌ Gagal memperbarui password: " + error.message;
+        statusMsg.textContent = "❌ Gagal ubah password: " + error.message;
       } else {
         statusMsg.textContent = "✅ Password berhasil diperbarui.";
       }
