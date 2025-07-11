@@ -21,13 +21,15 @@
   </style>
 </head>
 <body class="text-white">
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed top-5 right-5 z-50 space-y-2"></div>
+
   <div class="overlay flex flex-col items-center justify-center px-4 py-10">
     <div class="bg-black bg-opacity-50 rounded-xl p-8 shadow-2xl w-full max-w-lg">
       <h2 class="text-3xl font-bold text-blue-400 text-center mb-6">Profil Pengguna</h2>
       <div class="flex flex-col items-center">
-        <img id="avatarPreview" src="https://placehold.co/100x100?text=Avatar" class="w-24 h-24 rounded-full mb-4 border-2 border-blue-400" />
-        <input type="file" id="avatarInput" accept="image/*" class="mb-4 text-sm"/>
         <p class="mb-2 text-lg"><strong>Nama:</strong> <span id="userName">Memuat...</span></p>
+        <p class="mb-2 text-sm text-gray-300"><strong>ID Pengguna:</strong> <span id="userId">Memuat...</span></p>
         <p class="mb-6 text-sm text-gray-300"><strong>Email:</strong> <span id="userEmail">Memuat...</span></p>
         <button onclick="logout()" class="px-4 py-2 bg-red-500 rounded hover:bg-red-600 transition">Logout</button>
       </div>
@@ -49,66 +51,64 @@
 
     const userName = document.getElementById('userName');
     const userEmail = document.getElementById('userEmail');
-    const avatarPreview = document.getElementById('avatarPreview');
-    const avatarInput = document.getElementById('avatarInput');
+    const userId = document.getElementById('userId');
+
+    // Toast
+    function showToast(type, message) {
+      const container = document.getElementById("toastContainer");
+      const toast = document.createElement("div");
+      toast.className =
+        `flex items-center max-w-sm w-full text-sm rounded-lg shadow-lg px-4 py-3 transition-all duration-300 ${
+          type === "error" ? "bg-red-600 text-white" : "bg-green-600 text-white"
+        }`;
+
+      toast.innerHTML = `
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          ${
+            type === "error"
+              ? '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>'
+              : '<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />'
+          }
+        </svg>
+        <span>${message}</span>
+      `;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.add("opacity-0", "translate-x-5");
+        setTimeout(() => toast.remove(), 500);
+      }, 3000);
+    }
+
+    // Load user
+    const { data: userData, error } = await supabase.auth.getUser();
+
+    if (error || !userData.user) {
+      showToast("error", "⚠️ Kamu belum login!");
+      setTimeout(() => (location.href = 'login.html'), 1500);
+    } else {
+      const user = userData.user;
+      userName.textContent = user.user_metadata?.fullname || "Tanpa Nama";
+      userEmail.textContent = user.email;
+      userId.textContent = user.id;
+    }
+
+    // Ganti password
     const passwordForm = document.getElementById("passwordForm");
-
-    const { data: { user }, error } = await supabase.auth.getUser();
-
-    if (!user) {
-      alert("⚠️ Kamu belum login.");
-      location.href = 'login.html';
-    }
-
-    userName.textContent = user.user_metadata?.fullname || "Tanpa Nama";
-    userEmail.textContent = user.email;
-
-    const avatarUrl = user.user_metadata?.avatar_url;
-    if (avatarUrl) {
-      avatarPreview.src = avatarUrl;
-    }
-
-    avatarInput.addEventListener('change', async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const fileName = `${user.id}-${file.name}`;
-      const { error: uploadError } = await supabase
-        .storage
-        .from('avatars')
-        .upload(fileName, file, { upsert: true });
-
-      if (uploadError) {
-        alert("❌ Gagal upload avatar: " + uploadError.message);
-        return;
-      }
-
-      const { data: publicURL } = supabase
-        .storage
-        .from('avatars')
-        .getPublicUrl(fileName);
-
-      await supabase.auth.updateUser({
-        data: { avatar_url: publicURL.publicUrl }
-      });
-
-      avatarPreview.src = publicURL.publicUrl;
-      alert("✅ Avatar berhasil diperbarui!");
-    });
-
     passwordForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const newPassword = document.getElementById("newPassword").value;
 
       const { error } = await supabase.auth.updateUser({ password: newPassword });
       if (error) {
-        alert("❌ Gagal update password: " + error.message);
+        showToast("error", "❌ Gagal update password: " + error.message);
       } else {
-        alert("✅ Password berhasil diperbarui!");
+        showToast("success", "✅ Password berhasil diperbarui!");
         passwordForm.reset();
       }
     });
 
+    // Logout
     async function logout() {
       await supabase.auth.signOut();
       window.location.href = 'login.html';
