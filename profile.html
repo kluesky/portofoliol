@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profil | Kyluesky</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: url('https://files.catbox.moe/9n8wrx.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .overlay {
+      backdrop-filter: blur(8px);
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+    }
+    input, button {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body class="text-white">
+  <div class="overlay flex flex-col items-center justify-center px-4 py-10">
+    <div class="bg-black bg-opacity-50 rounded-xl p-8 shadow-2xl w-full max-w-lg">
+      <h2 class="text-3xl font-bold text-blue-400 text-center mb-6">Profil Pengguna</h2>
+      <div class="flex flex-col items-center">
+        <img id="avatarPreview" src="https://placehold.co/100x100?text=Avatar" class="w-24 h-24 rounded-full mb-4 border-2 border-blue-400" />
+        <input type="file" id="avatarInput" accept="image/*" class="mb-4 text-sm"/>
+        <p class="mb-2 text-lg"><strong>Nama:</strong> <span id="userName">...</span></p>
+        <p class="mb-6 text-sm text-gray-300"><strong>Email:</strong> <span id="userEmail">...</span></p>
+        <button onclick="logout()" class="px-4 py-2 bg-red-500 rounded hover:bg-red-600 transition">Logout</button>
+      </div>
+
+      <hr class="my-6 border-gray-600" />
+
+      <form id="passwordForm">
+        <label class="block mb-3">
+          <span class="text-sm text-gray-300">Ganti Password</span>
+          <input id="newPassword" type="password" class="w-full mt-1 p-2 rounded text-white border border-blue-400 focus:outline-none focus:ring focus:ring-blue-400" placeholder="Password baru" required>
+        </label>
+        <button type="submit" class="w-full py-2 bg-blue-500 hover:bg-blue-600 rounded mt-2 transition">Ubah Password</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from './supabase.js';
+
+    const userName = document.getElementById('userName');
+    const userEmail = document.getElementById('userEmail');
+    const avatarPreview = document.getElementById('avatarPreview');
+    const avatarInput = document.getElementById('avatarInput');
+
+    const user = await supabase.auth.getUser();
+    if (!user?.data?.user) {
+      alert("⚠️ Kamu belum login.");
+      location.href = 'login.html';
+    }
+
+    const sessionUser = user.data.user;
+    userName.textContent = sessionUser.user_metadata?.fullname || "Tanpa Nama";
+    userEmail.textContent = sessionUser.email;
+
+    // Upload Avatar
+    avatarInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const fileName = `${sessionUser.id}-${file.name}`;
+
+      // Upload ke storage bucket 'avatars'
+      const { data, error } = await supabase.storage
+        .from('avatars')
+        .upload(fileName, file, { upsert: true });
+
+      if (error) return alert("❌ Gagal upload avatar: " + error.message);
+
+      const { data: urlData } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(fileName);
+
+      await supabase.auth.updateUser({
+        data: { avatar_url: urlData.publicUrl }
+      });
+
+      avatarPreview.src = urlData.publicUrl;
+      alert("✅ Avatar diperbarui!");
+    });
+
+    // Tampilkan avatar jika ada
+    const avatarUrl = sessionUser.user_metadata?.avatar_url;
+    if (avatarUrl) {
+      avatarPreview.src = avatarUrl;
+    }
+
+    // Ganti password
+    const passwordForm = document.getElementById("passwordForm");
+    passwordForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const newPassword = document.getElementById("newPassword").value;
+
+      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      if (error) {
+        alert("❌ Gagal update password: " + error.message);
+      } else {
+        alert("✅ Password berhasil diperbarui!");
+        passwordForm.reset();
+      }
+    });
+
+    // Logout
+    async function logout() {
+      await supabase.auth.signOut();
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>

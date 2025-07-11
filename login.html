@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login | Kyluesky</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: url('https://files.catbox.moe/9n8wrx.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .overlay {
+      backdrop-filter: blur(8px);
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+    }
+    input {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center text-white">
+  <div class="overlay w-full h-full flex items-center justify-center px-4">
+    <div class="w-full max-w-md p-8 rounded-xl shadow-2xl bg-black bg-opacity-50">
+      <h2 class="text-2xl font-bold mb-6 text-center text-blue-300">Login ke Kyluesky</h2>
+      <form id="loginForm">
+        <label class="block mb-3">
+          <span class="text-sm text-gray-300">Email</span>
+          <input name="email" type="email" class="w-full mt-1 p-2 rounded bg-white bg-opacity-10 text-white border border-blue-500 focus:outline-none focus:ring focus:ring-blue-400" required>
+        </label>
+        <label class="block mb-3 relative">
+          <span class="text-sm text-gray-300">Password</span>
+          <input id="password" name="password" type="password" class="w-full mt-1 p-2 rounded bg-white bg-opacity-10 text-white border border-blue-500 focus:outline-none focus:ring focus:ring-blue-400" required>
+          <button type="button" onclick="togglePassword()" class="absolute right-2 top-9 text-xs text-blue-300">👁️</button>
+        </label>
+        <button type="submit" class="w-full py-2 bg-blue-500 hover:bg-blue-600 rounded mt-4 transition">Login</button>
+      </form>
+      <p class="text-center text-sm mt-4 text-gray-300">
+        Belum punya akun?
+        <a href="register.html" class="text-blue-400 hover:underline">Buat akun</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const password = document.getElementById("password");
+      password.type = password.type === "password" ? "text" : "password";
+    }
+  </script>
+
+  <script type="module">
+    import { supabase } from './supabase.js';
+
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = loginForm.email.value;
+      const password = loginForm.password.value;
+
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        alert("❌ Login gagal: " + error.message);
+      } else {
+        alert("✅ Login berhasil!");
+        window.location.href = "profile.html";
+      }
+    });
+  </script>
+</body>
+</html>
