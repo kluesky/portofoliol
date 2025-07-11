@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Anime TikTok Downloader</title>
+  <title>Chisato TikTok Downloader</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     body {
@@ -37,7 +37,7 @@
 <body>
   <div class="overlay">
     <div class="anime-box text-white text-center">
-      <h1 class="text-3xl font-bold text-cyan-300 mb-4">🎴 TikTok Anime Downloader</h1>
+      <h1 class="text-3xl font-bold text-cyan-300 mb-4">Chisato Tiktok Downloader</h1>
       <input id="tiktokUrl" type="text" placeholder="Masukkan link TikTok..." 
         class="w-full p-2 mb-4 rounded border border-cyan-400 text-white bg-white bg-opacity-10 focus:outline-none" />
 
@@ -58,7 +58,7 @@
         return;
       }
 
-      resultBox.innerHTML = `<p class="text-cyan-300 animate-pulse">⏳ Sedang memanggil waifu downloader...</p>`;
+      resultBox.innerHTML = `<p class="text-cyan-300 animate-pulse">⏳ Sedang memanggil Chisato downloader...</p>`;
 
       try {
         const res = await fetch(`https://tikwm.com/api/?url=${encodeURIComponent(url)}&hd=1`);
@@ -71,7 +71,7 @@
             <source src="${json.data.play}" type="video/mp4">
             Browser tidak mendukung video.
           </video>
-          <a href="${json.data.play}" download class="mt-4 inline-block text-cyan-400 hover:underline">⬇️ Download Video</a>
+          <a href="${json.data.play}" download class="mt-4 inline-block text-cyan-400 hover:underline">Download Video</a>
         `;
       } catch (err) {
         resultBox.innerHTML = `<p class="text-red-400 mt-4">❌ Gagal: ${err.message}</p>`;
