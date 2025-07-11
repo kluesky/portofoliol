@@ -46,7 +46,7 @@
 
       <div id="result" class="mt-6"></div>
 
-      <!-- Tombol Kembali -->
+<!-- Tombol Kembali -->
       <div class="mt-8 text-center">
         <a href="index.html" class="inline-block px-4 py-2 rounded bg-gradient-to-r from-pink-500 to-blue-500 hover:from-blue-600 hover:to-pink-600 transition text-white font-semibold shadow-lg">
           Kembali ke Beranda
@@ -56,6 +56,15 @@
   </div>
 
   <script>
+    function generateRandomFilename() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let name = '';
+      for (let i = 0; i < 6; i++) {
+        name += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return `tiktok-chisato-${name}.mp4`;
+    }
+
     async function downloadVideo() {
       const url = document.getElementById("tiktokUrl").value.trim();
       const resultBox = document.getElementById("result");
@@ -65,7 +74,7 @@
         return;
       }
 
-      resultBox.innerHTML = `<p class="text-cyan-300 animate-pulse">⏳ Sedang memanggil Chisato downloader...</p>`;
+      resultBox.innerHTML = `<p class="text-cyan-300 animate-pulse">⏳ Memanggil chisato downloader...</p>`;
 
       try {
         const res = await fetch(`https://tikwm.com/api/?url=${encodeURIComponent(url)}&hd=1`);
@@ -73,12 +82,22 @@
 
         if (!json.data?.play) throw new Error("Video tidak ditemukan.");
 
+        const videoUrl = json.data.play;
+        const response = await fetch(videoUrl);
+        const blob = await response.blob();
+        const urlBlob = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = urlBlob;
+        link.download = generateRandomFilename();
+        link.click();
+
         resultBox.innerHTML = `
           <video controls autoplay class="w-full rounded mt-4 shadow-xl border border-cyan-300">
-            <source src="${json.data.play}" type="video/mp4">
+            <source src="${urlBlob}" type="video/mp4">
             Browser tidak mendukung video.
           </video>
-          <a href="${json.data.play}" download class="mt-4 inline-block text-cyan-400 hover:underline">Download Video</a>
+          <p class="mt-4 text-cyan-400">✅ Video berhasil diunduh!</p>
         `;
       } catch (err) {
         resultBox.innerHTML = `<p class="text-red-400 mt-4">❌ Gagal: ${err.message}</p>`;
