@@ -1,105 +1,54 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Profil | Kyluesky</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil Pengguna | Kyluesky</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script type="module" src="supabase.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     body {
-      background: url('https://files.catbox.moe/9n8wrx.jpg') no-repeat center center fixed;
-      background-size: cover;
-    }
-    .overlay {
-      backdrop-filter: blur(10px);
-      background-color: rgba(0, 0, 0, 0.6);
-      min-height: 100vh;
+      background: #0f172a;
     }
   </style>
 </head>
-<body class="text-white">
-  <div class="overlay flex items-center justify-center px-4 py-12">
-    <div class="w-full max-w-md bg-black bg-opacity-60 p-8 rounded-xl shadow-lg">
-      <div class="text-center mb-6">
-        <h2 class="text-2xl font-bold" id="userName">Memuat...</h2>
-        <p class="text-sm text-gray-300" id="userEmail">Memuat...</p>
-        <p class="text-xs text-gray-400 mt-1" id="userID">Memuat...</p>
-      </div>
+<body class="text-white flex items-center justify-center min-h-screen">
+  <div class="bg-black bg-opacity-60 p-8 rounded-xl shadow-lg w-full max-w-lg text-center">
+    <h1 class="text-2xl font-bold mb-4 text-blue-400">👤 Profil Pengguna</h1>
+    <p class="mb-2">Nama: <span id="userName" class="text-pink-300">Memuat...</span></p>
+    <p class="mb-2">Email: <span id="userEmail" class="text-pink-300">Memuat...</span></p>
+    <p class="mb-6">ID Pengguna: <span id="userID" class="text-pink-300">Memuat...</span></p>
 
-      <div class="space-y-3 text-center">
-        <button onclick="editName()" class="w-full bg-blue-500 hover:bg-blue-600 py-2 rounded">Ubah Nama</button>
-        <button onclick="editEmail()" class="w-full bg-yellow-500 hover:bg-yellow-600 py-2 rounded">Ubah Email</button>
-        <button onclick="editPassword()" class="w-full bg-pink-500 hover:bg-pink-600 py-2 rounded">Ubah Password</button>
-        <button onclick="logout()" class="w-full bg-red-500 hover:bg-red-600 py-2 rounded">Keluar</button>
-      </div>
-
-      <p id="statusMsg" class="text-center text-sm mt-6 text-green-300"></p>
-    </div>
+    <button onclick="logout()" class="mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 rounded">🚪 Logout</button>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script src="supabase.js"></script>
-  <script>
-    const userName = document.getElementById("userName");
-    const userEmail = document.getElementById("userEmail");
-    const userID = document.getElementById("userID");
-    const statusMsg = document.getElementById("statusMsg");
+  <script type="module">
+    import { supabase } from './supabase.js';
 
     async function loadProfile() {
-      const { data, error } = await supabase.auth.getUser();
-      if (error || !data.user) {
+      const { data: { user }, error } = await supabase.auth.getUser();
+
+      console.log("🔍 USER:", user, error);
+
+      if (!user) {
         alert("❌ Kamu belum login!");
-        location.href = "login.html";
+        window.location.href = "login.html";
         return;
       }
 
-      const user = data.user;
-      const name = user.user_metadata?.name || "Tanpa Nama";
-      userName.textContent = name;
-      userEmail.textContent = user.email;
-      userID.textContent = user.id;
-    }
-
-    async function editName() {
-      const newName = prompt("Masukkan nama baru:");
-      if (!newName) return;
-      const { error } = await supabase.auth.updateUser({ data: { name: newName } });
-      if (error) {
-        statusMsg.textContent = "❌ Gagal ubah nama: " + error.message;
-      } else {
-        userName.textContent = newName;
-        statusMsg.textContent = "✅ Nama berhasil diperbarui.";
-      }
-    }
-
-    async function editEmail() {
-      const newEmail = prompt("Masukkan email baru:");
-      if (!newEmail) return;
-      const { error } = await supabase.auth.updateUser({ email: newEmail });
-      if (error) {
-        statusMsg.textContent = "❌ Gagal ubah email: " + error.message;
-      } else {
-        statusMsg.textContent = "✅ Email berhasil diperbarui. Cek kotak masuk.";
-      }
-    }
-
-    async function editPassword() {
-      const newPass = prompt("Masukkan password baru:");
-      if (!newPass) return;
-      const { error } = await supabase.auth.updateUser({ password: newPass });
-      if (error) {
-        statusMsg.textContent = "❌ Gagal ubah password: " + error.message;
-      } else {
-        statusMsg.textContent = "✅ Password berhasil diperbarui.";
-      }
+      document.getElementById("userName").textContent = user.user_metadata?.name || "(Tanpa Nama)";
+      document.getElementById("userEmail").textContent = user.email;
+      document.getElementById("userID").textContent = user.id;
     }
 
     async function logout() {
       await supabase.auth.signOut();
-      location.href = "login.html";
+      alert("✅ Berhasil logout");
+      window.location.href = "login.html";
     }
 
-    document.addEventListener("DOMContentLoaded", loadProfile);
+    loadProfile();
   </script>
 </body>
 </html>
