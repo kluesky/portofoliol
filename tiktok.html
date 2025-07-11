@@ -40,6 +40,9 @@
   <div class="overlay">
     <div class="anime-box text-white text-center">
       <h1 class="text-3xl font-bold text-cyan-300 mb-4">📺 TikTok Video Downloader</h1>
+      <p class="text-sm text-gray-300 mb-4">
+Masukkan link video TikTok dan unduh video-nya dalam kualitas tinggi tanpa watermark. Cocok untuk koleksi pribadi atau referensi konten.
+</p>
       <input id="tiktokUrl" type="text" placeholder="Masukkan link TikTok..." 
         class="w-full p-2 mb-4 rounded border border-cyan-400 text-white bg-white bg-opacity-10 focus:outline-none" />
 
@@ -52,6 +55,9 @@
     <!-- TikTok Slide -->
     <div class="anime-box text-white text-center">
       <h2 class="text-2xl font-bold text-pink-300 mb-4">🖼️ TikTok Slide Downloader</h2>
+      <p class="text-sm text-gray-300 mb-4">
+Unduh gambar dari postingan TikTok Slide satu per satu. Pilih gambar favoritmu, lalu tekan dan tahan gambar sampai muncul tulisan download image
+</p>
       <input id="slideUrl" type="text" placeholder="Masukkan link TikTok Slide..." 
         class="w-full p-2 mb-4 rounded border border-pink-400 text-white bg-white bg-opacity-10 focus:outline-none" />
       <button onclick="downloadSlide()" 
@@ -62,6 +68,9 @@
     <!-- TikTok MP3 -->
     <div class="anime-box text-white text-center">
       <h2 class="text-2xl font-bold text-yellow-300 mb-4">🎵 TikTok MP3 Downloader</h2>
+      <p class="text-sm text-gray-300 mb-4">
+Ambil hanya audio dari video TikTok (dalam format MP3). Berguna untuk nada dering, sound meme, atau koleksi suara unik.
+</p>
       <input id="mp3Url" type="text" placeholder="Masukkan link TikTok..." 
         class="w-full p-2 mb-4 rounded border border-yellow-400 text-white bg-white bg-opacity-10 focus:outline-none" />
       <button onclick="downloadMP3()" 
@@ -82,7 +91,7 @@
       for (let i = 0; i < 6; i++) {
         name += chars.charAt(Math.floor(Math.random() * chars.length));
       }
-      return `tiktok-chisato-${name}${ext}`;
+      return `chisato-${name}${ext}`;
     }
 
     async function downloadVideo() {
