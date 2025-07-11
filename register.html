@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buat Akun | Kyluesky</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: url('https://files.catbox.moe/9n8wrx.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .overlay {
+      backdrop-filter: blur(8px);
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+    }
+    input {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center text-white">
+  <div class="overlay w-full h-full flex items-center justify-center px-4">
+    <div class="w-full max-w-md p-8 rounded-xl shadow-2xl bg-black bg-opacity-50">
+      <h2 class="text-2xl font-bold mb-6 text-center text-pink-300">Buat Akun Baru</h2>
+      <form id="registerForm">
+        <label class="block mb-3">
+          <span class="text-sm text-gray-300">Nama Lengkap</span>
+          <input name="fullname" type="text" class="w-full mt-1 p-2 rounded text-white border border-pink-400 focus:outline-none focus:ring focus:ring-pink-400" required>
+        </label>
+        <label class="block mb-3">
+          <span class="text-sm text-gray-300">Email</span>
+          <input name="email" type="email" class="w-full mt-1 p-2 rounded text-white border border-pink-400 focus:outline-none focus:ring focus:ring-pink-400" required>
+        </label>
+        <label class="block mb-3 relative">
+          <span class="text-sm text-gray-300">Password</span>
+          <input id="regPassword" name="password" type="password" class="w-full mt-1 p-2 rounded text-white border border-pink-400 focus:outline-none focus:ring focus:ring-pink-400" required>
+          <button type="button" onclick="togglePassword()" class="absolute right-2 top-9 text-xs text-pink-300">👁️</button>
+        </label>
+        <button type="submit" class="w-full py-2 bg-pink-500 hover:bg-pink-600 rounded mt-4 transition">Buat Akun</button>
+      </form>
+      <p class="text-center text-sm mt-4 text-gray-300">
+        Sudah punya akun?
+        <a href="login.html" class="text-pink-400 hover:underline">Login sekarang</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const pw = document.getElementById("regPassword");
+      pw.type = pw.type === "password" ? "text" : "password";
+    }
+  </script>
+
+  <!-- Supabase Signup -->
+  <script type="module">
+    import { supabase } from './supabase.js';
+
+    const form = document.getElementById('registerForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fullname = form.fullname.value;
+      const email = form.email.value;
+      const password = form.password.value;
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { fullname }
+        }
+      });
+
+      if (error) {
+        alert('❌ Gagal mendaftar: ' + error.message);
+      } else {
+        alert('✅ Akun berhasil dibuat! Silakan login.');
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
+</body>
+</html>
