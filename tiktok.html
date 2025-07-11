@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anime TikTok Downloader</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('https://files.catbox.moe/9n8wrx.jpg') no-repeat center center fixed;
+      background-size: cover;
+      background-color: #1e1e2f;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .anime-box {
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #38bdf8aa;
+      border-radius: 1rem;
+      padding: 2rem;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 0 20px #38bdf8aa;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="anime-box text-white text-center">
+      <h1 class="text-3xl font-bold text-cyan-300 mb-4">🎴 TikTok Anime Downloader</h1>
+      <input id="tiktokUrl" type="text" placeholder="Masukkan link TikTok..." 
+        class="w-full p-2 mb-4 rounded border border-cyan-400 text-white bg-white bg-opacity-10 focus:outline-none" />
+
+      <button onclick="downloadVideo()" 
+        class="w-full py-2 bg-cyan-500 hover:bg-cyan-600 rounded font-semibold transition">🎧 Download</button>
+
+      <div id="result" class="mt-6"></div>
+    </div>
+  </div>
+
+  <script>
+    async function downloadVideo() {
+      const url = document.getElementById("tiktokUrl").value.trim();
+      const resultBox = document.getElementById("result");
+
+      if (!url.includes("tiktok.com")) {
+        resultBox.innerHTML = `<p class="text-red-400 mt-4">⚠️ Link tidak valid</p>`;
+        return;
+      }
+
+      resultBox.innerHTML = `<p class="text-cyan-300 animate-pulse">⏳ Sedang memanggil waifu downloader...</p>`;
+
+      try {
+        const res = await fetch(`https://tikwm.com/api/?url=${encodeURIComponent(url)}&hd=1`);
+        const json = await res.json();
+
+        if (!json.data?.play) throw new Error("Video tidak ditemukan.");
+
+        resultBox.innerHTML = `
+          <video controls autoplay class="w-full rounded mt-4 shadow-xl border border-cyan-300">
+            <source src="${json.data.play}" type="video/mp4">
+            Browser tidak mendukung video.
+          </video>
+          <a href="${json.data.play}" download class="mt-4 inline-block text-cyan-400 hover:underline">⬇️ Download Video</a>
+        `;
+      } catch (err) {
+        resultBox.innerHTML = `<p class="text-red-400 mt-4">❌ Gagal: ${err.message}</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
