@@ -2,8 +2,9 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Profil | Kyluesky</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil Saya | Kyluesky</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     body {
@@ -12,7 +13,7 @@
     }
     .overlay {
       backdrop-filter: blur(8px);
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.7);
       min-height: 100vh;
     }
     input, button {
@@ -21,97 +22,94 @@
   </style>
 </head>
 <body class="text-white">
-  <div class="overlay flex flex-col items-center justify-center px-4 py-10">
-    <div class="bg-black bg-opacity-50 rounded-xl p-8 shadow-2xl w-full max-w-lg">
-      <h2 class="text-3xl font-bold text-blue-400 text-center mb-6">Profil Pengguna</h2>
-      <div class="flex flex-col items-center">
-        <img id="avatarPreview" src="https://placehold.co/100x100?text=Avatar" class="w-24 h-24 rounded-full mb-4 border-2 border-blue-400" />
-        <input type="file" id="avatarInput" accept="image/*" class="mb-4 text-sm"/>
-        <p class="mb-2 text-lg"><strong>Nama:</strong> <span id="userName">...</span></p>
-        <p class="mb-6 text-sm text-gray-300"><strong>Email:</strong> <span id="userEmail">...</span></p>
-        <button onclick="logout()" class="px-4 py-2 bg-red-500 rounded hover:bg-red-600 transition">Logout</button>
+  <div class="overlay flex items-center justify-center px-4 py-16">
+    <div class="bg-black bg-opacity-50 p-8 rounded-xl shadow-2xl w-full max-w-md">
+      <h2 class="text-2xl font-bold text-center text-blue-300 mb-6">Profil Pengguna</h2>
+      <div class="flex flex-col items-center mb-6">
+        <img id="avatarImage" src="https://via.placeholder.com/100" class="w-24 h-24 rounded-full mb-2 object-cover border border-blue-400" alt="Avatar">
+        <input type="file" id="avatarInput" class="text-sm text-gray-200 mb-2" accept="image/*">
+        <button onclick="uploadAvatar()" class="text-xs px-3 py-1 bg-blue-600 rounded hover:bg-blue-700">Upload Avatar</button>
       </div>
 
-      <hr class="my-6 border-gray-600" />
-
-      <form id="passwordForm">
+      <form onsubmit="updateProfile(event)">
         <label class="block mb-3">
-          <span class="text-sm text-gray-300">Ganti Password</span>
-          <input id="newPassword" type="password" class="w-full mt-1 p-2 rounded text-white border border-blue-400 focus:outline-none focus:ring focus:ring-blue-400" placeholder="Password baru" required>
+          <span class="text-sm text-gray-300">Nama</span>
+          <input type="text" id="fullName" class="w-full p-2 rounded text-white border border-blue-500 focus:outline-none focus:ring focus:ring-blue-400">
         </label>
-        <button type="submit" class="w-full py-2 bg-blue-500 hover:bg-blue-600 rounded mt-2 transition">Ubah Password</button>
+        <label class="block mb-3">
+          <span class="text-sm text-gray-300">Email</span>
+          <input type="email" id="email" disabled class="w-full p-2 rounded text-white border border-blue-500 opacity-50">
+        </label>
+        <label class="block mb-3">
+          <span class="text-sm text-gray-300">Password Baru</span>
+          <input type="password" id="newPassword" class="w-full p-2 rounded text-white border border-blue-500 focus:outline-none focus:ring focus:ring-blue-400">
+        </label>
+        <button type="submit" class="w-full py-2 mt-4 bg-blue-500 hover:bg-blue-600 rounded transition">Simpan Perubahan</button>
       </form>
+
+      <button onclick="logout()" class="w-full py-2 mt-6 bg-red-500 hover:bg-red-600 rounded transition">Logout</button>
     </div>
   </div>
 
-  <script type="module">
-    import { supabase } from './supabase.js';
+  <script src="supabase.js"></script>
+  <script>
+    let currentUser;
+    window.addEventListener("DOMContentLoaded", async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (!data.user) return window.location.href = "login.html";
 
-    const userName = document.getElementById('userName');
-    const userEmail = document.getElementById('userEmail');
-    const avatarPreview = document.getElementById('avatarPreview');
-    const avatarInput = document.getElementById('avatarInput');
+      currentUser = data.user;
+      document.getElementById("email").value = currentUser.email;
 
-    const user = await supabase.auth.getUser();
-    if (!user?.data?.user) {
-      alert("⚠️ Kamu belum login.");
-      location.href = 'login.html';
-    }
+      if (currentUser.user_metadata?.full_name) {
+        document.getElementById("fullName").value = currentUser.user_metadata.full_name;
+      }
 
-    const sessionUser = user.data.user;
-    userName.textContent = sessionUser.user_metadata?.fullname || "Tanpa Nama";
-    userEmail.textContent = sessionUser.email;
+      // Try load avatar
+      const { data: avatarData } = supabase.storage.from('avatars').getPublicUrl(`${currentUser.id}.jpg`);
+      document.getElementById("avatarImage").src = avatarData.publicUrl;
+    });
 
-    // Upload Avatar
-    avatarInput.addEventListener('change', async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const fileName = `${sessionUser.id}-${file.name}`;
+    async function uploadAvatar() {
+      const file = document.getElementById("avatarInput").files[0];
+      if (!file) return alert("⚠️ Pilih gambar dulu.");
 
-      // Upload ke storage bucket 'avatars'
-      const { data, error } = await supabase.storage
-        .from('avatars')
+      const ext = file.name.split('.').pop();
+      const fileName = `${currentUser.id}.${ext}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("avatars")
         .upload(fileName, file, { upsert: true });
 
-      if (error) return alert("❌ Gagal upload avatar: " + error.message);
+      if (uploadError) {
+        alert("❌ Gagal Upload Avatar: " + uploadError.message);
+        return;
+      }
 
-      const { data: urlData } = supabase.storage
-        .from('avatars')
-        .getPublicUrl(fileName);
-
-      await supabase.auth.updateUser({
-        data: { avatar_url: urlData.publicUrl }
-      });
-
-      avatarPreview.src = urlData.publicUrl;
-      alert("✅ Avatar diperbarui!");
-    });
-
-    // Tampilkan avatar jika ada
-    const avatarUrl = sessionUser.user_metadata?.avatar_url;
-    if (avatarUrl) {
-      avatarPreview.src = avatarUrl;
+      const { data } = supabase.storage.from('avatars').getPublicUrl(fileName);
+      document.getElementById("avatarImage").src = data.publicUrl;
+      alert("✅ Avatar berhasil diunggah!");
     }
 
-    // Ganti password
-    const passwordForm = document.getElementById("passwordForm");
-    passwordForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const newPassword = document.getElementById("newPassword").value;
+    async function updateProfile(event) {
+      event.preventDefault();
+      const fullName = document.getElementById("fullName").value;
+      const password = document.getElementById("newPassword").value;
 
-      const { error } = await supabase.auth.updateUser({ password: newPassword });
-      if (error) {
-        alert("❌ Gagal update password: " + error.message);
-      } else {
-        alert("✅ Password berhasil diperbarui!");
-        passwordForm.reset();
-      }
-    });
+      const updates = {};
+      if (fullName) updates.data = { full_name: fullName };
+      if (password) updates.password = password;
 
-    // Logout
+      const { error } = await supabase.auth.updateUser(updates);
+      if (error) return alert("❌ Gagal update: " + error.message);
+
+      alert("✅ Profil berhasil diperbarui!");
+      document.getElementById("newPassword").value = "";
+    }
+
     async function logout() {
       await supabase.auth.signOut();
-      window.location.href = 'login.html';
+      window.location.href = "login.html";
     }
   </script>
 </body>
