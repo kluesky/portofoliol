@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profil Saya | Kyluesky</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profil Pengguna | Kyluesky</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script type="module" src="supabase.js"></script>
   <style>
     body {
       background: url('https://files.catbox.moe/9n8wrx.jpg') no-repeat center center fixed;
@@ -16,100 +16,128 @@
       background-color: rgba(0, 0, 0, 0.7);
       min-height: 100vh;
     }
-    input, button {
+    input {
       background-color: rgba(255, 255, 255, 0.1);
     }
   </style>
 </head>
 <body class="text-white">
-  <div class="overlay flex items-center justify-center px-4 py-16">
-    <div class="bg-black bg-opacity-50 p-8 rounded-xl shadow-2xl w-full max-w-md">
-      <h2 class="text-2xl font-bold text-center text-blue-300 mb-6">Profil Pengguna</h2>
-      <div class="flex flex-col items-center mb-6">
-        <img id="avatarImage" src="https://via.placeholder.com/100" class="w-24 h-24 rounded-full mb-2 object-cover border border-blue-400" alt="Avatar">
-        <input type="file" id="avatarInput" class="text-sm text-gray-200 mb-2" accept="image/*">
-        <button onclick="uploadAvatar()" class="text-xs px-3 py-1 bg-blue-600 rounded hover:bg-blue-700">Upload Avatar</button>
+  <div class="overlay flex items-center justify-center px-4 py-10">
+    <div class="max-w-xl w-full bg-black bg-opacity-50 p-8 rounded-lg shadow-2xl">
+      <div class="text-center">
+        <img src="https://i.pinimg.com/736x/3c/b9/82/3cb982fdf7e637f442c1798981de7aa2.jpg" alt="Avatar" class="w-28 h-28 rounded-full mx-auto border-4 border-pink-400 mb-4">
+        <h2 id="userName" class="text-2xl font-bold text-pink-300 mb-1">Nama</h2>
+        <p id="userEmail" class="text-gray-300 text-sm">Email</p>
       </div>
 
-      <form onsubmit="updateProfile(event)">
-        <label class="block mb-3">
-          <span class="text-sm text-gray-300">Nama</span>
-          <input type="text" id="fullName" class="w-full p-2 rounded text-white border border-blue-500 focus:outline-none focus:ring focus:ring-blue-400">
-        </label>
-        <label class="block mb-3">
-          <span class="text-sm text-gray-300">Email</span>
-          <input type="email" id="email" disabled class="w-full p-2 rounded text-white border border-blue-500 opacity-50">
-        </label>
-        <label class="block mb-3">
-          <span class="text-sm text-gray-300">Password Baru</span>
-          <input type="password" id="newPassword" class="w-full p-2 rounded text-white border border-blue-500 focus:outline-none focus:ring focus:ring-blue-400">
-        </label>
-        <button type="submit" class="w-full py-2 mt-4 bg-blue-500 hover:bg-blue-600 rounded transition">Simpan Perubahan</button>
-      </form>
+      <div class="mt-8 space-y-4">
+        <button onclick="editName()" class="w-full py-2 bg-blue-500 hover:bg-blue-600 rounded transition">✏️ Ubah Nama</button>
+        <button onclick="editEmail()" class="w-full py-2 bg-green-500 hover:bg-green-600 rounded transition">📧 Ubah Email</button>
+        <button onclick="editPassword()" class="w-full py-2 bg-yellow-500 hover:bg-yellow-600 rounded transition">🔑 Ubah Password</button>
+        <button onclick="logout()" class="w-full py-2 bg-red-500 hover:bg-red-600 rounded transition">🚪 Logout</button>
+      </div>
 
-      <button onclick="logout()" class="w-full py-2 mt-6 bg-red-500 hover:bg-red-600 rounded transition">Logout</button>
+      <p id="statusMsg" class="text-center mt-4 text-sm text-gray-300 italic"></p>
     </div>
   </div>
 
-  <script src="supabase.js"></script>
-  <script>
-    let currentUser;
-    window.addEventListener("DOMContentLoaded", async () => {
-      const { data, error } = await supabase.auth.getUser();
-      if (!data.user) return window.location.href = "login.html";
+  <script type="module">
+    import { supabase } from './supabase.js';
 
-      currentUser = data.user;
-      document.getElementById("email").value = currentUser.email;
+    const userName = document.getElementById('userName');
+    const userEmail = document.getElementById('userEmail');
+    const statusMsg = document.getElementById('statusMsg');
 
-      if (currentUser.user_metadata?.full_name) {
-        document.getElementById("fullName").value = currentUser.user_metadata.full_name;
-      }
-
-      // Try load avatar
-      const { data: avatarData } = supabase.storage.from('avatars').getPublicUrl(`${currentUser.id}.jpg`);
-      document.getElementById("avatarImage").src = avatarData.publicUrl;
-    });
-
-    async function uploadAvatar() {
-      const file = document.getElementById("avatarInput").files[0];
-      if (!file) return alert("⚠️ Pilih gambar dulu.");
-
-      const ext = file.name.split('.').pop();
-      const fileName = `${currentUser.id}.${ext}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from("avatars")
-        .upload(fileName, file, { upsert: true });
-
-      if (uploadError) {
-        alert("❌ Gagal Upload Avatar: " + uploadError.message);
-        return;
-      }
-
-      const { data } = supabase.storage.from('avatars').getPublicUrl(fileName);
-      document.getElementById("avatarImage").src = data.publicUrl;
-      alert("✅ Avatar berhasil diunggah!");
+    const { data: { user }, error } = await supabase.auth.getUser();
+    if (!user) {
+      window.location.href = 'login.html';
     }
 
-    async function updateProfile(event) {
-      event.preventDefault();
-      const fullName = document.getElementById("fullName").value;
-      const password = document.getElementById("newPassword").value;
+    userName.textContent = user.user_metadata?.name || "Tanpa Nama";
+    userEmail.textContent = user.email;
 
-      const updates = {};
-      if (fullName) updates.data = { full_name: fullName };
-      if (password) updates.password = password;
+    function formatTime(date) {
+      return date.toISOString().split("T")[0];
+    }
 
-      const { error } = await supabase.auth.updateUser(updates);
-      if (error) return alert("❌ Gagal update: " + error.message);
+    async function checkCooldown(type) {
+      const { data } = await supabase
+        .from('user_changes')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('type', type)
+        .single();
 
-      alert("✅ Profil berhasil diperbarui!");
-      document.getElementById("newPassword").value = "";
+      if (!data) return true; // belum pernah diubah
+      const last = new Date(data.updated_at);
+      const now = new Date();
+      const diffDays = (now - last) / (1000 * 60 * 60 * 24);
+      return diffDays >= 7;
+    }
+
+    async function updateCooldown(type) {
+      await supabase.from('user_changes').upsert({
+        user_id: user.id,
+        type,
+        updated_at: new Date().toISOString()
+      });
+    }
+
+    async function editName() {
+      const allow = await checkCooldown('name');
+      if (!allow) return statusMsg.textContent = "❌ Nama hanya bisa diubah 1x setiap 7 hari.";
+      const newName = prompt("Masukkan nama baru:");
+      if (!newName) return;
+
+      const { error } = await supabase.auth.updateUser({
+        data: { name: newName }
+      });
+
+      if (!error) {
+        await updateCooldown('name');
+        userName.textContent = newName;
+        statusMsg.textContent = "✅ Nama berhasil diperbarui.";
+      } else {
+        statusMsg.textContent = "❌ Gagal memperbarui nama.";
+      }
+    }
+
+    async function editEmail() {
+      const allow = await checkCooldown('email');
+      if (!allow) return statusMsg.textContent = "❌ Email hanya bisa diubah 1x setiap 7 hari.";
+      const newEmail = prompt("Masukkan email baru:");
+      if (!newEmail) return;
+
+      const { error } = await supabase.auth.updateUser({ email: newEmail });
+      if (!error) {
+        await updateCooldown('email');
+        userEmail.textContent = newEmail;
+        statusMsg.textContent = "✅ Email berhasil diubah.";
+      } else {
+        statusMsg.textContent = "❌ Gagal memperbarui email.";
+      }
+    }
+
+    async function editPassword() {
+      const allow = await checkCooldown('password');
+      if (!allow) return statusMsg.textContent = "❌ Password hanya bisa diubah 1x setiap 7 hari.";
+      const newPassword = prompt("Masukkan password baru:");
+      if (!newPassword || newPassword.length < 6) {
+        return statusMsg.textContent = "❌ Password harus minimal 6 karakter.";
+      }
+
+      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      if (!error) {
+        await updateCooldown('password');
+        statusMsg.textContent = "✅ Password berhasil diperbarui.";
+      } else {
+        statusMsg.textContent = "❌ Gagal memperbarui password.";
+      }
     }
 
     async function logout() {
       await supabase.auth.signOut();
-      window.location.href = "login.html";
+      location.href = "login.html";
     }
   </script>
 </body>
