@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kyluesky — Downloader</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script type="module" src="./supabase.js"></script>
   <style>
     body {
       background-image: url('https://files.catbox.moe/cww1ac.jpg');
@@ -39,13 +40,25 @@
 </head>
 <body class="text-white py-16 px-4">
 
-  <div class="max-w-6xl mx-auto text-center">
+  <!-- Kode Akses Form -->
+  <div id="accessSection" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50">
+    <div class="bg-gray-800 p-6 rounded-xl text-center shadow-xl w-full max-w-md">
+      <h1 class="text-xl font-bold text-blue-300 mb-4">🔐 Masukkan Kode Akses</h1>
+      <input id="accessCode" type="password" placeholder="Kode admin download..." class="w-full px-4 py-2 rounded bg-gray-700 text-white mb-4 focus:outline-none" />
+      <button id="submitCode" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded w-full">✔️ Verifikasi</button>
+      <p id="errorMsg" class="text-red-400 mt-3 hidden">Kode salah atau sudah digunakan!</p>
+      <p class="text-sm text-gray-400 mt-4">Belum punya kode? <a href="getkode.html" class="underline text-blue-400 hover:text-blue-300">Klik di sini</a></p>
+    </div>
+  </div>
+
+  <!-- Downloader Content -->
+  <div id="downloadContent" class="max-w-6xl mx-auto text-center hidden">
     <h1 class="text-4xl font-bold mb-3 text-blue-300">Chisato Downloader</h1>
     <p class="text-blue-400 mb-12">Download Kumpulan Script Disini</p>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-      <!-- WA Bot -->
+      <!-- Contoh satu card -->
       <div class="p-6 rounded-2xl glass card">
         <h2 class="text-xl font-bold text-blue-400 mb-3">🤖 WhatsApp Bot</h2>
         <ul class="space-y-3 text-left text-sm">
@@ -59,7 +72,7 @@
           </li>
         </ul>
       </div>
-
+      
       <!-- Telegram Bot -->
       <div class="p-6 rounded-2xl glass card">
         <h2 class="text-xl font-bold text-pink-400 mb-3">📦 Telegram Bot</h2>
@@ -122,11 +135,50 @@
 
     </div>
 
-    <!-- Back -->
+      <!-- Tambahkan card lain seperti biasa... -->
+    </div>
+
+<!-- Back -->
     <div class="mt-14">
        <a href="index.html" class="back-button shadow">Kembali ke Beranda</a>
     </div>
   </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from './supabase.js';
+
+    const submitCodeBtn = document.getElementById("submitCode");
+    const accessInput = document.getElementById("accessCode");
+    const errorMsg = document.getElementById("errorMsg");
+    const accessSection = document.getElementById("accessSection");
+    const downloadContent = document.getElementById("downloadContent");
+
+    submitCodeBtn.onclick = async () => {
+      const code = accessInput.value.trim();
+      if (!code) return;
+
+      const { data: codes, error } = await supabase
+        .from("admin_codes")
+        .select("*")
+        .eq("code", code)
+        .eq("used", false)
+        .limit(1);
+
+      if (error || !codes || codes.length === 0) {
+        errorMsg.classList.remove("hidden");
+        return;
+      }
+
+      // Tandai kode sebagai sudah dipakai
+      await supabase.from("admin_codes").update({ used: true }).eq("id", codes[0].id);
+
+      // Tampilkan konten download
+      accessSection.classList.add("hidden");
+      downloadContent.classList.remove("hidden");
+    };
+  </script>
 
 </body>
 </html>
