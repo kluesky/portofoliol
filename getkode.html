@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Kode Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script type="module" src="./supabase.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      font-family: 'Outfit', sans-serif;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+    }
+    .code-box {
+      font-family: 'Courier New', monospace;
+      background: #1e293b;
+      padding: 0.6rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 1.5rem;
+      letter-spacing: 3px;
+      box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.2);
+    }
+    .btn {
+      transition: all 0.2s ease-in-out;
+    }
+    .btn:hover {
+      transform: scale(1.03);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center text-white px-4">
+  <div class="card p-8 max-w-md w-full text-center">
+    <h1 class="text-3xl font-bold mb-6 text-cyan-300">🎲 Generate Kode Admin</h1>
+
+    <button id="generateBtn" class="btn bg-cyan-600 hover:bg-cyan-700 px-6 py-2 rounded-lg font-semibold shadow">Buat Kode Baru</button>
+
+    <div id="resultBox" class="hidden mt-6">
+      <p class="mb-2 text-lg text-green-300">✅ Kode berhasil dibuat:</p>
+      <div class="flex justify-center items-center gap-2">
+        <div id="generatedCode" class="code-box">------</div>
+        <button id="copyBtn" class="btn bg-green-600 hover:bg-green-700 px-3 py-1.5 rounded text-sm font-medium shadow">📋</button>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <a href="galerisad.html" class="text-cyan-400 hover:text-cyan-300 text-sm underline">⬅ Kembali ke Galeri Sad</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from './supabase.js';
+
+    const generateBtn = document.getElementById('generateBtn');
+    const resultBox = document.getElementById('resultBox');
+    const generatedCode = document.getElementById('generatedCode');
+    const copyBtn = document.getElementById('copyBtn');
+
+    function generateRandomCode(length = 6) {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      let code = '';
+      for (let i = 0; i < length; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return code;
+    }
+
+    generateBtn.onclick = async () => {
+      const newCode = generateRandomCode();
+      const { error } = await supabase.from('admin_codes').insert([{ code: newCode, used: false }]);
+
+      if (error) {
+        alert('❌ Gagal membuat kode.');
+        return;
+      }
+
+      generatedCode.textContent = newCode;
+      resultBox.classList.remove('hidden');
+    };
+
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(generatedCode.textContent)
+        .then(() => {
+          copyBtn.textContent = '✅';
+          setTimeout(() => (copyBtn.textContent = '📋'), 2000);
+        })
+        .catch(() => alert('❌ Gagal menyalin kode.'));
+    };
+  </script>
+</body>
+</html>
