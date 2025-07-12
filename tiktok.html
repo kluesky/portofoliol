@@ -1,88 +1,88 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chisato TikTok Downloader</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: url('https://files.catbox.moe/9n8wrx.jpg') no-repeat center center fixed;
-      background-size: cover;
-      background-color: #1e1e2f;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(145deg, #0f172a, #1e293b);
+      background-attachment: fixed;
+      color: white;
     }
-    .overlay {
-      background-color: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .glass-box {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
       padding: 2rem;
-      flex-direction: column;
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease-in-out;
     }
-    .anime-box {
-      background: rgba(0, 0, 0, 0.5);
-      border: 2px solid #38bdf8aa;
-      border-radius: 1rem;
-      padding: 2rem;
-      width: 100%;
-      max-width: 500px;
-      box-shadow: 0 0 20px #38bdf8aa;
-      margin-bottom: 2rem;
+    .glass-box:hover {
+      transform: scale(1.02);
+      box-shadow: 0 25px 40px rgba(255, 255, 255, 0.1);
+    }
+    .btn-glow {
+      transition: all 0.3s ease;
+    }
+    .btn-glow:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+    h1, h2 {
+      font-family: 'Orbitron', sans-serif;
     }
   </style>
 </head>
-<body>
-  <div class="overlay">
-    <div class="anime-box text-white text-center">
-      <h1 class="text-3xl font-bold text-cyan-300 mb-4">📺 TikTok Video Downloader</h1>
-      <p class="text-sm text-gray-300 mb-4">
-Masukkan link video TikTok dan unduh video-nya dalam kualitas tinggi tanpa watermark. Cocok untuk koleksi pribadi atau referensi konten.
-</p>
-      <input id="tiktokUrl" type="text" placeholder="Masukkan link TikTok..." 
-        class="w-full p-2 mb-4 rounded border border-cyan-400 text-white bg-white bg-opacity-10 focus:outline-none" />
-
-      <button onclick="downloadVideo()" 
-        class="w-full py-2 bg-red-500 hover:bg-red-600 rounded font-semibold transition">🎥 Download Video</button>
-
-      <div id="result" class="mt-6"></div>
-    </div>
-
-    <!-- TikTok Slide -->
-    <div class="anime-box text-white text-center">
-      <h2 class="text-2xl font-bold text-pink-300 mb-4">🖼️ TikTok Slide Downloader</h2>
-      <p class="text-sm text-gray-300 mb-4">
-Unduh gambar dari postingan TikTok Slide satu per satu. Pilih gambar favoritmu, lalu tekan dan tahan gambar sampai muncul tulisan download image
-</p>
-      <input id="slideUrl" type="text" placeholder="Masukkan link TikTok Slide..." 
-        class="w-full p-2 mb-4 rounded border border-pink-400 text-white bg-white bg-opacity-10 focus:outline-none" />
-      <button onclick="downloadSlide()" 
-        class="w-full py-2 bg-pink-500 hover:bg-pink-600 rounded font-semibold transition">📂 Download Slide</button>
-      <div id="slideResult" class="mt-6"></div>
-    </div>
-
-    <!-- TikTok MP3 -->
-    <div class="anime-box text-white text-center">
-      <h2 class="text-2xl font-bold text-yellow-300 mb-4">🎵 TikTok MP3 Downloader</h2>
-      <p class="text-sm text-gray-300 mb-4">
-Ambil hanya audio dari video TikTok (dalam format MP3). Berguna untuk nada dering, sound meme, atau koleksi suara unik.
-</p>
-      <input id="mp3Url" type="text" placeholder="Masukkan link TikTok..." 
-        class="w-full p-2 mb-4 rounded border border-yellow-400 text-white bg-white bg-opacity-10 focus:outline-none" />
-      <button onclick="downloadMP3()" 
-        class="w-full py-2 bg-yellow-500 hover:bg-yellow-600 rounded font-semibold transition">🔊 Download MP3</button>
-      <div id="mp3Result" class="mt-6"></div>
-    </div>
-
-    <!-- Tombol Kembali -->
-    <a href="index.html" class="inline-block px-4 py-2 rounded bg-gradient-to-r from-pink-500 to-blue-500 hover:from-blue-600 hover:to-pink-600 transition text-white font-semibold shadow-lg mt-4">
-      Kembali ke Beranda
-    </a>
+<!-- Anime-style Welcome Modal -->
+<div id="welcomeModal" class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50">
+  <div class="bg-[#1f2937] text-white p-6 rounded-2xl shadow-2xl max-w-sm w-full animate-fade-in text-center relative">
+    <img src="https://media1.tenor.com/m/65ImL18WPCMAAAAC/%E5%8D%83%E6%9D%9F.gif" alt="Chisato Greeting" class="rounded-lg mx-auto mb-4 shadow border border-pink-300" />
+    <h2 class="text-2xl font-bold text-pink-300 mb-2">Creator @me_kyluesky~</h2>
+    <p class="text-sm text-gray-300 mb-4">Selamat datang di <span class="text-yellow-300 font-semibold">Chisato TikTok Downloader</span>!~ Aku senang kamu datang 💫 Yuk, mulai download video kesukaanmu dengan sekali klik. Jangan lupa senyum ya!</p>
+    <button onclick="document.getElementById('welcomeModal').remove()" class="mt-2 px-4 py-2 bg-pink-500 hover:bg-pink-600 transition rounded-full text-sm font-medium shadow">
+      🎀 Baik, Chisato!
+    </button>
   </div>
+</div>
+
+<style>
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out;
+}
+</style>
+<body class="min-h-screen flex flex-col items-center justify-center px-4 py-8 space-y-10">
+  <script>
+  </script>  <div class="glass-box w-full max-w-lg text-center">
+    
+    <h1 class="text-3xl text-cyan-300 mb-2">🎥 TikTok Video Downloader</h1>
+    <p class="text-sm text-gray-300 mb-4">Download video TikTok tanpa watermark dan kualitas terbaik.</p>
+    <input id="tiktokUrl" type="text" placeholder="Tempelkan link TikTok..." class="w-full p-2 mb-4 rounded border border-cyan-400 bg-white bg-opacity-10 text-white focus:outline-none" />
+    <button onclick="downloadVideo()" 
+        class="w-full py-2 bg-red-500 hover:bg-red-600 rounded font-semibold transition">🎥 Download Video</button>
+  </div>  <div class="glass-box w-full max-w-lg text-center">
+    <h2 class="text-2xl text-pink-400 mb-2">🖼️ TikTok Slide Downloader</h2>
+    <p class="text-sm text-gray-300 mb-4">Download semua gambar dari slide TikTok secara manual.</p>
+    <input id="slideUrl" type="text" placeholder="Tempelkan link TikTok Slide..." class="w-full p-2 mb-4 rounded border border-pink-400 bg-white bg-opacity-10 text-white focus:outline-none" />
+    <button onclick="downloadSlide()" class="w-full py-2 bg-pink-600 hover:bg-pink-700 rounded font-semibold btn-glow">📸 Download Slide</button>
+    <div id="slideResult" class="mt-6"></div>
+  </div>  <div class="glass-box w-full max-w-lg text-center">
+    <h2 class="text-2xl text-yellow-400 mb-2">🎵 TikTok MP3 Downloader</h2>
+    <p class="text-sm text-gray-300 mb-4">Ekstrak audio dari video TikTok dan simpan sebagai MP3.</p>
+    <input id="mp3Url" type="text" placeholder="Tempelkan link TikTok..." class="w-full p-2 mb-4 rounded border border-yellow-400 bg-white bg-opacity-10 text-white focus:outline-none" />
+    <button onclick="downloadMP3()" class="w-full py-2 bg-yellow-500 hover:bg-yellow-600 rounded font-semibold btn-glow">🎶 Download MP3</button>
+    <div id="mp3Result" class="mt-6"></div>
+  </div><a href="index.html" class="mt-6 inline-block px-6 py-2 bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 rounded-lg font-semibold shadow-lg">🏠 Kembali ke Beranda</a>
 
   <script>
     function generateRandomFilename(ext = '.mp4') {
@@ -199,6 +199,5 @@ Ambil hanya audio dari video TikTok (dalam format MP3). Berguna untuk nada derin
         mp3Box.innerHTML = `<p class="text-red-400 mt-4">❌ Gagal: ${err.message}</p>`;
       }
     }
-  </script>
-</body>
+  </script></body>
 </html>
