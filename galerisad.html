@@ -3,134 +3,237 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Galeri Sad 😔</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script type="module" src="supabase.js"></script>
+  <title>Keluh Kesah Netizen</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <script type="module" src="./supabase.js"></script>
   <style>
     body {
-      margin: 0;
       background: url('https://files.catbox.moe/n9hcgz.jpg') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Segoe UI', sans-serif;
     }
     .overlay {
-      background: rgba(0, 0, 0, 0.8);
+      background-color: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(10px);
       min-height: 100vh;
-      padding: 2rem 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      padding: 2rem;
     }
-    .fade-in {
-      animation: fadeIn 1s ease-in-out;
+    .content-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #e5e7eb;
+      box-shadow: 0 0 15px #111827;
+      animation: fadeIn 0.4s ease-in;
+      position: relative;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+    .modal-bg.active {
+      display: flex;
+    }
+    .modal {
+      background: #1f2937;
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      color: white;
+      box-shadow: 0 0 20px #000;
+      animation: popIn 0.3s ease;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    input::placeholder {
+      color: #ccc;
+    }
   </style>
 </head>
 <body>
-  <div class="overlay">
-    <h1 class="text-3xl text-white font-semibold mb-6 fade-in">💔 Galeri Sad</h1>
+  <div class="overlay max-w-2xl mx-auto">
+    <h1 class="text-3xl text-center font-bold text-gray-100 mb-6">Keluh Kesah Netizen</h1>
 
-    <!-- Form Upload -->
-    <div class="bg-gray-900 bg-opacity-60 p-4 rounded-lg shadow-lg max-w-md w-full mb-10 fade-in">
-      <textarea id="caption" placeholder="Curhatmu..." rows="3" class="w-full p-2 rounded bg-gray-800 text-white mb-3"></textarea>
-      <input type="file" id="fileInput" accept="image/*,video/*" class="text-white mb-3" />
-      <button onclick="uploadCurhat()" class="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded">🌧️ Upload Curhat</button>
+    <div class="content-box">
+      <textarea id="caption" rows="3" placeholder="Tulis isi hati..." class="w-full p-2 rounded bg-white bg-opacity-10 text-white focus:outline-none mb-3"></textarea>
+      <input id="accessCode" type="password" placeholder="Kode akses admin posting..." class="w-full p-2 rounded bg-white bg-opacity-10 text-white focus:outline-none mb-3" />
+      <button id="submit" class="w-full py-2 bg-gray-600 hover:bg-gray-700 rounded text-white">Upload Keluh Kesah</button>
     </div>
 
-    <!-- Galeri Curhat -->
-    <div id="galeri" class="w-full max-w-2xl space-y-6 fade-in"></div>
+    <div id="entries"></div>
+
+    <div class="text-center mt-6">
+      <a href="index.html" class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-800">Kembali</a>
+    </div>
+  </div>
+
+  <!-- Modal Konfirmasi Hapus Admin -->
+  <div id="adminConfirmModal" class="modal-bg">
+    <div class="modal">
+      <p class="text-lg font-semibold mb-2">🔐 Masukkan Kode Akses Admin</p>
+      <input id="deleteCode" type="password" placeholder="Kode akses hapus..." class="w-full mb-4 p-2 rounded bg-gray-800 text-white focus:outline-none" />
+      <div class="flex justify-center gap-4">
+        <button id="adminConfirmBtn" class="px-4 py-2 bg-red-600 rounded hover:bg-red-700">Hapus</button>
+        <button id="adminCancelBtn" class="px-4 py-2 bg-gray-500 rounded hover:bg-gray-600">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Kode Salah -->
+  <div id="wrongCodeModal" class="modal-bg">
+    <div class="modal">
+      <p class="text-red-400 text-xl font-semibold mb-2">Kode Akses Salah!</p>
+      <p class="text-sm text-gray-300">Coba lagi atau hubungi admin.</p>
+      <button id="wrongCodeClose" class="mt-4 px-4 py-1 bg-gray-600 hover:bg-gray-700 rounded text-sm">Tutup</button>
+    </div>
+  </div>
+
+  <!-- Modal Curhatan Kosong -->
+  <div id="emptyCaptionModal" class="modal-bg">
+    <div class="modal">
+      <p class="text-yellow-300 text-xl font-semibold mb-2">⚠️ Curhatan tidak boleh kosong</p>
+      <p class="text-sm text-gray-300">Tulis dulu isi hatimu sebelum mengunggah ya 📝</p>
+      <button id="emptyCaptionClose" class="mt-4 px-4 py-1 bg-yellow-500 hover:bg-yellow-600 rounded text-sm text-white">Tutup</button>
+    </div>
   </div>
 
   <script type="module">
     import { supabase } from './supabase.js';
 
-    async function uploadCurhat() {
-      const caption = document.getElementById('caption').value.trim();
-      const fileInput = document.getElementById('fileInput');
-      const file = fileInput.files[0];
+    const captionInput = document.getElementById("caption");
+    const accessInput = document.getElementById("accessCode");
+    const submitBtn = document.getElementById("submit");
+    const entriesBox = document.getElementById("entries");
 
-      if (!caption && !file) {
-        alert("Isi caption atau pilih file dulu 😢");
-        return;
-      }
+    const adminConfirmModal = document.getElementById("adminConfirmModal");
+    const deleteCodeInput = document.getElementById("deleteCode");
+    const adminConfirmBtn = document.getElementById("adminConfirmBtn");
+    const adminCancelBtn = document.getElementById("adminCancelBtn");
 
-      let mediaUrl = null;
-      let mediaType = null;
+    const wrongCodeModal = document.getElementById("wrongCodeModal");
+    const wrongCodeClose = document.getElementById("wrongCodeClose");
 
-      if (file) {
-        const filename = `${Date.now()}_${file.name}`;
-        const { data, error } = await supabase.storage
-          .from('galerisad')
-          .upload(`media/${filename}`, file);
+    const emptyCaptionModal = document.getElementById("emptyCaptionModal");
+    const emptyCaptionClose = document.getElementById("emptyCaptionClose");
 
-        if (error) {
-          alert(`❌ Gagal upload media: ${error.message}`);
-          return;
-        }
+    // 🔐 Ganti sesuai kebutuhan
+    const ADMIN_CODE_POST = "lyora247";
+    const ADMIN_CODE_DELETE = "kyluesky321";
+    let toDeleteId = null;
 
-        const { data: publicUrl } = supabase
-          .storage
-          .from('galerisad')
-          .getPublicUrl(`media/${filename}`);
-
-        mediaUrl = publicUrl.publicUrl;
-        mediaType = file.type.startsWith("image") ? "image" :
-                    file.type.startsWith("video") ? "video" : "other";
-      }
-
-      const { error: dbError } = await supabase
-        .from('galerisad')
-        .insert([{ caption, media_url: mediaUrl, media_type: mediaType }]);
-
-      if (dbError) {
-        alert(`❌ Gagal simpan curhat: ${dbError.message}`);
-      } else {
-        alert("✅ Curhat berhasil disimpan.");
-        location.reload();
-      }
+    function formatToWIB(dateString) {
+      const utc = new Date(dateString);
+      const wib = new Date(utc.getTime() + (7 * 60 * 60 * 1000));
+      return wib.toLocaleString('id-ID', {
+        day: 'numeric', month: 'long', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
     }
 
-    async function fetchCurhat() {
-      const galeri = document.getElementById('galeri');
+    async function getLikeCount(postId) {
+      const { count } = await supabase
+        .from("galerisad_likes")
+        .select("*", { count: "exact", head: true })
+        .eq("post_id", postId);
+      return count || 0;
+    }
+
+    async function fetchData() {
       const { data, error } = await supabase
         .from('galerisad')
         .select('*')
         .order('created_at', { ascending: false });
 
       if (error) {
-        galeri.innerHTML = `<p class="text-red-400">❌ Gagal mengambil data: ${error.message}</p>`;
+        entriesBox.innerHTML = `<p class="text-red-400">❌ ${error.message}</p>`;
         return;
       }
 
-      if (data.length === 0) {
-        galeri.innerHTML = `<p class="text-gray-400 text-center">Belum ada curhatan 😞</p>`;
-        return;
+      let html = '';
+      for (const entry of data) {
+        const likeCount = await getLikeCount(entry.id);
+        html += `
+          <div class="content-box" data-id="${entry.id}">
+            <p class="whitespace-pre-wrap">${entry.caption}</p>
+            <p class="text-sm text-gray-400 mt-2">${formatToWIB(entry.created_at)}</p>
+            <div class="absolute bottom-3 right-4 flex items-center gap-4">
+              <button class="text-sm text-red-400 hover:text-red-600" onclick="requestDelete('${entry.id}')">🗑️ Hapus</button>
+              <span class="text-pink-400 hover:scale-110 cursor-pointer" onclick="likePost('${entry.id}')">❤️ <span id="likes-${entry.id}">${likeCount}</span></span>
+            </div>
+          </div>`;
       }
 
-      galeri.innerHTML = data.map(post => {
-        const waktu = new Date(post.created_at).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
-        const captionHtml = post.caption ? `<p class="text-white text-sm mb-2 whitespace-pre-line">${post.caption}</p>` : '';
-        const mediaHtml = post.media_type === "image" ? `<img src="${post.media_url}" class="rounded border border-gray-700 w-full"/>`
-                         : post.media_type === "video" ? `<video controls class="rounded w-full"><source src="${post.media_url}" type="video/mp4" /></video>`
-                         : '';
-
-        return `
-          <div class="bg-gray-800 bg-opacity-60 p-4 rounded shadow">
-            ${captionHtml}
-            ${mediaHtml}
-            <p class="text-right text-gray-400 text-xs mt-2">${waktu}</p>
-          </div>
-        `;
-      }).join('');
+      entriesBox.innerHTML = html;
     }
 
-    fetchCurhat();
-    window.uploadCurhat = uploadCurhat;
+    window.requestDelete = function(id) {
+      toDeleteId = id;
+      deleteCodeInput.value = "";
+      adminConfirmModal.classList.add("active");
+    }
+
+    adminConfirmBtn.onclick = async () => {
+      const code = deleteCodeInput.value.trim();
+      if (code !== ADMIN_CODE_DELETE) {
+        adminConfirmModal.classList.remove("active");
+        wrongCodeModal.classList.add("active");
+        return;
+      }
+
+      await supabase.from("galerisad").delete().eq("id", toDeleteId);
+      toDeleteId = null;
+      adminConfirmModal.classList.remove("active");
+      fetchData();
+    }
+
+    adminCancelBtn.onclick = () => {
+      adminConfirmModal.classList.remove("active");
+      toDeleteId = null;
+    }
+
+    wrongCodeClose.onclick = () => wrongCodeModal.classList.remove("active");
+    emptyCaptionClose.onclick = () => emptyCaptionModal.classList.remove("active");
+
+    window.likePost = async function(postId) {
+      await supabase.from("galerisad_likes").insert([{ post_id: postId }]);
+      const count = await getLikeCount(postId);
+      document.getElementById(`likes-${postId}`).textContent = count;
+    }
+
+    submitBtn.onclick = async () => {
+      const caption = captionInput.value.trim();
+      const access = accessInput.value.trim();
+
+      if (!caption) {
+        emptyCaptionModal.classList.add("active");
+        return;
+      }
+
+      if (access !== ADMIN_CODE_POST) {
+        wrongCodeModal.classList.add("active");
+        return;
+      }
+
+      await supabase.from('galerisad').insert([{ caption }]);
+      captionInput.value = "";
+      accessInput.value = "";
+      fetchData();
+    }
+
+    fetchData();
   </script>
 </body>
 </html>
