@@ -71,22 +71,22 @@
       <textarea id="caption" rows="3" placeholder="Tulis isi hati..." class="w-full p-2 rounded bg-white bg-opacity-10 text-white focus:outline-none mb-3"></textarea>
       <input id="accessCode" type="password" placeholder="Kode akses admin posting..." class="w-full p-2 rounded bg-white bg-opacity-10 text-white focus:outline-none mb-3" />
 
-<!-- 🔽 Tombol ke getcode.html -->
-<div class="flex justify-between items-center mb-3">
-  <button id="submit" class="flex-1 py-2 bg-gray-600 hover:bg-gray-700 rounded text-white mr-2">Upload Keluh Kesah</button>
- <a href="getkode.html" title="Ambil kode akses" class="hover:scale-110 transition-transform duration-200">
-  <img src="https://cdn-icons-png.flaticon.com/512/271/271228.png" alt="Get Code" class="w-8 h-8" />
-</a>
-</div>
+      <div class="flex justify-between items-center mb-3">
+        <button id="submit" class="flex-1 py-2 bg-gray-600 hover:bg-gray-700 rounded text-white mr-2">Upload Keluh Kesah</button>
+        <a href="getkode.html" title="Ambil kode akses" class="hover:scale-110 transition-transform duration-200">
+          <img src="https://cdn-icons-png.flaticon.com/512/271/271228.png" alt="Get Code" class="w-8 h-8" />
+        </a>
+      </div>
 
-    <div id="entries"></div>
+      <div id="entries"></div>
 
-    <div class="text-center mt-6">
-      <a href="index.html" class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-800">Kembali</a>
+      <div class="text-center mt-6">
+        <a href="index.html" class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-800">Kembali</a>
+      </div>
     </div>
   </div>
 
-  <!-- Modal Konfirmasi Hapus Admin -->
+  <!-- Modal Konfirmasi Hapus -->
   <div id="adminConfirmModal" class="modal-bg">
     <div class="modal">
       <p class="text-lg font-semibold mb-2">🔐 Masukkan Kode Akses Admin</p>
@@ -116,142 +116,127 @@
     </div>
   </div>
 
-  <!-- ✅ Sudah sama seperti yang kamu tulis, tidak ada perubahan tambahan -->
-<!-- ✅ Perubahan utama ada di bagian `submitBtn.onclick = async () => {...}` -->
+  <script type="module">
+    import { supabase } from './supabase.js';
 
-<script type="module">
-  import { supabase } from './supabase.js';
+    const captionInput = document.getElementById("caption");
+    const accessInput = document.getElementById("accessCode");
+    const submitBtn = document.getElementById("submit");
+    const entriesBox = document.getElementById("entries");
 
-  const captionInput = document.getElementById("caption");
-  const accessInput = document.getElementById("accessCode");
-  const submitBtn = document.getElementById("submit");
-  const entriesBox = document.getElementById("entries");
+    const adminConfirmModal = document.getElementById("adminConfirmModal");
+    const deleteCodeInput = document.getElementById("deleteCode");
+    const adminConfirmBtn = document.getElementById("adminConfirmBtn");
+    const adminCancelBtn = document.getElementById("adminCancelBtn");
 
-  const adminConfirmModal = document.getElementById("adminConfirmModal");
-  const deleteCodeInput = document.getElementById("deleteCode");
-  const adminConfirmBtn = document.getElementById("adminConfirmBtn");
-  const adminCancelBtn = document.getElementById("adminCancelBtn");
+    const wrongCodeModal = document.getElementById("wrongCodeModal");
+    const wrongCodeClose = document.getElementById("wrongCodeClose");
 
-  const wrongCodeModal = document.getElementById("wrongCodeModal");
-  const wrongCodeClose = document.getElementById("wrongCodeClose");
+    const emptyCaptionModal = document.getElementById("emptyCaptionModal");
+    const emptyCaptionClose = document.getElementById("emptyCaptionClose");
 
-  const emptyCaptionModal = document.getElementById("emptyCaptionModal");
-  const emptyCaptionClose = document.getElementById("emptyCaptionClose");
+    const ADMIN_CODE_DELETE = "kyluesky321";
+    let toDeleteId = null;
 
-  const ADMIN_CODE_DELETE = "kyluesky321";
-  let toDeleteId = null;
-
-  function formatToWIB(dateString) {
-    const utc = new Date(dateString);
-    const wib = new Date(utc.getTime() + (7 * 60 * 60 * 1000));
-    return wib.toLocaleString('id-ID', {
-      day: 'numeric', month: 'long', year: 'numeric',
-      hour: '2-digit', minute: '2-digit', second: '2-digit'
-    });
-  }
-
-  async function getLikeCount(postId) {
-    const { count } = await supabase
-      .from("galerisad_likes")
-      .select("*", { count: "exact", head: true })
-      .eq("post_id", postId);
-    return count || 0;
-  }
-
-  async function fetchData() {
-    const { data, error } = await supabase
-      .from('galerisad')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      entriesBox.innerHTML = `<p class="text-red-400">❌ ${error.message}</p>`;
-      return;
+    async function getLikeCount(postId) {
+      const { count } = await supabase
+        .from("galerisad_likes")
+        .select("*", { count: "exact", head: true })
+        .eq("post_id", postId);
+      return count || 0;
     }
 
-    let html = '';
-    for (const entry of data) {
-      const likeCount = await getLikeCount(entry.id);
-      html += `
-        <div class="content-box" data-id="${entry.id}">
-          <p class="whitespace-pre-wrap">${entry.caption}</p>
-          <p class="text-sm text-gray-400 mt-2">${formatToWIB(entry.created_at)}</p>
-          <div class="absolute bottom-3 right-4 flex items-center gap-4">
-            <button class="text-sm text-red-400 hover:text-red-600" onclick="requestDelete('${entry.id}')">🗑️ Hapus</button>
-            <span class="text-pink-400 hover:scale-110 cursor-pointer" onclick="likePost('${entry.id}')">❤️ <span id="likes-${entry.id}">${likeCount}</span></span>
-          </div>
-        </div>`;
+    async function fetchData() {
+      const { data, error } = await supabase
+        .from('galerisad')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        entriesBox.innerHTML = `<p class="text-red-400">❌ ${error.message}</p>`;
+        return;
+      }
+
+      let html = '';
+      for (const entry of data) {
+        const likeCount = await getLikeCount(entry.id);
+        html += `
+          <div class="content-box" data-id="${entry.id}">
+            <p class="whitespace-pre-wrap">${entry.caption}</p>
+            <div class="absolute bottom-3 right-4 flex items-center gap-4">
+              <button class="text-sm text-red-400 hover:text-red-600" onclick="requestDelete('${entry.id}')">🗑️ Hapus</button>
+              <span class="text-pink-400 hover:scale-110 cursor-pointer" onclick="likePost('${entry.id}')">❤️ <span id="likes-${entry.id}">${likeCount}</span></span>
+            </div>
+          </div>`;
+      }
+
+      entriesBox.innerHTML = html;
     }
 
-    entriesBox.innerHTML = html;
-  }
+    window.requestDelete = function(id) {
+      toDeleteId = id;
+      deleteCodeInput.value = "";
+      adminConfirmModal.classList.add("active");
+    }
 
-  window.requestDelete = function(id) {
-    toDeleteId = id;
-    deleteCodeInput.value = "";
-    adminConfirmModal.classList.add("active");
-  }
+    adminConfirmBtn.onclick = async () => {
+      const code = deleteCodeInput.value.trim();
+      if (code !== ADMIN_CODE_DELETE) {
+        adminConfirmModal.classList.remove("active");
+        wrongCodeModal.classList.add("active");
+        return;
+      }
 
-  adminConfirmBtn.onclick = async () => {
-    const code = deleteCodeInput.value.trim();
-    if (code !== ADMIN_CODE_DELETE) {
+      await supabase.from("galerisad").delete().eq("id", toDeleteId);
+      toDeleteId = null;
       adminConfirmModal.classList.remove("active");
-      wrongCodeModal.classList.add("active");
-      return;
+      fetchData();
     }
 
-    await supabase.from("galerisad").delete().eq("id", toDeleteId);
-    toDeleteId = null;
-    adminConfirmModal.classList.remove("active");
+    adminCancelBtn.onclick = () => {
+      adminConfirmModal.classList.remove("active");
+      toDeleteId = null;
+    }
+
+    wrongCodeClose.onclick = () => wrongCodeModal.classList.remove("active");
+    emptyCaptionClose.onclick = () => emptyCaptionModal.classList.remove("active");
+
+    window.likePost = async function(postId) {
+      await supabase.from("galerisad_likes").insert([{ post_id: postId }]);
+      const count = await getLikeCount(postId);
+      document.getElementById(`likes-${postId}`).textContent = count;
+    }
+
+    submitBtn.onclick = async () => {
+      const caption = captionInput.value.trim();
+      const access = accessInput.value.trim();
+
+      if (!caption) {
+        emptyCaptionModal.classList.add("active");
+        return;
+      }
+
+      const { data: codes, error } = await supabase
+        .from("admin_codes")
+        .select("*")
+        .eq("code", access)
+        .eq("used", false)
+        .limit(1);
+
+      if (error || !codes || codes.length === 0) {
+        wrongCodeModal.classList.add("active");
+        return;
+      }
+
+      await supabase.from('galerisad').insert([{ caption }]);
+      await supabase.from("admin_codes").update({ used: true }).eq("id", codes[0].id);
+
+      captionInput.value = "";
+      accessInput.value = "";
+      fetchData();
+    }
+
     fetchData();
-  }
-
-  adminCancelBtn.onclick = () => {
-    adminConfirmModal.classList.remove("active");
-    toDeleteId = null;
-  }
-
-  wrongCodeClose.onclick = () => wrongCodeModal.classList.remove("active");
-  emptyCaptionClose.onclick = () => emptyCaptionModal.classList.remove("active");
-
-  window.likePost = async function(postId) {
-    await supabase.from("galerisad_likes").insert([{ post_id: postId }]);
-    const count = await getLikeCount(postId);
-    document.getElementById(`likes-${postId}`).textContent = count;
-  }
-
-  submitBtn.onclick = async () => {
-    const caption = captionInput.value.trim();
-    const access = accessInput.value.trim();
-
-    if (!caption) {
-      emptyCaptionModal.classList.add("active");
-      return;
-    }
-
-    // 🔍 Cek ke database apakah kode masih tersedia
-    const { data: codes, error } = await supabase
-      .from("admin_codes")
-      .select("*")
-      .eq("code", access)
-      .eq("used", false)
-      .limit(1);
-
-    if (error || !codes || codes.length === 0) {
-      wrongCodeModal.classList.add("active");
-      return;
-    }
-
-    // ✅ Simpan curhatan dan tandai kode sudah dipakai
-    await supabase.from('galerisad').insert([{ caption }]);
-    await supabase.from("admin_codes").update({ used: true }).eq("id", codes[0].id);
-
-    captionInput.value = "";
-    accessInput.value = "";
-    fetchData();
-  }
-
-  fetchData();
-</script>
+  </script>
 </body>
 </html>
