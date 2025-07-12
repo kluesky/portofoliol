@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galeri Sedih</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script type="module" src="./supabase.js"></script>
+  <style>
+    body {
+      background: url('https://files.catbox.moe/n9hcgz.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(10px);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .content-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #e5e7eb;
+      box-shadow: 0 0 15px #111827;
+      animation: fadeIn 0.4s ease-in;
+    }
+    .content-box img, .content-box video {
+      border-radius: 0.5rem;
+      margin-top: 0.5rem;
+      width: 100%;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay max-w-2xl mx-auto">
+    <h1 class="text-3xl text-center font-bold text-gray-100 mb-6">💔 Galeri Kesedihan</h1>
+
+    <div class="content-box">
+      <textarea id="caption" rows="3" placeholder="Tulis isi hati..." class="w-full p-2 rounded bg-white bg-opacity-10 text-white focus:outline-none mb-3"></textarea>
+      <input type="file" id="media" accept="image/*,video/*" class="text-white mb-3">
+      <button id="submit" class="w-full py-2 bg-gray-600 hover:bg-gray-700 rounded text-white">🌧️ Upload Curhat</button>
+    </div>
+
+    <div id="entries"></div>
+
+    <div class="text-center mt-6">
+      <a href="index.html" class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-800">🏠 Kembali</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from './supabase.js';
+
+    const captionInput = document.getElementById("caption");
+    const mediaInput = document.getElementById("media");
+    const submitBtn = document.getElementById("submit");
+    const entriesBox = document.getElementById("entries");
+
+    async function fetchData() {
+      const { data, error } = await supabase
+        .from('galerisad')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        entriesBox.innerHTML = `<p class="text-red-400">❌ Gagal memuat data: ${error.message}</p>`;
+        return;
+      }
+
+      entriesBox.innerHTML = data.map(entry => `
+        <div class="content-box">
+          <p>${entry.caption || "(tanpa kata)"}</p>
+          ${entry.media_type === 'image' ? `<img src="${entry.media_url}" alt="gambar">` : ''}
+          ${entry.media_type === 'video' ? `<video src="${entry.media_url}" controls></video>` : ''}
+          <p class="text-sm text-gray-400 mt-2">${new Date(entry.created_at).toLocaleString('id-ID')}</p>
+        </div>
+      `).join('');
+    }
+
+    submitBtn.onclick = async () => {
+      const file = mediaInput.files[0];
+      const caption = captionInput.value.trim();
+
+      if (!file && !caption) return alert("⚠️ Curhatan tidak boleh kosong.");
+
+      let mediaUrl = null;
+      let mediaType = null;
+
+      if (file) {
+        const filename = `${Date.now()}_${file.name}`;
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('galerisad-media')
+          .upload(filename, file);
+
+        if (uploadError) return alert("❌ Gagal upload media: " + uploadError.message);
+
+        const { data: urlData } = supabase.storage
+          .from('galerisad-media')
+          .getPublicUrl(filename);
+
+        mediaUrl = urlData.publicUrl;
+        mediaType = file.type.startsWith("video") ? "video" : "image";
+      }
+
+      const { error: insertError } = await supabase
+        .from('galerisad')
+        .insert([{ caption, media_url: mediaUrl, media_type: mediaType }]);
+
+      if (insertError) return alert("❌ Gagal menyimpan curhat: " + insertError.message);
+
+      captionInput.value = "";
+      mediaInput.value = "";
+      fetchData();
+    }
+
+    // Load data on page load
+    fetchData();
+  </script>
+</body>
+</html>
