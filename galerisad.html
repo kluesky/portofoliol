@@ -70,7 +70,6 @@
     <div class="content-box">
       <textarea id="caption" rows="3" placeholder="Tulis isi hati..." class="w-full p-2 rounded bg-white bg-opacity-10 text-white focus:outline-none mb-3"></textarea>
       <input id="accessCode" type="password" placeholder="Kode akses admin posting..." class="w-full p-2 rounded bg-white bg-opacity-10 text-white focus:outline-none mb-3" />
-      <input id="mediaInput" type="file" multiple accept="image/*,video/*" class="w-full p-2 rounded bg-white bg-opacity-10 text-white focus:outline-none mb-3" />
 
       <div class="flex justify-between items-center mb-3">
         <button id="submit" class="flex-1 py-2 bg-gray-600 hover:bg-gray-700 rounded text-white mr-2">Upload Keluh Kesah</button>
@@ -87,6 +86,7 @@
     </div>
   </div>
 
+  <!-- Modal Konfirmasi Hapus -->
   <div id="adminConfirmModal" class="modal-bg">
     <div class="modal">
       <p class="text-lg font-semibold mb-2">🔐 Masukkan Kode Akses Admin</p>
@@ -98,6 +98,7 @@
     </div>
   </div>
 
+  <!-- Modal Kode Salah -->
   <div id="wrongCodeModal" class="modal-bg">
     <div class="modal">
       <p class="text-red-400 text-xl font-semibold mb-2">Kode Akses Salah atau Sudah Digunakan!</p>
@@ -106,6 +107,7 @@
     </div>
   </div>
 
+  <!-- Modal Curhatan Kosong -->
   <div id="emptyCaptionModal" class="modal-bg">
     <div class="modal">
       <p class="text-yellow-300 text-xl font-semibold mb-2">⚠️ Curhatan tidak boleh kosong</p>
@@ -119,7 +121,6 @@
 
     const captionInput = document.getElementById("caption");
     const accessInput = document.getElementById("accessCode");
-    const mediaInput = document.getElementById("mediaInput");
     const submitBtn = document.getElementById("submit");
     const entriesBox = document.getElementById("entries");
 
@@ -161,14 +162,7 @@
         const likeCount = await getLikeCount(entry.id);
         html += `
           <div class="content-box" data-id="${entry.id}">
-            <p class="whitespace-pre-wrap mb-2">${entry.caption}</p>
-            ${entry.media_urls ? entry.media_urls.map(url => {
-              if (url.endsWith('.mp4') || url.includes('video')) {
-                return `<video src="${url}" controls class="w-full max-h-60 rounded mb-2"></video>`;
-              } else {
-                return `<img src="${url}" class="w-full max-h-60 object-cover rounded mb-2" />`;
-              }
-            }).join('') : ''}
+            <p class="whitespace-pre-wrap">${entry.caption}</p>
             <div class="absolute bottom-3 right-4 flex items-center gap-4">
               <button class="text-sm text-red-400 hover:text-red-600" onclick="requestDelete('${entry.id}')">🗑️ Hapus</button>
               <span class="text-pink-400 hover:scale-110 cursor-pointer" onclick="likePost('${entry.id}')">❤️ <span id="likes-${entry.id}">${likeCount}</span></span>
@@ -217,7 +211,7 @@
       const caption = captionInput.value.trim();
       const access = accessInput.value.trim();
 
-      if (!caption && mediaInput.files.length === 0) {
+      if (!caption) {
         emptyCaptionModal.classList.add("active");
         return;
       }
@@ -234,39 +228,11 @@
         return;
       }
 
-      let mediaUrls = [];
-
-      if (mediaInput.files.length > 0) {
-        for (const file of mediaInput.files) {
-          const ext = file.name.split('.').pop();
-          const fileName = `${Date.now()}-${Math.random().toString(36).substr(2, 6)}.${ext}`;
-
-          const { error: uploadError } = await supabase.storage
-            .from('galerisad')
-            .upload(fileName, file);
-
-          if (!uploadError) {
-            const { publicURL } = supabase.storage
-              .from('galerisad')
-              .getPublicUrl(fileName).data;
-            mediaUrls.push(publicURL);
-          }
-        }
-      }
-
-      await supabase.from('galerisad').insert([{ 
-        caption, 
-        media_urls: mediaUrls.length > 0 ? mediaUrls : null 
-      }]);
-
-      await supabase
-        .from("admin_codes")
-        .update({ used: true })
-        .eq("id", codes[0].id);
+      await supabase.from('galerisad').insert([{ caption }]);
+      await supabase.from("admin_codes").update({ used: true }).eq("id", codes[0].id);
 
       captionInput.value = "";
       accessInput.value = "";
-      mediaInput.value = null;
       fetchData();
     }
 
