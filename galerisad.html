@@ -242,12 +242,12 @@
           const fileName = `${Date.now()}-${Math.random().toString(36).substr(2, 6)}.${ext}`;
 
           const { error: uploadError } = await supabase.storage
-            .from('galerisad-media')
+            .from('galerisad')
             .upload(fileName, file);
 
           if (!uploadError) {
             const { publicURL } = supabase.storage
-              .from('galerisad-media')
+              .from('galerisad')
               .getPublicUrl(fileName).data;
             mediaUrls.push(publicURL);
           }
