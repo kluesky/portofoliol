@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -38,49 +39,58 @@
     h1, h2 {
       font-family: 'Orbitron', sans-serif;
     }
+    @keyframes fade-in {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .animate-fade-in {
+      animation: fade-in 0.4s ease-out;
+    }
   </style>
 </head>
-<!-- Anime-style Welcome Modal -->
-<div id="welcomeModal" class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50">
-  <div class="bg-[#1f2937] text-white p-6 rounded-2xl shadow-2xl max-w-sm w-full animate-fade-in text-center relative">
-    <img src="https://media1.tenor.com/m/65ImL18WPCMAAAAd/%E5%8D%83%E6%9D%9F.gif" alt="Chisato Greeting" class="rounded-lg mx-auto mb-4 shadow border border-pink-300" />
-    <h2 class="text-2xl font-bold text-pink-300 mb-2">Creator @me_kyluesky~ 💖</h2>
-    <p class="text-sm text-gray-300 mb-4">Selamat datang di <span class="text-yellow-300 font-semibold">Chisato TikTok Downloader</span>!~ Aku senang kamu datang 💫 Yuk, mulai download video kesukaanmu dengan sekali klik. Jangan lupa senyum ya!</p>
-    <button onclick="document.getElementById('welcomeModal').remove()" class="mt-2 px-4 py-2 bg-pink-500 hover:bg-pink-600 transition rounded-full text-sm font-medium shadow">
-      🎀 Baik, Chisato!
-    </button>
-  </div>
-</div>
-
-<style>
-@keyframes fade-in {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-.animate-fade-in {
-  animation: fade-in 0.4s ease-out;
-}
-</style>
 <body class="min-h-screen flex flex-col items-center justify-center px-4 py-8 space-y-10">
-  </script>  <div class="glass-box w-full max-w-lg text-center">
+
+  <!-- Welcome Modal -->
+  <div id="welcomeModal" class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50">
+    <div class="bg-[#1f2937] text-white p-6 rounded-2xl shadow-2xl max-w-sm w-full animate-fade-in text-center relative">
+      <img src="https://media1.tenor.com/m/65ImL18WPCMAAAAd/%E5%8D%83%E6%9D%9F.gif" alt="Chisato Greeting" class="rounded-lg mx-auto mb-4 shadow border border-pink-300" />
+      <h2 class="text-2xl font-bold text-pink-300 mb-2">Creator @me_kyluesky~ 💖</h2>
+      <p class="text-sm text-gray-300 mb-4">Selamat datang di <span class="text-yellow-300 font-semibold">Chisato TikTok Downloader</span>!~ Yuk, mulai download video, slide, atau MP3 kesukaanmu. Jangan lupa senyum ya 💫</p>
+      <button onclick="document.getElementById('welcomeModal').remove()" class="mt-2 px-4 py-2 bg-pink-500 hover:bg-pink-600 transition rounded-full text-sm font-medium shadow">
+        🎀 Baik, Chisato!
+      </button>
+    </div>
+  </div>
+
+  <!-- TikTok Video Downloader -->
+  <div class="glass-box w-full max-w-lg text-center">
     <h1 class="text-3xl text-cyan-300 mb-2">TikTok Video Downloader</h1>
-    <p class="text-sm text-gray-300 mb-4">Download video TikTok tanpa watermark dan kualitas terbaik.</p>
+    <p class="text-sm text-gray-300 mb-4">Download video TikTok tanpa watermark.</p>
     <input id="tiktokUrl" type="text" placeholder="Tempelkan link TikTok..." class="w-full p-2 mb-4 rounded border border-cyan-400 bg-white bg-opacity-10 text-white focus:outline-none" />
     <button onclick="downloadVideo()" class="w-full py-2 bg-red-600 hover:bg-red-700 rounded font-semibold btn-glow">Download Video</button>
     <div id="result" class="mt-6"></div>
-  </div>  <div class="glass-box w-full max-w-lg text-center">
+  </div>
+
+  <!-- TikTok Slide Downloader -->
+  <div class="glass-box w-full max-w-lg text-center">
     <h2 class="text-2xl text-pink-400 mb-2">TikTok Slide Downloader</h2>
     <p class="text-sm text-gray-300 mb-4">Download semua gambar dari slide TikTok secara manual.</p>
     <input id="slideUrl" type="text" placeholder="Tempelkan link TikTok Slide..." class="w-full p-2 mb-4 rounded border border-pink-400 bg-white bg-opacity-10 text-white focus:outline-none" />
     <button onclick="downloadSlide()" class="w-full py-2 bg-pink-600 hover:bg-pink-700 rounded font-semibold btn-glow">Download Slide</button>
     <div id="slideResult" class="mt-6"></div>
-  </div>  <div class="glass-box w-full max-w-lg text-center">
+  </div>
+
+  <!-- TikTok MP3 Downloader -->
+  <div class="glass-box w-full max-w-lg text-center">
     <h2 class="text-2xl text-yellow-400 mb-2">TikTok MP3 Downloader</h2>
     <p class="text-sm text-gray-300 mb-4">Ekstrak audio dari video TikTok dan simpan sebagai MP3.</p>
     <input id="mp3Url" type="text" placeholder="Tempelkan link TikTok..." class="w-full p-2 mb-4 rounded border border-yellow-400 bg-white bg-opacity-10 text-white focus:outline-none" />
     <button onclick="downloadMP3()" class="w-full py-2 bg-yellow-500 hover:bg-yellow-600 rounded font-semibold btn-glow">Download MP3</button>
     <div id="mp3Result" class="mt-6"></div>
-  </div><a href="index.html" class="mt-6 inline-block px-6 py-2 bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 rounded-lg font-semibold shadow-lg">Kembali ke Beranda</a>
+  </div>
+
+  <!-- Kembali -->
+  <a href="index.html" class="mt-6 inline-block px-6 py-2 bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 rounded-lg font-semibold shadow-lg">Kembali ke Beranda</a>
 
   <script>
     function generateRandomFilename(ext = '.mp4') {
@@ -95,37 +105,30 @@
     async function downloadVideo() {
       const url = document.getElementById("tiktokUrl").value.trim();
       const resultBox = document.getElementById("result");
-
       if (!url.includes("tiktok.com")) {
         resultBox.innerHTML = `<p class="text-red-400 mt-4">⚠️ Link tidak valid</p>`;
         return;
       }
-
       resultBox.innerHTML = `<p class="text-cyan-300 animate-pulse">⏳ Mengambil video...</p>`;
-
       try {
         const res = await fetch(`https://tikwm.com/api/?url=${encodeURIComponent(url)}&hd=1`);
         const json = await res.json();
-
         if (!json.data?.play) throw new Error("Video tidak ditemukan.");
-
         const blob = await fetch(json.data.play).then(r => r.blob());
         const blobUrl = URL.createObjectURL(blob);
-
+        const caption = json.data.title || "Tidak ada caption";
+        const username = json.data.author?.unique_id || "Tidak diketahui";
         const link = document.createElement("a");
         link.href = blobUrl;
         link.download = generateRandomFilename('.mp4');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
+        document.body.appendChild(link); link.click(); document.body.removeChild(link);
         resultBox.innerHTML = `
           <video controls autoplay class="w-full rounded mt-4 shadow-xl border border-cyan-300">
             <source src="${blobUrl}" type="video/mp4">
-            Browser tidak mendukung video.
           </video>
-          <p class="mt-4 text-cyan-400">✅ Video berhasil diunduh!</p>
-        `;
+          <p class="mt-2 text-sm text-cyan-200 italic">📄 Caption: ${caption}</p>
+          <p class="text-sm text-yellow-200 italic">👤 Creator: @${username}</p>
+          <p class="mt-2 text-cyan-400">✅ Video berhasil diunduh!</p>`;
       } catch (err) {
         resultBox.innerHTML = `<p class="text-red-400 mt-4">❌ Gagal: ${err.message}</p>`;
       }
@@ -133,69 +136,54 @@
 
     async function downloadSlide() {
       const url = document.getElementById("slideUrl").value.trim();
-      const slideBox = document.getElementById("slideResult");
-
+      const box = document.getElementById("slideResult");
       if (!url.includes("tiktok.com")) {
-        slideBox.innerHTML = `<p class="text-red-400 mt-4">⚠️ Link tidak valid</p>`;
+        box.innerHTML = `<p class="text-red-400 mt-4">⚠️ Link tidak valid</p>`;
         return;
       }
-
-      slideBox.innerHTML = `<p class="text-pink-300 animate-pulse">⏳ Mengambil slide...</p>`;
-
+      box.innerHTML = `<p class="text-pink-300 animate-pulse">⏳ Mengambil slide...</p>`;
       try {
         const res = await fetch(`https://tikwm.com/api/?url=${encodeURIComponent(url)}&hd=1`);
         const json = await res.json();
-
         if (!json.data?.images) throw new Error("Slide tidak ditemukan.");
-
-        slideBox.innerHTML = json.data.images.map((img, i) => `
+        box.innerHTML = json.data.images.map((img, i) => `
           <div class="mt-4">
             <img src="${img}" class="rounded w-full border border-pink-400 mb-2"/>
             <a href="${img}" download="slide_${i + 1}.jpg" class="text-pink-300 hover:underline">⬇️ Download Slide ${i + 1}</a>
-          </div>
-        `).join('');
+          </div>`).join('');
       } catch (err) {
-        slideBox.innerHTML = `<p class="text-red-400 mt-4">❌ Gagal: ${err.message}</p>`;
+        box.innerHTML = `<p class="text-red-400 mt-4">❌ Gagal: ${err.message}</p>`;
       }
     }
 
     async function downloadMP3() {
       const url = document.getElementById("mp3Url").value.trim();
-      const mp3Box = document.getElementById("mp3Result");
-
+      const box = document.getElementById("mp3Result");
       if (!url.includes("tiktok.com")) {
-        mp3Box.innerHTML = `<p class="text-red-400 mt-4">⚠️ Link tidak valid</p>`;
+        box.innerHTML = `<p class="text-red-400 mt-4">⚠️ Link tidak valid</p>`;
         return;
       }
-
-      mp3Box.innerHTML = `<p class="text-yellow-300 animate-pulse">🎶 Mengambil audio...</p>`;
-
+      box.innerHTML = `<p class="text-yellow-300 animate-pulse">🎶 Mengambil audio...</p>`;
       try {
         const res = await fetch(`https://tikwm.com/api/?url=${encodeURIComponent(url)}&hd=1`);
         const json = await res.json();
-
         if (!json.data?.music) throw new Error("Audio tidak ditemukan.");
-
         const blob = await fetch(json.data.music).then(r => r.blob());
         const blobUrl = URL.createObjectURL(blob);
-
         const link = document.createElement("a");
         link.href = blobUrl;
         link.download = generateRandomFilename('.mp3');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        mp3Box.innerHTML = `
+        document.body.appendChild(link); link.click(); document.body.removeChild(link);
+        box.innerHTML = `
           <audio controls class="w-full mt-4">
             <source src="${blobUrl}" type="audio/mpeg">
-            Browser tidak mendukung audio.
           </audio>
-          <p class="mt-2 text-yellow-300">✅ MP3 berhasil diunduh!</p>
-        `;
+          <p class="mt-2 text-yellow-300">✅ MP3 berhasil diunduh!</p>`;
       } catch (err) {
-        mp3Box.innerHTML = `<p class="text-red-400 mt-4">❌ Gagal: ${err.message}</p>`;
+        box.innerHTML = `<p class="text-red-400 mt-4">❌ Gagal: ${err.message}</p>`;
       }
     }
-  </script></body>
+  </script>
+
+</body>
 </html>
