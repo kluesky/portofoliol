@@ -106,21 +106,33 @@
             border: none;
         }
         
-        .song-details {
-            text-align: center;
+        .song-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 1.2rem;
             margin-top: 1rem;
+            text-align: center;
+            border: 1px solid rgba(255, 143, 171, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         
         .song-title {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 0.4rem;
             color: var(--accent);
+            font-weight: 500;
         }
         
         .song-artist {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: var(--secondary);
-            margin-bottom: 1rem;
+            margin-bottom: 0.4rem;
+        }
+        
+        .song-desc {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            opacity: 0.9;
         }
         
         .message-container {
@@ -193,6 +205,18 @@
             .container {
                 padding: 1rem;
             }
+            
+            .song-title {
+                font-size: 1.1rem;
+            }
+            
+            .song-artist {
+                font-size: 0.9rem;
+            }
+            
+            .song-desc {
+                font-size: 0.8rem;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -212,14 +236,14 @@
         
         <main>
             <div class="player-container">
-    <div class="video-wrapper">
-        <iframe id="ytplayer" src="https://www.youtube.com/embed/ZBZqHCyp15U?enablejsapi=1&autoplay=1&controls=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
+                <div class="video-wrapper">
+                    <iframe id="ytplayer" src="https://www.youtube.com/embed/ZBZqHCyp15U?enablejsapi=1&autoplay=1&controls=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
                 
-                <div class="song-details">
-                    <h1 class="song-title">Aku mau bilang sesuatu</h1>
-                    <p class="song-artist">Udah ku pendem selama 5 tahun</p>
-                    <p class="song-desk">Baru berani bilang sekarang</p>
+                <div class="song-box">
+                    <h1 class="song-title">halo mutia, luangin waktunya 5 menit aja ya</h1>
+                    <p class="song-artist">dalam 5 menit itu aku bakal ungkapin semua isi hatiku sama kamu</p>
+                    <p class="song-desc">dalam 5 tahun ini</p>
                 </div>
                 
                 <div class="message-container" id="message-container">
