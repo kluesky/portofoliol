@@ -25,12 +25,15 @@
             color: var(--light);
             min-height: 100vh;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
         }
         
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 2rem;
+            flex: 1;
         }
         
         header {
@@ -129,10 +132,14 @@
             margin-bottom: 0.4rem;
         }
         
-        .song-desc {
-            font-size: 0.9rem;
-            color: var(--secondary);
-            opacity: 0.9;
+                .song-desc {
+            font-size: 1.5rem; /* Increased from 0.9rem */
+            color: var(--primary);
+            font-weight: 600;
+            margin-top: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
         }
         
         .message-container {
@@ -163,6 +170,39 @@
             font-size: 1.2rem;
             color: var(--accent);
             animation: float 3s ease-in-out infinite;
+        }
+        
+        .next-btn-container {
+            text-align: center;
+            margin-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        
+        .next-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(145deg, var(--primary), var(--accent));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 139, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .next-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 139, 0.6);
+        }
+        
+        .next-btn:active {
+            transform: translateY(1px);
         }
         
         @keyframes fadeIn {
@@ -215,7 +255,12 @@
             }
             
             .song-desc {
-                font-size: 0.8rem;
+                font-size: 1.2rem;
+            }
+            
+            .next-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -264,6 +309,12 @@ semoga setelah ini gaada yang menjauh diantara kita berdua yaa? jaga diri kamu b
                 </div>
             </div>
         </main>
+
+        <div class="next-btn-container">
+            <a href="reason.html" class="next-btn">
+                Selanjutnya <i class=""></i>
+            </a>
+        </div>
     </div>
 
     <script>

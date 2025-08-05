@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alasan Ku</title>
+    <style>
+        :root {
+            --primary: #ff6b8b;
+            --secondary: #ffb3c1;
+            --dark: #1a1a2e;
+            --light: #fef6fb;
+            --accent: #ff8fab;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--dark), #16213e);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 2rem;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .back-btn:hover {
+            transform: translateX(-5px);
+            color: var(--primary);
+        }
+        
+        .content-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+        }
+        
+        .video-container {
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+        
+        .message {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            white-space: pre-line;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .heart {
+            color: var(--accent);
+            font-size: 1.5rem;
+            animation: pulse 2s infinite;
+            display: inline-block;
+            margin: 0 5px;
+            vertical-align: middle;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .message {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    
+    <div class="container">
+        <div class="content-box">
+            <div class="video-container">
+                <video id="myVideo" controls autoplay>
+                    <source src="https://files.catbox.moe/5jglbc.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            
+            <div class="message">
+                maaf aku ga seberani itu ngucapin langsung sama kaya cowo lain sambil bawa bunga/cincin, 
+                aku bukan pengecut, aku cuma gengsi 
+                aku harap kamu ga nolak aku karena alasan ini, 
+                tapi aku ngehargain pilihan kamu, 
+                aku siap nerima apapun jawaban kamu, 
+                itu resiko karena aku udah berani suka sama kamu
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enable autoplay with sound for video
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('myVideo');
+            
+            // Remove muted and enable autoplay with sound
+            video.muted = false;
+            
+            // Try to play automatically
+            const playPromise = video.play();
+            
+            // If autoplay is blocked, show controls
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    video.controls = true;
+                    console.log("Autoplay prevented, showing controls");
+                });
+            }
+            
+            // Fallback - enable playback on first user interaction
+            document.body.addEventListener('click', function() {
+                video.play().catch(e => console.log(e));
+            }, { once: true });
+        });
+    </script>
+</body>
+</html>
