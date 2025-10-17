@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Key Generator - Kyluesky</title>
+    <link rel="stylesheet" href="key/setel.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Background Elements -->
+        <div class="bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+
+        <!-- Header -->
+        <header class="header">
+            <div class="brand">
+                <div class="logo">
+                    <i class="fas fa-key"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Kyluesky</h1>
+                    <p>Access Manager</p>
+                </div>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="downloader.html" class="nav-link">
+                    <i class="fas fa-download"></i>
+                    Downloads
+                </a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <div class="hero-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h2>Secure Access Key</h2>
+                    <p>Generate one-time access keys for secure content downloads</p>
+                </div>
+            </section>
+
+            <!-- Generator Card -->
+            <section class="generator-section">
+                <div class="generator-card">
+                    <div class="card-header">
+                        <h3>Key Generator</h3>
+                        <div class="usage-counter">
+                            <span class="counter" id="usageCounter">5</span>
+                            <span class="counter-label">keys remaining</span>
+                        </div>
+                    </div>
+
+                    <!-- Key Display -->
+                    <div class="key-display-wrapper">
+                        <div class="key-display" id="keyDisplay">
+                            <span class="key-placeholder">
+                                <i class="fas fa-key"></i>
+                                Your key will appear here
+                            </span>
+                        </div>
+                        <button class="copy-btn" id="copyBtn" disabled>
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="controls-grid">
+                        <button class="btn btn-primary btn-generate" id="generateBtn">
+                            <i class="fas fa-bolt"></i>
+                            Generate Key
+                        </button>
+                        <button class="btn btn-secondary btn-clear" id="clearBtn">
+                            <i class="fas fa-eraser"></i>
+                            Clear
+                        </button>
+                    </div>
+
+                    <!-- Timer -->
+                    <div class="timer-wrapper" id="timerWrapper">
+                        <div class="timer">
+                            <i class="fas fa-clock"></i>
+                            <span class="timer-text">Next generate in:</span>
+                            <span class="timer-count" id="countdown">10</span>
+                            <span class="timer-unit">s</span>
+                        </div>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="status-message" id="status">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="status-text">Ready to generate access key</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features">
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon security">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h4>Secure Access</h4>
+                        <p>One-time use keys with automatic expiration</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon time">
+                            <i class="fas fa-stopwatch"></i>
+                        </div>
+                        <h4>Auto Expire</h4>
+                        <p>Keys automatically expire after use</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon protection">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <h4>Anti-Spam</h4>
+                        <p>Cooldown protection prevents abuse</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">K</div>
+                    <span>Kyluesky Access System</span>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link">Home</a>
+                    <a href="downloader.html" class="footer-link">Downloads</a>
+                    <a href="#" class="footer-link">Help</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Kyluesky. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="key/cekerip.js"></script>
+</body>
+</html>
