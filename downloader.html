@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kyluesky Download Center</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="down/gemes.css">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+
+  <!-- Access Modal -->
+  <div id="accessSection" class="access-section">
+    <div class="access-container">
+      <div class="access-card">
+        <div class="text-center mb-8">
+          <div class="logo-icon">
+            <i class="fas fa-download"></i>
+          </div>
+          <h1 class="access-title">Download Center</h1>
+          <p class="access-subtitle">Masukkan kode akses untuk melanjutkan</p>
+        </div>
+        
+        <div class="space-y-4">
+          <div class="input-group">
+            <i class="fas fa-key input-icon"></i>
+            <input 
+              id="accessCode" 
+              type="password" 
+              placeholder="Masukkan kode akses..." 
+              class="access-input"
+            >
+          </div>
+          
+          <button id="submitCode" class="primary-button">
+            <i class="fas fa-unlock-alt mr-2"></i>
+            Verifikasi Kode
+          </button>
+          
+          <p id="errorMsg" class="error-message">
+            <i class="fas fa-exclamation-circle mr-2"></i>
+            Kode akses tidak valid
+          </p>
+        </div>
+        
+        <div class="access-footer">
+          <p>Butuh kode akses? 
+            <a href="getkey.html" class="footer-link">
+              Dapatkan di sini
+              <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div id="downloadContent" class="download-container">
+    <!-- Header -->
+    <header class="page-header">
+      <div class="header-content">
+        <div class="logo-section">
+          <div class="main-logo">
+            <i class="fas fa-cloud-download-alt"></i>
+          </div>
+          <div>
+            <h1 class="page-title">Kyluesky Download Center</h1>
+            <p class="page-subtitle">Koleksi script dan tools terkurasi</p>
+          </div>
+        </div>
+        <button onclick="logout()" class="logout-btn">
+          <i class="fas fa-sign-out-alt mr-2"></i>
+          Keluar
+        </button>
+      </div>
+    </header>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon bg-blue-500">
+          <i class="fas fa-robot"></i>
+        </div>
+        <div>
+          <p class="stat-number">8</p>
+          <p class="stat-label">Total Script</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon bg-green-500">
+          <i class="fas fa-tools"></i>
+        </div>
+        <div>
+          <p class="stat-number">4</p>
+          <p class="stat-label">Kategori</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon bg-purple-500">
+          <i class="fas fa-download"></i>
+        </div>
+        <div>
+          <p class="stat-number">24/7</p>
+          <p class="stat-label">Tersedia</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Download Grid -->
+    <div class="download-grid">
+      <!-- WhatsApp Bot -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon bg-blue-500">
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <h3 class="category-title">WhatsApp Bot</h3>
+        </div>
+        <div class="download-list">
+          <div class="download-item">
+            <div class="file-info">
+              <i class="fas fa-file-archive file-icon"></i>
+              <div>
+                <p class="file-name">Script Bot Alicia-MD</p>
+                <p class="file-size">~15 MB</p>
+              </div>
+            </div>
+            <a href="https://www.mediafire.com/file/u1io02dsblsfxgy/SCRIPT+ALICIA-WABOT.zip/file" class="download-link">
+              <i class="fas fa-download"></i>
+            </a>
+          </div>
+          <div class="download-item">
+            <div class="file-info">
+              <i class="fas fa-file-archive file-icon"></i>
+              <div>
+                <p class="file-name">Script Bot Furina-MD</p>
+                <p class="file-size">~18 MB</p>
+              </div>
+            </div>
+            <a href="https://www.mediafire.com/file/79dv72p99tlefda/FURINA+NEW+UPDATE+V4.zip/file" class="download-link">
+              <i class="fas fa-download"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Telegram Bot -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon bg-blue-400">
+            <i class="fab fa-telegram"></i>
+          </div>
+          <h3 class="category-title">Telegram Bot</h3>
+        </div>
+        <div class="download-list">
+          <div class="download-item">
+            <div class="file-info">
+              <i class="fas fa-file-code file-icon"></i>
+              <div>
+                <p class="file-name">Base Tredict Tele</p>
+                <p class="file-size">~8 MB</p>
+              </div>
+            </div>
+            <a href="https://www.mediafire.com/file/p4425ph18g8d7xq/[+BASE+TREDIC+].zip/file" class="download-link">
+              <i class="fas fa-download"></i>
+            </a>
+          </div>
+          <div class="download-item">
+            <div class="file-info">
+              <i class="fas fa-file-code file-icon"></i>
+              <div>
+                <p class="file-name">Sc Bot Justin</p>
+                <p class="file-meta">Password: Justin2025</p>
+              </div>
+            </div>
+            <a href="https://www.mediafire.com/file/k86smicuzfp3dfd/JUSTIN+V20+NO+ENC(KHUSUS+OWNER).zip/file" class="download-link">
+              <i class="fas fa-download"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools AI -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon bg-purple-500">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h3 class="category-title">Tools AI</h3>
+        </div>
+        <div class="download-list">
+          <div class="download-item">
+            <div class="file-info">
+              <i class="fas fa-code file-icon"></i>
+              <div>
+                <p class="file-name">Scrape AI FREE BOX</p>
+                <p class="file-meta">Pastebin Source</p>
+              </div>
+            </div>
+            <a href="https://pastebin.com/Et5b3bsb" class="download-link">
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+          <div class="download-item">
+            <div class="file-info">
+              <i class="fas fa-code file-icon"></i>
+              <div>
+                <p class="file-name">Scrape LiveChart</p>
+                <p class="file-meta">Web Source</p>
+              </div>
+            </div>
+            <a href="https://codeteam.my.id/view/scrape-livechart" class="download-link">
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Template UI -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon bg-amber-500">
+            <i class="fas fa-palette"></i>
+          </div>
+          <h3 class="category-title">UI Template</h3>
+        </div>
+        <div class="download-list">
+          <div class="download-item">
+            <div class="file-info">
+              <i class="fas fa-folder file-icon"></i>
+              <div>
+                <p class="file-name">Portofolio Anime</p>
+                <p class="file-meta">Google Drive</p>
+              </div>
+            </div>
+            <a href="https://drive.google.com/file/d/1MD8VXyHfLI8GPCdGv7l32kf3IZPx3uGj/view?usp=drivesdk" class="download-link">
+              <i class="fas fa-download"></i>
+            </a>
+          </div>
+          <div class="download-item">
+            <div class="file-info">
+              <i class="fas fa-folder file-icon"></i>
+              <div>
+                <p class="file-name">MLBB Landing Page</p>
+                <p class="file-meta">Google Drive</p>
+              </div>
+            </div>
+            <a href="https://drive.google.com/file/d/1MG1MZzdLruh8SZlPYQWNIP3nBV_fgY5V/view?usp=drivesdk" class="download-link">
+              <i class="fas fa-download"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Assets & Media -->
+      <div class="category-card">
+        <div class="category-header">
+          <div class="category-icon bg-emerald-500">
+            <i class="fas fa-cube"></i>
+          </div>
+          <h3 class="category-title">Assets & Media</h3>
+        </div>
+        <div class="download-list">
+          <div class="download-item">
+            <div class="file-info">
+              <i class="fas fa-mobile-alt file-icon"></i>
+              <div>
+                <p class="file-name">Ultra Motion APK</p>
+                <p class="file-meta">Android Application</p>
+              </div>
+            </div>
+            <a href="https://www.mediafire.com/file/b6rvxooa4enmcxp/Ultra+Motion+5.0.271+(Juli+07,+2025).apk/file" class="download-link">
+              <i class="fas fa-download"></i>
+            </a>
+          </div>
+          <div class="download-item">
+            <div class="file-info">
+              <i class="fas fa-toolbox file-icon"></i>
+              <div>
+                <p class="file-name">Injector EFX Ultra Motion</p>
+                <p class="file-meta">Tool Application</p>
+              </div>
+            </div>
+            <a href="https://www.mediafire.com/file/ij21pzk443bpx5h/Injector+5.0.271+(July+7,+2025).apk/file" class="download-link">
+              <i class="fas fa-download"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+      <div class="footer-content">
+        <p>&copy; 2024 Kyluesky Download Center. All rights reserved.</p>
+        <a href="index.html" class="back-home-btn">
+          <i class="fas fa-home mr-2"></i>
+          Kembali ke Beranda
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="down/imut.js"></script>
+</body>
+</html>
