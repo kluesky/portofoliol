@@ -5,20 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kyluesky - Home</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Background Elements -->
+    <div class="bg-gradient"></div>
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
     <!-- Navigation -->
-    <nav class="nav">
+    <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
-                <div class="logo">K</div>
-                <span>Kyluesky</span>
+                <div class="logo">
+                    <i class="fas fa-star"></i>
+                </div>
+                <span class="brand-name">Kyluesky</span>
             </div>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link active">Home</a>
-                <a href="downloader.html" class="nav-link">Downloads</a>
-                <a href="getkey.html" class="nav-link">Access Key</a>
-                <a href="https://lyora.netlify.app/" class="nav-link">Portfolio</a>
+            
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="downloader.html" class="nav-link">
+                    <i class="fas fa-download"></i>
+                    <span>Downloads</span>
+                </a>
+                <a href="getkey.html" class="nav-link">
+                    <i class="fas fa-key"></i>
+                    <span>Access Key</span>
+                </a>
+                <a href="https://lyora.netlify.app/" class="nav-link">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Portfolio</span>
+                </a>
             </div>
         </div>
     </nav>
@@ -27,12 +51,67 @@
     <section class="hero">
         <div class="hero-container">
             <div class="hero-content">
-                <div class="profile-image">
-                    <img src="https://files.catbox.moe/av066j.jpg" alt="Kyluesky">
+                <!-- Profile Image with Animation -->
+                <div class="profile-container">
+                    <div class="profile-frame">
+                        <img src="https://files.catbox.moe/av066j.jpg" alt="Kyluesky" class="profile-img">
+                    </div>
+                    <div class="profile-glow"></div>
                 </div>
-                <h1 class="hero-title">Kyluesky</h1>
-                <p class="hero-subtitle">System Developer</p>
-                <p class="hero-quote">"Luangkan waktu untuk berpikir, tetapi saat waktunya bertindak tiba, berhentilah berpikir dan bertindalah"</p>
+
+                <!-- Main Content -->
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="title-main">Kyluesky</span>
+                        <span class="title-sub">System Developer</span>
+                    </h1>
+                    
+                    <p class="hero-description">
+                        Creating secure and efficient solutions with passion and precision. 
+                        Welcome to my digital space.
+                    </p>
+
+                    <!-- Stats -->
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number">4+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Projects</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Dedication</div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="hero-actions">
+                        <a href="downloader.html" class="btn btn-primary">
+                            <i class="fas fa-download"></i>
+                            Access Downloads
+                        </a>
+                        <a href="getkey.html" class="btn btn-secondary">
+                            <i class="fas fa-key"></i>
+                            Get Access Key
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <div class="container">
+            <div class="quote-card">
+                <i class="fas fa-quote-left quote-icon"></i>
+                <p class="quote-text">
+                    "Luangkan waktu untuk berpikir, tetapi saat waktunya bertindak tiba, 
+                    berhentilah berpikir dan bertindalah"
+                </p>
                 <p class="quote-author">— Napoleon Bonaparte</p>
             </div>
         </div>
@@ -41,46 +120,87 @@
     <!-- About Section -->
     <section class="about">
         <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">Get to know me better</p>
+            </div>
+
             <div class="about-content">
-                <h2>About Me</h2>
                 <div class="about-text">
-                    <p>Halo, nama saya 'Key'. Saat ini, saya tinggal di 'Jepang', tepatnya di kota 'Yamada'.</p>
-                    <p>Saya merupakan seseorang yang lebih nyaman di lingkungan sepi dan terbatas. Saya tidak mudah bergaul dan cenderung menghindari keramaian—bukan karena sombong, tetapi karena memang itu cara saya menjaga energi.</p>
-                    <p>Hobi saya adalah menonton anime dan menggambar—keduanya memberikan saya ruang untuk ekspresi tanpa perlu berkata banyak.</p>
-                    <p>Mengenal orang baru bukanlah hal yang mudah bagi saya, tetapi saya terbiasa menjalaninya dengan cara pelan-pelan.</p>
-                    <p>Senang bisa mengenalmu.</p>
-                </div>
-                <div class="about-actions">
-                    <a href="cv-kyluesky.pdf" class="btn btn-primary">
-                        Download CV
-                    </a>
-                    <a href="downloader.html" class="btn btn-secondary">
-                        Access Downloads
-                    </a>
+                    <div class="about-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Based in Yamada, Japan</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-item">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <h4>Interests</h4>
+                            <p>Anime, Drawing, System Development</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-item">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <h4>Personality</h4>
+                            <p>Introverted, Focused, Detail-Oriented</p>
+                        </div>
+                    </div>
+
+                    <div class="about-bio">
+                        <p>Halo, nama saya 'Key'. Saya merupakan seseorang yang lebih nyaman di lingkungan sepi dan terbatas. Saya tidak mudah bergaul dan cenderung menghindari keramaian—bukan karena sombong, tetapi karena memang itu cara saya menjaga energi.</p>
+                        
+                        <p>Hobi saya adalah menonton anime dan menggambar—keduanya memberikan saya ruang untuk ekspresi tanpa perlu berkata banyak. Mengenal orang baru bukanlah hal yang mudah bagi saya, tetapi saya terbiasa menjalaninya dengan cara pelan-pelan.</p>
+                        
+                        <p>Senang bisa mengenalmu.</p>
+                    </div>
+
+                    <div class="about-actions">
+                        <a href="cv-kyluesky.pdf" class="btn btn-outline">
+                            <i class="fas fa-file-download"></i>
+                            Download CV
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
+    <!-- Services Section -->
+    <section class="services">
         <div class="container">
-            <h2 class="section-title">Services</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🔐</div>
+            <div class="section-header">
+                <h2 class="section-title">What I Offer</h2>
+                <p class="section-subtitle">Secure and reliable services</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
                     <h3>Secure Downloads</h3>
-                    <p>Protected file downloads with access key system</p>
+                    <p>Protected file access system with encrypted keys and one-time usage for maximum security.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3>Fast Delivery</h3>
-                    <p>Quick and reliable file access system</p>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Fast Access</h3>
+                    <p>Quick and efficient file delivery system with optimized performance and reliability.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🛡️</div>
-                    <h3>Safe & Private</h3>
-                    <p>Your privacy and security are our priority</p>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Privacy Focused</h3>
+                    <p>Your privacy is our priority. No tracking, no ads, just clean and secure file sharing.</p>
                 </div>
             </div>
         </div>
@@ -91,10 +211,35 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <div class="logo">K</div>
-                    <span>Kyluesky</span>
+                    <div class="logo">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="footer-text">
+                        <h3>Kyluesky</h3>
+                        <p>System Developer & Content Creator</p>
+                    </div>
                 </div>
-                <p class="footer-text">&copy; 2025 Kyluesky. All rights reserved.</p>
+
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link">Home</a>
+                    <a href="downloader.html" class="footer-link">Downloads</a>
+                    <a href="getkey.html" class="footer-link">Access Key</a>
+                    <a href="https://lyora.netlify.app/" class="footer-link">Portfolio</a>
+                </div>
+
+                <div class="footer-social">
+                    <p>Connect with me</p>
+                    <div class="social-links">
+                        <!-- Add your social links here -->
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Kyluesky. All rights reserved. Made with <i class="fas fa-heart"></i></p>
             </div>
         </div>
     </footer>
