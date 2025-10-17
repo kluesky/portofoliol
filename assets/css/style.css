@@ -45,7 +45,127 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
 }
+/* Add to existing CSS */
 
+/* Loading State */
+.loading-state {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    justify-content: center;
+}
+
+.loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-light);
+    border-top: 2px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Success Message Enhanced */
+.success-message {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: var(--success);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+}
+
+.success-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.success-icon {
+    font-size: 1.25rem;
+}
+
+.success-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.success-details {
+    background: rgba(16, 185, 129, 0.1);
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.success-message-text {
+    color: var(--text-secondary);
+}
+
+/* Error Message Enhanced */
+.error-message {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: var(--error);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+}
+
+.error-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.error-icon {
+    font-size: 1.25rem;
+}
+
+.error-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.error-message-text {
+    color: var(--text-secondary);
+}
+
+/* Slides Grid */
+.slides-grid {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.slide-download-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--success);
+    text-align: center;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.slide-download-link:hover {
+    background: rgba(16, 185, 129, 0.2);
+    transform: translateY(-2px);
+}
 /* Animated Background */
 .animated-background {
   position: fixed;
@@ -75,6 +195,7 @@ body {
   animation: float 20s ease-in-out infinite;
 }
 
+
 .shape-1 {
   width: 200px;
   height: 200px;
@@ -83,6 +204,7 @@ body {
   left: 10%;
   animation-delay: 0s;
 }
+
 
 .shape-2 {
   width: 150px;
