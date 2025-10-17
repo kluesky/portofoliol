@@ -1,254 +1,104 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kyluesky — Home</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyluesky - Home</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="text-white min-h-screen relative">
-  <!-- Loading Overlay -->
-  <div id="starterOverlay" class="fixed inset-0 z-50 bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center">
-    <div class="text-center">
-      <div class="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-      <p class="text-blue-300 text-lg">Loading...</p>
-    </div>
-  </div>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo">K</div>
+                <span>Kyluesky</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="downloader.html" class="nav-link">Downloads</a>
+                <a href="getkey.html" class="nav-link">Access Key</a>
+                <a href="https://lyora.netlify.app/" class="nav-link">Portfolio</a>
+            </div>
+        </div>
+    </nav>
 
-  <!-- Video Background -->
-  <video id="bgvideo" autoplay muted loop playsinline class="fixed top-0 left-0 w-full h-full object-cover z-0 opacity-40">
-    <source src="https://files.catbox.moe/mjg7fp.mp4" type="video/mp4">
-  </video>
-
-  <!-- Background Music -->
-  <audio id="bgmusic" loop hidden>
-    <source src="https://files.catbox.moe/tmn2a9.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- Navigation -->
-  <nav class="fixed top-0 left-0 w-full z-40 py-4 px-6 bg-slate-900/80 backdrop-blur-md border-b border-slate-700">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
-      <!-- Logo -->
-      <div class="flex items-center space-x-3">
-        <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-        <h1 class="text-xl font-semibold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">
-          Kyluesky
-        </h1>
-      </div>
-
-      <!-- Mobile Menu Button -->
-      <button id="navToggle" class="flex flex-col space-y-1.5 w-6 h-6 relative z-50">
-        <span class="w-full h-0.5 bg-white transition-all duration-300"></span>
-        <span class="w-full h-0.5 bg-white transition-all duration-300"></span>
-        <span class="w-full h-0.5 bg-white transition-all duration-300"></span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- Mobile Menu -->
-  <div id="floatingMenu" class="fixed inset-0 z-30 hidden bg-slate-900/95 backdrop-blur-md">
-    <div class="min-h-screen flex items-center justify-center px-6">
-      <div class="text-center space-y-6">
-        <a href="index.html" class="block text-2xl font-light text-white hover:text-blue-400 transition-all duration-300 transform hover:translate-x-2">
-          🏠 Beranda
-        </a>
-        <a href="https://lyora.netlify.app/" class="block text-2xl font-light text-white hover:text-blue-400 transition-all duration-300 transform hover:translate-x-2">
-          💼 Portofolio
-        </a>
-        <a href="kontak.html" class="block text-2xl font-light text-white hover:text-blue-400 transition-all duration-300 transform hover:translate-x-2">
-          📞 Kontak
-        </a>
-        <a href="downloader.html" class="block text-2xl font-light text-white hover:text-blue-400 transition-all duration-300 transform hover:translate-x-2">
-          ❤️ Download File Here
-        </a>
-        <a href="tiktok.html" class="block text-2xl font-light text-white hover:text-blue-400 transition-all duration-300 transform hover:translate-x-2">
-          🌷 TikTok Downloader
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Content -->
-  <main class="relative z-10">
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center px-6 py-20">
-      <div class="max-w-2xl mx-auto text-center space-y-8">
-        <!-- Profile Image -->
-        <div class="relative">
-          <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-pink-500 rounded-full blur-2xl opacity-30 animate-pulse"></div>
-          <img 
-            src="https://files.catbox.moe/av066j.jpg" 
-            alt="Kyluesky"
-            class="w-32 h-32 rounded-full border-4 border-white/20 mx-auto shadow-2xl relative z-10 hover:scale-105 transition-transform duration-300"
-          >
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="profile-image">
+                    <img src="https://files.catbox.moe/av066j.jpg" alt="Kyluesky">
+                </div>
+                <h1 class="hero-title">Kyluesky</h1>
+                <p class="hero-subtitle">System Developer</p>
+                <p class="hero-quote">"Luangkan waktu untuk berpikir, tetapi saat waktunya bertindak tiba, berhentilah berpikir dan bertindalah"</p>
+                <p class="quote-author">— Napoleon Bonaparte</p>
+            </div>
         </div>
-
-        <!-- Name & Title -->
-        <div class="space-y-4">
-          <h1 class="text-5xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-            Kyluesky
-          </h1>
-          <div class="h-8">
-            <p id="typedText" class="text-xl text-blue-300 font-light"></p>
-          </div>
-          <p class="text-slate-300 italic text-lg">
-            Terima kasih karena tidak melarangku tetap mengagumimu.
-          </p>
-        </div>
-
-        <!-- Quote Card -->
-        <div class="bg-slate-800/40 backdrop-blur-md border border-slate-700 rounded-2xl p-8 max-w-md mx-auto hover:border-blue-500/50 transition-all duration-500">
-          <p class="text-blue-200 text-lg italic leading-relaxed">
-            "Luangkan waktu untuk berpikir, tetapi saat waktunya bertindak tiba, berhentilah berpikir dan bertindalah"
-          </p>
-          <p class="text-slate-400 text-sm mt-4 text-right">— Napoleon Bonaparte</p>
-        </div>
-      </div>
     </section>
 
     <!-- About Section -->
-    <section id="tentang" class="py-20 px-6">
-      <div class="max-w-3xl mx-auto">
-        <div class="bg-slate-800/40 backdrop-blur-md border border-slate-700 rounded-2xl p-8 space-y-6">
-          <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">
-            Tentang Saya
-          </h2>
-          
-          <div class="text-slate-300 leading-relaxed space-y-4 text-lg">
-            <p>𝘏𝘢𝘭𝘰, 𝘯𝘢𝘮𝘢 𝘴𝘢𝘺𝘢 'Key'.</p>
-            <p>𝘚𝘢𝘢𝘵 𝘪𝘯𝘪, 𝘴𝘢𝘺𝘢 𝘵𝘪𝘯𝘨𝘨𝘢𝘭 𝘥𝘪 'Jepang', 𝘵𝘦𝘱𝘢𝘵𝘯𝘺𝘢 𝘥𝘪 𝘬𝘰𝘵𝘢 'Yamada'.</p>
-            <p>𝘈𝘬𝘶 𝘮𝘦𝘳𝘶𝘱𝘢𝘬𝘢𝘯 𝘴𝘦𝘴𝘦𝘰𝘳𝘢𝘯𝘨 𝘺𝘢𝘯𝘨 𝘭𝘦𝘣𝘪𝘩 𝘯𝘺𝘢𝘮𝘢𝘯 𝘥𝘪 𝘭𝘪𝘯𝘨𝘬𝘶𝘯𝘨𝘢𝘯 𝘴𝘦𝘱𝘪 𝘥𝘢𝘯 𝘵𝘦𝘳𝘣𝘢𝘵𝘢𝘴.</p>
-            <p>𝘚𝘢𝘺𝘢 𝘵𝘪𝘥𝘢𝘬 𝘮𝘶𝘥𝘢𝘩 𝘣𝘦𝘳𝘨𝘢𝘶𝘭 𝘥𝘢𝘯 𝘤𝘦𝘯𝘥𝘦𝘳𝘶𝘯𝘨 𝘮𝘦𝘯𝘨𝘩𝘪𝘯𝘥𝘢𝘳𝘪 𝘬𝘦𝘳𝘢𝘮𝘢𝘪𝘢𝘯—𝘣𝘶𝘬𝘢𝘯 𝘬𝘢𝘳𝘦𝘯𝘢 𝘴𝘰𝘮𝘣𝘰𝘯𝘨, 𝘵𝘢𝘱𝘪 𝘬𝘢𝘳𝘦𝘯𝘢 𝘮𝘦𝘮𝘢𝘯𝘨 𝘪𝘵𝘶 𝘤𝘢𝘳𝘢 𝘴𝘢𝘺𝘢 𝘮𝘦𝘯𝘫𝘢𝘨𝘢 𝘦𝘯𝘦𝘳𝘨𝘪.</p>
-            <p>𝘏𝘰𝘣𝘪 𝘴𝘢𝘺𝘢 𝘢𝘥𝘢𝘭𝘢𝘩 𝘮𝘦𝘯𝘰𝘯𝘵𝘰𝘯 𝘢𝘯𝘪𝘮𝘦 𝘥𝘢𝘯 𝘮𝘦𝘯𝘨𝘨𝘢𝘮𝘣𝘢𝘳—𝘬𝘦𝘥𝘶𝘢𝘯𝘺𝘢 𝘮𝘦𝘮𝘣𝘦𝘳𝘪 𝘴𝘢𝘺𝘢 𝘳𝘶𝘢𝘯𝘨 𝘶𝘯𝘵𝘶𝘬 𝘦𝘬𝘴𝘱𝘳𝘦𝘴𝘪 𝘵𝘢𝘯𝘱𝘢 𝘱𝘦𝘳𝘭𝘶 𝘣𝘦𝘳𝘬𝘢𝘵𝘢 𝘣𝘢𝘯𝘺𝘢𝘬.</p>
-            <p>𝘔𝘦𝘯𝘨𝘦𝘯𝘢𝘭 𝘰𝘳𝘢𝘯𝘨 𝘣𝘢𝘳𝘶 𝘣𝘶𝘬𝘢𝘯𝘭𝘢𝘩 𝘩𝘢𝘭 𝘺𝘢𝘯𝘨 𝘮𝘶𝘥𝘢𝘩 𝘣𝘢𝘨𝘪 𝘴𝘢𝘺𝘢, 𝘵𝘢𝘱𝘪 𝘴𝘢𝘺𝘢 𝘵𝘦𝘳𝘣𝘪𝘢𝘴𝘢 𝘮𝘦𝘯𝘫𝘢𝘭𝘢𝘯𝘪𝘯𝘺𝘢 𝘥𝘦𝘯𝘨𝘢𝘯 𝘤𝘢𝘳𝘢 𝘱𝘦𝘭𝘢𝘯-𝘱𝘦𝘭𝘢𝘯.</p>
-            <p>𝘚𝘦𝘯𝘢𝘯𝘨 𝘣𝘪𝘴𝘢 𝘮𝘦𝘯𝘨𝘦𝘯𝘢𝘭𝘮𝘶.</p>
-          </div>
-
-          <div class="pt-6">
-            <a href="cv-kyluesky.pdf" class="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full text-white font-medium hover:shadow-lg hover:scale-105 transition-all duration-300">
-              <span>📄</span>
-              <span>Unduh CV</span>
-            </a>
-          </div>
+    <section class="about">
+        <div class="container">
+            <div class="about-content">
+                <h2>About Me</h2>
+                <div class="about-text">
+                    <p>Halo, nama saya 'Key'. Saat ini, saya tinggal di 'Jepang', tepatnya di kota 'Yamada'.</p>
+                    <p>Saya merupakan seseorang yang lebih nyaman di lingkungan sepi dan terbatas. Saya tidak mudah bergaul dan cenderung menghindari keramaian—bukan karena sombong, tetapi karena memang itu cara saya menjaga energi.</p>
+                    <p>Hobi saya adalah menonton anime dan menggambar—keduanya memberikan saya ruang untuk ekspresi tanpa perlu berkata banyak.</p>
+                    <p>Mengenal orang baru bukanlah hal yang mudah bagi saya, tetapi saya terbiasa menjalaninya dengan cara pelan-pelan.</p>
+                    <p>Senang bisa mengenalmu.</p>
+                </div>
+                <div class="about-actions">
+                    <a href="cv-kyluesky.pdf" class="btn btn-primary">
+                        Download CV
+                    </a>
+                    <a href="downloader.html" class="btn btn-secondary">
+                        Access Downloads
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
-  </main>
 
-  <!-- Footer -->
-  <footer class="relative z-10 py-8 px-6 border-t border-slate-700">
-    <div class="max-w-6xl mx-auto text-center space-y-2">
-      <p class="text-slate-400">&copy; 2025 Kyluesky. All rights reserved.</p>
-      <p class="text-slate-500 text-sm italic">Terima kasih sudah mampir di dunia kecilku</p>
-    </div>
-  </footer>
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Services</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Secure Downloads</h3>
+                    <p>Protected file downloads with access key system</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Fast Delivery</h3>
+                    <p>Quick and reliable file access system</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Safe & Private</h3>
+                    <p>Your privacy and security are our priority</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- JavaScript -->
-  <script>
-    // Remove loading overlay
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.getElementById('starterOverlay').style.opacity = '0';
-        setTimeout(() => {
-          document.getElementById('starterOverlay').remove();
-        }, 500);
-      }, 1000);
-    });
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">K</div>
+                    <span>Kyluesky</span>
+                </div>
+                <p class="footer-text">&copy; 2025 Kyluesky. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-    // Typing animation
-    const roles = ["Suami Sah Chisato", "Kyluesky Love Chisato", "Nishikigi Chisato", "Mencintai Chisato Selama 4 Tahun", "Waifu System Engineer"];
-    let roleIndex = 0, charIndex = 0;
-    const typedText = document.getElementById("typedText");
-    
-    function typeRole() {
-      if (charIndex < roles[roleIndex].length) {
-        typedText.textContent += roles[roleIndex].charAt(charIndex++);
-        setTimeout(typeRole, 100);
-      } else {
-        setTimeout(() => {
-          typedText.textContent = "";
-          charIndex = 0;
-          roleIndex = (roleIndex + 1) % roles.length;
-          typeRole();
-        }, 2000);
-      }
-    }
-
-    // Background music
-    const music = document.getElementById('bgmusic');
-    document.addEventListener('click', () => {
-      if (music.paused) {
-        music.play().catch(console.log);
-      }
-    });
-
-    // Mobile menu toggle
-    const navToggle = document.getElementById('navToggle');
-    const floatingMenu = document.getElementById('floatingMenu');
-    const bars = navToggle.querySelectorAll('span');
-    let isOpen = false;
-
-    navToggle.addEventListener('click', () => {
-      isOpen = !isOpen;
-      floatingMenu.classList.toggle('hidden');
-      
-      // Animate hamburger to X
-      bars[0].style.transform = isOpen ? 'rotate(45deg) translate(6px, 6px)' : 'none';
-      bars[1].style.opacity = isOpen ? '0' : '1';
-      bars[2].style.transform = isOpen ? 'rotate(-45deg) translate(6px, -6px)' : 'none';
-    });
-
-    // Close menu when clicking links
-    document.querySelectorAll('#floatingMenu a').forEach(link => {
-      link.addEventListener('click', () => {
-        floatingMenu.classList.add('hidden');
-        isOpen = false;
-        bars[0].style.transform = 'none';
-        bars[1].style.opacity = '1';
-        bars[2].style.transform = 'none';
-      });
-    });
-
-    // Start animations when page loads
-    document.addEventListener('DOMContentLoaded', () => {
-      typeRole();
-      
-      // Add fade-in animation to elements
-      const fadeElements = document.querySelectorAll('section, footer');
-      fadeElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'all 0.6s ease-out';
-      });
-
-      setTimeout(() => {
-        fadeElements.forEach(el => {
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
-        });
-      }, 300);
-    });
-
-    // Intersection Observer for scroll animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    // Observe all sections
-    document.querySelectorAll('section').forEach(section => {
-      observer.observe(section);
-    });
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
