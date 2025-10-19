@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitBtn = document.getElementById('submitCode');
     const accessInput = document.getElementById('accessCode');
     const errorMsg = document.getElementById('errorMsg');
+    const errorText = document.getElementById('errorText');
 
     // Check session
     if (sessionStorage.getItem('accessGranted')) {
@@ -72,8 +73,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showError(message) {
-        errorMsg.textContent = message;
-        errorMsg.style.display = 'block';
+        errorText.textContent = message;
+        errorMsg.style.display = 'flex';
         setTimeout(() => {
             errorMsg.style.display = 'none';
         }, 3000);
@@ -84,4 +85,18 @@ document.addEventListener('DOMContentLoaded', function() {
         sessionStorage.removeItem('accessGranted');
         location.reload();
     };
+
+    // Add loading animation to download links
+    const downloadLinks = document.querySelectorAll('.download-link');
+    
+    downloadLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const originalHTML = this.innerHTML;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            
+            setTimeout(() => {
+                this.innerHTML = originalHTML;
+            }, 2000);
+        });
+    });
 });
