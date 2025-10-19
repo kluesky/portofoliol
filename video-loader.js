@@ -11,7 +11,7 @@ class VideoPreviewLoader {
                         name: "Part Controller",
                         size: null,
                         icon: "fas fa-file-code",
-                        downloadUrl: "https://pastebin.com/EBkLBJbU",
+                        downloadUrl: "https://pastebin.com/m7MXkZtL",
                         youtubeId: "ZrX1drrJ2eA" // Ganti dengan ID YouTube Anda
                     },
                     {
