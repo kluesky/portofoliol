@@ -20,6 +20,13 @@ class VideoPreviewLoader {
                         icon: "fas fa-file-code",
                         downloadUrl: "https://pastebin.com/xT28Eaa4",
                         youtubeId: "g6anXeKrg70" // Ganti dengan ID YouTube Anda
+                    },
+                    {
+                        name: "Arsenal AUTO TP + AIMBOT ( Y All Get Key Manually 😁 )", 
+                        size: null,
+                        icon: "fas fa-file-code",
+                        downloadUrl: "https://pastebin.com/qM5uJBqx",
+                        youtubeId: "JpyHarAHc" // Ganti dengan ID YouTube Anda
                     }
                 ]
             },
