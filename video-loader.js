@@ -18,7 +18,7 @@ class VideoPreviewLoader {
                         name: "Teleport Premium ( Detect Mod/Admin )", 
                         size: null,
                         icon: "fas fa-file-code",
-                        downloadUrl: "https://pastebin.com/S4aK3z6k",
+                        downloadUrl: "https://pastebin.com/xT28Eaa4",
                         youtubeId: "g6anXeKrg70" // Ganti dengan ID YouTube Anda
                     }
                 ]
