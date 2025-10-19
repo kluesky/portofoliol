@@ -48,7 +48,7 @@ class VideoPreviewLoader {
                         icon: "fas fa-cog",
                         downloadUrl: "https://hydrogen.lat/",
                         youtubeId: "f7IFfY-oiT4" // Ganti dengan ID YouTube Anda
-                    }
+                    },
                     {
                         name: "Xeno Executor",
                         meta: "PC ONLY",
