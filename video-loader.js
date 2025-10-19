@@ -11,7 +11,7 @@ class VideoPreviewLoader {
                         name: "Part Controller",
                         size: null,
                         icon: "fas fa-file-code",
-                        downloadUrl: "https://pastebin.com/m7MXkZtL",
+                        downloadUrl: "https://pastebin.com/EBkLBJbU",
                         youtubeId: "ZrX1drrJ2eA" // Ganti dengan ID YouTube Anda
                     },
                     {
@@ -29,39 +29,32 @@ class VideoPreviewLoader {
                 color: "bg-red-500",
                 items: [
                     {
-                        name: "Speed Hack Pro",
-                        meta: "Windows Compatible",
+                        name: "Codex Executor ( Love By Admin )",
+                        meta: "Android",
                         icon: "fas fa-cog",
-                        downloadUrl: "https://www.mediafire.com/file/p4425ph18g8d7xq/[+BASE+TREDIC+].zip/file",
-                        youtubeId: "dQw4w9WgXcQ" // Ganti dengan ID YouTube Anda
-                    },
-                    {
-                        name: "Resource Editor",
-                        meta: "Multi-Game Support", 
-                        icon: "fas fa-cog",
-                        downloadUrl: "https://www.mediafire.com/file/k86smicuzfp3dfd/JUSTIN+V20+NO+ENC(KHUSUS+OWNER).zip/file",
-                        youtubeId: "dQw4w9WgXcQ" // Ganti dengan ID YouTube Anda
+                        downloadUrl: "https://codex.lol/android",
+                        youtubeId: "aajh5j7qfbM" // Ganti dengan ID YouTube Anda
                     }
                 ]
             },
             {
-                category: "Game Assets",
+                category: "Other Games",
                 icon: "fas fa-cube",
                 color: "bg-purple-500", 
                 items: [
                     {
-                        name: "Texture Pack HD",
-                        meta: "4K Resolution",
+                        name: "Free Fire",
+                        meta: "Mobile",
                         icon: "fas fa-image",
-                        downloadUrl: "https://drive.google.com/file/d/1MD8VXyHfLI8GPCdGv7l32kf3IZPx3uGj/view?usp=drivesdk",
-                        youtubeId: "dQw4w9WgXcQ" // Ganti dengan ID YouTube Anda
+                        downloadUrl: "https://gringoxp.site/dashboard",
+                        youtubeId: "i0duks9_fRs" // Ganti dengan ID YouTube Anda
                     },
                     {
-                        name: "Sound Effects Pack",
-                        meta: "300+ Files",
+                        name: "Call Of Duty ( XIN MOD 80% SAFE )",
+                        meta: "Mobile Root & No Root",
                         icon: "fas fa-music", 
-                        downloadUrl: "https://drive.google.com/file/d/1MG1MZzdLruh8SZlPYQWNIP3nBV_fgY5V/view?usp=drivesdk",
-                        youtubeId: "dQw4w9WgXcQ" // Ganti dengan ID YouTube Anda
+                        downloadUrl: "https://t.me/NotYourAverageXinn",
+                        youtubeId: "CeMVmUe0E5I" // Ganti dengan ID YouTube Anda
                     }
                 ]
             }
