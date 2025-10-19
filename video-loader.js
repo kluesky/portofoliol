@@ -26,7 +26,7 @@ class VideoPreviewLoader {
                         size: null,
                         icon: "fas fa-file-code",
                         downloadUrl: "https://pastebin.com/qM5uJBqx",
-                        youtubeId: "Y-JpyHarAHc" // Ganti dengan ID YouTube Anda
+                        youtubeId: "uVbfSNcHshQ" // Ganti dengan ID YouTube Anda
                     }
                 ]
             },
