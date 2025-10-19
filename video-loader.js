@@ -41,6 +41,13 @@ class VideoPreviewLoader {
                         icon: "fas fa-cog",
                         downloadUrl: "https://codex.lol/android",
                         youtubeId: "aajh5j7qfbM" // Ganti dengan ID YouTube Anda
+                    },
+                    {
+                        name: "Hydrogen Executor",
+                        meta: "PC ONLY",
+                        icon: "fas fa-cog",
+                        downloadUrl: "https://hydrogen.lat/",
+                        youtubeId: "f7IFfY-oiT4" // Ganti dengan ID YouTube Anda
                     }
                 ]
             },
