@@ -1,11 +1,11 @@
-// Simple Key Generator dengan anti-spam
+[file name]: cekerip.js
+[file content begin]
+// Simple Key Generator tanpa limit
 class SimpleKeyGenerator {
     constructor() {
         this.currentKey = null;
-        this.generateCount = 0;
-        this.maxGenerates = 6;
-        this.cooldown = 10000; // 10 detik
         this.isCooldown = false;
+        this.cooldown = 10000; // 10 detik
         
         this.init();
     }
@@ -20,8 +20,9 @@ class SimpleKeyGenerator {
             generateBtn: document.getElementById('generateBtn'),
             clearBtn: document.getElementById('clearBtn'),
             status: document.getElementById('status'),
-            timer: document.getElementById('timer'),
-            countdown: document.getElementById('countdown')
+            timerWrapper: document.getElementById('timerWrapper'),
+            countdown: document.getElementById('countdown'),
+            usageCounter: document.getElementById('usageCounter')
         };
         
         // Load saved data
@@ -33,7 +34,7 @@ class SimpleKeyGenerator {
         // Update display
         this.updateDisplay();
         
-        console.log('✅ Generator ready');
+        console.log('✅ Generator ready - Unlimited mode');
     }
     
     setupEvents() {
@@ -62,7 +63,6 @@ class SimpleKeyGenerator {
             const saved = localStorage.getItem('simpleKeyGenerator');
             if (saved) {
                 const data = JSON.parse(saved);
-                this.generateCount = data.generateCount || 0;
                 this.currentKey = data.currentKey || null;
                 console.log('📂 Loaded data:', data);
             }
@@ -74,7 +74,6 @@ class SimpleKeyGenerator {
     saveData() {
         try {
             const data = {
-                generateCount: this.generateCount,
                 currentKey: this.currentKey,
                 lastUpdate: Date.now()
             };
@@ -89,12 +88,6 @@ class SimpleKeyGenerator {
         // Check cooldown
         if (this.isCooldown) {
             this.showStatus('Please wait for cooldown', 'error');
-            return;
-        }
-        
-        // Check max generates
-        if (this.generateCount >= this.maxGenerates) {
-            this.showStatus('Maximum generates reached!', 'error');
             return;
         }
         
@@ -116,10 +109,8 @@ class SimpleKeyGenerator {
         }
         
         this.currentKey = key;
-        this.generateCount++;
         
         console.log('🔑 Generated key:', key);
-        console.log('📊 Generate count:', this.generateCount);
         
         this.saveData();
         this.updateDisplay();
@@ -129,20 +120,21 @@ class SimpleKeyGenerator {
     startCooldown() {
         this.isCooldown = true;
         this.elements.generateBtn.disabled = true;
-        this.elements.timer.style.display = 'block';
+        this.elements.timerWrapper.classList.add('active');
         
         let timeLeft = 10;
+        this.elements.countdown.textContent = timeLeft;
         
         const countdown = setInterval(() => {
-            this.elements.countdown.textContent = timeLeft;
             timeLeft--;
+            this.elements.countdown.textContent = timeLeft;
             
-            if (timeLeft < 0) {
+            if (timeLeft <= 0) {
                 clearInterval(countdown);
                 this.isCooldown = false;
                 this.elements.generateBtn.disabled = false;
-                this.elements.timer.style.display = 'none';
-                this.showStatus('Ready to generate again', 'success');
+                this.elements.timerWrapper.classList.remove('active');
+                this.showStatus('Ready to generate key', 'success');
             }
         }, 1000);
     }
@@ -161,12 +153,13 @@ class SimpleKeyGenerator {
         }
         
         navigator.clipboard.writeText(this.currentKey).then(() => {
-            this.elements.copyBtn.textContent = 'Copied!';
+            const originalIcon = this.elements.copyBtn.innerHTML;
+            this.elements.copyBtn.innerHTML = '<i class="fas fa-check"></i>';
             this.elements.copyBtn.classList.add('copied');
             this.showStatus('Key copied to clipboard', 'success');
             
             setTimeout(() => {
-                this.elements.copyBtn.textContent = 'Copy';
+                this.elements.copyBtn.innerHTML = originalIcon;
                 this.elements.copyBtn.classList.remove('copied');
             }, 2000);
         }).catch(() => {
@@ -181,36 +174,38 @@ class SimpleKeyGenerator {
             this.elements.keyDisplay.classList.add('has-key');
             this.elements.copyBtn.disabled = false;
         } else {
-            this.elements.keyDisplay.innerHTML = '<span class="placeholder">Click generate to create key</span>';
+            this.elements.keyDisplay.innerHTML = '<span class="key-placeholder"><i class="fas fa-key"></i>Your key will appear here</span>';
             this.elements.keyDisplay.classList.remove('has-key');
             this.elements.copyBtn.disabled = true;
         }
         
-        // Update generate button
-        const remaining = this.maxGenerates - this.generateCount;
-        this.elements.generateBtn.textContent = `Generate Key (${remaining} left)`;
-        
-        if (remaining <= 0) {
-            this.elements.generateBtn.disabled = true;
-        }
+        // Update usage counter to show unlimited
+        this.elements.usageCounter.textContent = '∞';
+        this.elements.generateBtn.innerHTML = '<i class="fas fa-bolt"></i> Generate Key';
     }
     
     showStatus(message, type = '') {
-        this.elements.status.textContent = message;
-        this.elements.status.className = 'status';
+        const statusElement = this.elements.status;
+        const statusText = statusElement.querySelector('.status-text') || statusElement;
+        
+        statusText.textContent = message;
+        statusElement.className = 'status-message';
         
         if (type === 'success') {
-            this.elements.status.classList.add('success');
+            statusElement.classList.add('success');
         } else if (type === 'error') {
-            this.elements.status.classList.add('error');
+            statusElement.classList.add('error');
+        } else if (type === 'warning') {
+            statusElement.classList.add('warning');
         }
         
-        // Auto clear success messages
+        // Auto clear success messages after 3 seconds
         if (type === 'success') {
             setTimeout(() => {
-                const remaining = this.maxGenerates - this.generateCount;
-                this.elements.status.textContent = `Ready - ${remaining} generates left`;
-                this.elements.status.className = 'status';
+                if (statusText.textContent === message) {
+                    statusText.textContent = 'Ready to generate access key';
+                    statusElement.className = 'status-message';
+                }
             }, 3000);
         }
     }
@@ -244,3 +239,4 @@ function validateKey(key) {
         return false;
     }
 }
+[file content end]
