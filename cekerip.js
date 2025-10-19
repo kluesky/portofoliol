@@ -3,7 +3,7 @@ class SimpleKeyGenerator {
     constructor() {
         this.currentKey = null;
         this.generateCount = 0;
-        this.maxGenerates = 100;
+        this.maxGenerates = 100000;
         this.cooldown = 10000; // 10 detik
         this.isCooldown = false;
         
