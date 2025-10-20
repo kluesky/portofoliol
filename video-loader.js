@@ -27,6 +27,13 @@ class VideoPreviewLoader {
                         icon: "fas fa-file-code",
                         downloadUrl: "https://pastebin.com/qM5uJBqx",
                         youtubeId: "Y-JpyHarAHc" // Ganti dengan ID YouTube Anda
+                    },
+                    {
+                        name: "SC Spade Troll Universal ( Y All Get Key Manually 😁 )", 
+                        size: null,
+                        icon: "fas fa-file-code",
+                        downloadUrl: "https://pastebin.com/d0pSGSD1",
+                        youtubeId: "UdYmKrNAW-k" // Ganti dengan ID YouTube Anda
                     }
                 ]
             },
