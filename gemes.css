@@ -695,3 +695,127 @@
     height: 180px;
   }
 }
+/* ... kode CSS yang sudah ada ... */
+
+/* Preview Image Styles */
+.image-preview {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.image-header {
+    display: flex;
+    align-items: center;
+    color: #10b981;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.preview-image-container {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.preview-image {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+}
+
+.preview-image.zoomed {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.5);
+    z-index: 1000;
+    max-height: 80vh;
+    max-width: 80vw;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+.image-note {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+    text-align: center;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+/* Overlay untuk zoomed image */
+.preview-image.zoomed::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: -1;
+}
+
+/* Responsive Image Preview */
+@media (max-width: 768px) {
+    .preview-image {
+        max-height: 200px;
+    }
+    
+    .preview-image.zoomed {
+        transform: translate(-50%, -50%) scale(1.2);
+        max-width: 90vw;
+        max-height: 70vh;
+    }
+}
+
+/* ... kode CSS yang sudah ada ... */
+/* ... kode CSS yang sudah ada ... */
+
+/* Deskripsi Video Styles */
+.video-description {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.description-header {
+  display: flex;
+  align-items: center;
+  color: #3b82f6;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.description-text {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Responsive Description */
+@media (max-width: 768px) {
+  .video-description {
+    padding: 0.75rem;
+  }
+  
+  .description-text {
+    font-size: 0.8rem;
+  }
+}
+[file content end]
