@@ -25,7 +25,7 @@ class VideoPreviewLoader {
                         previewImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC43Wcf2SIR1Vdr35kOqKK-1UHCzXemmbxA-qD8O9FM499s48fJaiXFX3Y&s=10" // Ganti dengan URL gambar hosting Anda
                     },
                     {
-                        name: "Arsenal AUTO TP + AIMBOT ( Y All Get Key Manually 😁 )", 
+                        name: "Arsenal AUTO TP + AIMBOT (  maintenance )", 
                         size: null,
                         icon: "fas fa-file-code",
                         downloadUrl: "https://pastebin.com/qM5uJBqx",
@@ -37,7 +37,7 @@ class VideoPreviewLoader {
                         name: "SC Spade Troll Universal ( Y All Get Key Manually 😁 )", 
                         size: null,
                         icon: "fas fa-file-code",
-                        downloadUrl: "https://pastebin.com/d0pSGSD1",
+                        downloadUrl: "https://pastebin.com/VQRVjnqd",
                         youtubeId: "2gF87jvGIJE",
                         description: "Universal troll script for SC Spade with fun features. This script mainly lets you bring parts to other players when a player gets hit by an unanchored part, they’ll get knocked far away. It won’t work if the player is sitting.",
                         previewImage: "https://files.catbox.moe/igy055.jpg" // Ganti dengan URL gambar hosting Anda
