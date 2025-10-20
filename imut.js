@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Default codes (backup)
-        const defaultCodes = ['KYLUE2024', 'ACCESS123', 'DOWNLOAD'];
+        const defaultCodes = ['KYLUE2024', 'ACCESS123', 'DOWNLOAD', 'KYL-Q5TZ-7LA8-68N6'];
         if (defaultCodes.includes(code)) {
             grantAccess();
             return;
