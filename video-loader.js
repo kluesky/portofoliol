@@ -10,7 +10,7 @@ class VideoPreviewLoader {
                         name: "Part Controller",
                         size: null,
                         icon: "fas fa-file-code",
-                        downloadUrl: "https://pastebin.com/EkgeH8Qz",
+                        downloadUrl: "https://pastebin.com/FwFSvXAa",
                         youtubeId: "ZrX1drrJ2eA",
                         description: "If you want the unanchored part to stick to your body, please just use a toggle ring.",
                         previewImage: "https://files.catbox.moe/7vx28b.jpg" // Ganti dengan URL gambar hosting Anda
