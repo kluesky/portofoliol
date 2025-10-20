@@ -37,7 +37,7 @@ class VideoPreviewLoader {
                         name: "SC Spade Troll Universal ( Y All Get Key Manually 😁 )", 
                         size: null,
                         icon: "fas fa-file-code",
-                        downloadUrl: "https://pastebin.com/VQRVjnqd",
+                        downloadUrl: "https://pastebin.com/bt1qh1as",
                         youtubeId: "2gF87jvGIJE",
                         description: "Universal troll script for SC Spade with fun features. This script mainly lets you bring parts to other players when a player gets hit by an unanchored part, they’ll get knocked far away. It won’t work if the player is sitting.",
                         previewImage: "https://files.catbox.moe/igy055.jpg" // Ganti dengan URL gambar hosting Anda
