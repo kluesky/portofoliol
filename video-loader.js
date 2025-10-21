@@ -1,4 +1,4 @@
-class VideoPreviewLoader {
+jclass VideoPreviewLoader {
     constructor() {
         this.resources = [
             {
@@ -50,7 +50,7 @@ class VideoPreviewLoader {
                 color: "bg-red-500",
                 items: [
                     {
-                        name: "Codex Executor ( Love By Admin )",
+                        name: "Codex Executor ( 🔴 Need Update )",
                         meta: "Android",
                         icon: "fas fa-cog",
                         downloadUrl: "https://codex.lol/android",
