@@ -59,6 +59,15 @@ class VideoPreviewLoader {
                         previewImage: "https://files.catbox.moe/b62w7i.jpg" // Ganti dengan URL gambar hosting Anda
                     },
                     {
+                        name: "Arceus X Neo ( Last Update Today Oct-21-2025 )",
+                        meta: "Android",
+                        icon: "fas fa-cog",
+                        downloadUrl: "https://www.mediafire.com/file/smc7a6pvyh8krpg/Roblox_Arceus_X_NEO_1.8.9.apk/file?dkey=8ja6cde7ktm&r=748",
+                        youtubeId: "UdOp-wP4wtw",
+                        description: "Arceus X Neo Executor is a powerful and user-friendly executor designed for smooth and efficient script execution. It offers high compatibility with various scripts, low detection rates, and customizable features that enhance your scripting experience. Perfect for users looking for reliability and performance in one package.",
+                        previewImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPtnLzbo4fUB7mM8-c-3A1DwdOCz-SJLwYpb2ev9qLYKQHcOci4oUOJNu7&s=10" // Ganti dengan URL gambar hosting Anda
+                    },
+                    {
                         name: "Hydrogen Executor",
                         meta: "PC ONLY",
                         icon: "fas fa-cog",
