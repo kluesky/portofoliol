@@ -50,7 +50,7 @@ jclass VideoPreviewLoader {
                 color: "bg-red-500",
                 items: [
                     {
-                        name: "Codex Executor ( 🔴 Need Update )",
+                        name: "Codex Executor ( Still In 963 Need Update )",
                         meta: "Android",
                         icon: "fas fa-cog",
                         downloadUrl: "https://codex.lol/android",
