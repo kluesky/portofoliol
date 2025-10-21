@@ -1,4 +1,4 @@
-jclass VideoPreviewLoader {
+class VideoPreviewLoader {
     constructor() {
         this.resources = [
             {
