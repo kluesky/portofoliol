@@ -108,7 +108,7 @@ class SimpleKeyGenerator {
     generateKey() {
         // Simple key format: KYL-XXXX-XXXX-XXXX
         const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-        let key = 'KYL-';
+        let key = 'LYORA-';
         
         for (let i = 0; i < 12; i++) {
             if (i > 0 && i % 4 === 0) key += '-';
