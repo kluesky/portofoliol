@@ -100,6 +100,79 @@
             vertical-align: middle;
         }
         
+        /* New Forever Button Styles */
+        .forever-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.4);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        
+        .forever-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .forever-btn:hover::before {
+            left: 100%;
+        }
+        
+        .forever-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 139, 0.6);
+        }
+        
+        .forever-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .forever-btn i {
+            font-size: 1.2rem;
+        }
+        
+        .btn-sparkle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: sparkle 2s infinite;
+            opacity: 0;
+        }
+        
+        @keyframes sparkle {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -127,6 +200,11 @@
                 left: 15px;
                 font-size: 1rem;
             }
+            
+            .forever-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -151,6 +229,13 @@
                 aku siap nerima apapun jawaban kamu, 
                 itu resiko karena aku udah berani suka sama kamu
             </div>
+            
+            <!-- New Forever Button -->
+            <a href="forever.html" class="forever-btn">
+                <i class="fas fa-next"></i>
+                Next
+                <i class="fas fa-arrow-right"></i>
+            </a>
         </div>
     </div>
 
@@ -177,6 +262,41 @@
             document.body.addEventListener('click', function() {
                 video.play().catch(e => console.log(e));
             }, { once: true });
+            
+            // Add sparkle effects to forever button
+            const foreverBtn = document.querySelector('.forever-btn');
+            
+            function createSparkle() {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'btn-sparkle';
+                
+                const size = Math.random() * 10 + 5;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                
+                const x = Math.random() * foreverBtn.offsetWidth;
+                const y = Math.random() * foreverBtn.offsetHeight;
+                
+                sparkle.style.left = `${x}px`;
+                sparkle.style.top = `${y}px`;
+                sparkle.style.animationDelay = `${Math.random() * 2}s`;
+                
+                foreverBtn.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 2000);
+            }
+            
+            // Create sparkles periodically
+            setInterval(createSparkle, 300);
+            
+            // Extra sparkles on hover
+            foreverBtn.addEventListener('mouseenter', function() {
+                for(let i = 0; i < 5; i++) {
+                    setTimeout(createSparkle, i * 100);
+                }
+            });
         });
     </script>
 </body>
