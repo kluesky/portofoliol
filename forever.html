@@ -194,6 +194,15 @@
             color: var(--light);
         }
 
+        .success-message {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4CAF50;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -261,8 +270,12 @@
 
             <button class="response-btn instagram-btn" onclick="openInstagram()">
                 <i class="fab fa-instagram"></i>
-                Send to instagram
+                Kirim Jawaban ke Instagram
             </button>
+
+            <div class="success-message" id="successMessage">
+                <i class="fas fa-check-circle"></i> Berhasil! Sekarang buka Instagram dan kirim DM dengan jawabanmu.
+            </div>
         </div>
     </div>
 
@@ -271,10 +284,10 @@
         <div class="modal-content">
             <h3>Konfirmasi Jawaban</h3>
             <p id="modalMessage">Kamu memilih: <span id="selectedAnswer"></span></p>
-            <p>Yakin ingin mengirim jawaban ini ke Instagram?</p>
+            <p>Yakin ingin mengirim jawaban ini via Instagram DM?</p>
             <div class="modal-buttons">
                 <button class="modal-btn confirm-btn" onclick="sendToInstagram()">
-                    <i class="fab fa-instagram"></i> Ya, Kirim
+                    <i class="fab fa-instagram"></i> Ya, Kirim DM
                 </button>
                 <button class="modal-btn cancel-btn" onclick="closeModal()">
                     Batal
@@ -285,7 +298,7 @@
 
     <script>
         let selectedAnswer = '';
-        const yourInstagram = "me_kyluesky"; // Ganti dengan username Instagrammu
+        const instagramUrl = "https://www.instagram.com/og_kyluesky?igsh=OHd6a3NpZ3BodHF6";
         
         // Video autoplay
         document.addEventListener('DOMContentLoaded', function() {
@@ -320,17 +333,21 @@
         }
 
         function sendToInstagram() {
-            const message = selectedAnswer === 'YES' 
-                ? `Hai! Aku udah nonton confess-mu. Jawabanku adalah: ${selectedAnswer} ❤️ Aku juga suka sama kamu!` 
-                : `Hai! Aku udah nonton confess-mu. Jawabanku adalah: ${selectedAnswer}. Maaf ya, tapi thanks udah berani jujur!`;
-            
-            // Redirect ke Instagram
-            window.open(`https://instagram.com/${yourInstagram}`, '_blank');
+            // Buka Instagram DM
+            window.open(instagramUrl, '_blank');
             
             // Tampilkan pesan sukses
-            alert(`Terima kasih! Sekarang kamu akan diarahkan ke Instagram @${yourInstagram}. Jangan lupa kirim DM dengan jawaban: "${selectedAnswer}"`);
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            successMessage.style.animation = 'fadeIn 0.5s ease-in-out';
             
+            // Sembunyikan modal
             closeModal();
+            
+            // Auto scroll ke pesan sukses
+            setTimeout(() => {
+                successMessage.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
         }
 
         function openInstagram() {
@@ -349,6 +366,19 @@
                 closeModal();
             }
         }
+
+        // Animasi untuk tombol ketika jawaban dipilih
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.response-btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.style.animation = 'heartBeat 0.5s ease-in-out';
+                    setTimeout(() => {
+                        this.style.animation = '';
+                    }, 500);
+                });
+            });
+        });
     </script>
 </body>
 </html>
