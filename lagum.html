@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Website Shutdown</title>
     <style>
         :root {
-            --primary: #ff6b8b;
-            --secondary: #ffb3c1;
+            --primary: #ff6b6b;
+            --secondary: #ffa8a8;
             --dark: #1a1a2e;
-            --light: #fef6fb;
-            --accent: #ff8fab;
+            --light: #f8f9fa;
+            --accent: #ff9e7d;
+            --blue: #4d96ff;
+            --green: #6bcf7f;
+            --purple: #9d65c9;
         }
         
         * {
@@ -27,197 +30,235 @@
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
         }
         
-        .container {
-            max-width: 800px;
+        .shutdown-container {
+            max-width: 1000px;
             margin: 0 auto;
             padding: 2rem;
-            flex: 1;
-        }
-        
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent);
-            text-decoration: none;
-        }
-        
-        .profile {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .profile-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--primary);
-        }
-        
-        .profile-info {
-            text-align: right;
-        }
-        
-        .profile-name {
-            font-weight: 600;
-            margin-bottom: 0.2rem;
-        }
-        
-        .profile-host {
-            font-size: 0.8rem;
-            color: var(--secondary);
-        }
-        
-        .player-container {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
             gap: 2rem;
+            position: relative;
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.2;
+            animation: float 15s infinite linear;
+        }
+        
+        .floating-element:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            color: var(--primary);
+            animation-delay: 0s;
+        }
+        
+        .floating-element:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            color: var(--blue);
+            animation-delay: 2s;
+        }
+        
+        .floating-element:nth-child(3) {
+            bottom: 30%;
+            left: 15%;
+            color: var(--green);
+            animation-delay: 4s;
+        }
+        
+        .floating-element:nth-child(4) {
+            bottom: 20%;
+            right: 5%;
+            color: var(--purple);
+            animation-delay: 6s;
+        }
+        
+        .floating-element:nth-child(5) {
+            top: 40%;
+            left: 20%;
+            color: var(--accent);
+            animation-delay: 8s;
+        }
+        
+        .shutdown-icon {
+            font-size: 8rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite, shake 5s infinite;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+        
+        .shutdown-title {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+            background: linear-gradient(to right, var(--primary), var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .shutdown-subtitle {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            max-width: 700px;
+        }
+        
+        .shutdown-message {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: var(--light);
+            max-width: 800px;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
+            border-radius: 15px;
             padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
         
-        .video-container {
-            position: relative;
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
             width: 100%;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            background: #000;
-        }
-        
-        .video-container video {
-            width: 100%;
-            height: auto;
-            display: block;
-            max-height: 70vh;
-        }
-        
-        .song-box {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 12px;
-            padding: 1.2rem;
+            max-width: 900px;
             margin-top: 1rem;
-            text-align: center;
-            border: 1px solid rgba(255, 143, 171, 0.3);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         
-        .song-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.4rem;
+        .feature-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease, background 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
             color: var(--accent);
-            font-weight: 500;
         }
         
-        .song-artist {
-            font-size: 1rem;
-            color: var(--secondary);
-            margin-bottom: 0.4rem;
-        }
-        
-        .song-desc {
-            font-size: 1.5rem; /* Increased from 0.9rem */
-            color: var(--primary);
-            font-weight: 600;
-            margin-top: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            animation: pulse 2s infinite;
-        }
-        
-        .message-container {
-            margin-top: 2rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 2rem;
-            position: relative;
-        }
-        
-        .message-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-            text-align: center;
-        }
-        
-        .message-content {
-            white-space: pre-line;
-            line-height: 1.8;
-            font-size: 1.1rem;
-            text-align: center;
-            animation: fadeIn 2s ease-in-out;
-        }
-        
-        .heart {
-            position: absolute;
+        .feature-title {
             font-size: 1.2rem;
-            color: var(--accent);
-            animation: float 3s ease-in-out infinite;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--light);
         }
         
-        .next-btn-container {
-            text-align: center;
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
             margin-top: 2rem;
-            padding-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         
-        .next-btn {
-            display: inline-flex;
+        .social-link {
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            background: linear-gradient(145deg, var(--primary), var(--accent));
-            color: white;
-            padding: 12px 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        .contact-info {
+            margin-top: 2rem;
+            font-size: 1rem;
+            color: var(--secondary);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem 2rem;
             border-radius: 30px;
+        }
+        
+        .contact-info a {
+            color: var(--accent);
             text-decoration: none;
             font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 107, 139, 0.4);
-            border: none;
-            cursor: pointer;
         }
         
-        .next-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 107, 139, 0.6);
+        .contact-info a:hover {
+            text-decoration: underline;
         }
         
-        .next-btn:active {
-            transform: translateY(1px);
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(-100px) rotate(20deg); opacity: 0; }
+        .footer {
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: var(--secondary);
+            opacity: 0.7;
         }
         
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.4; }
+            100% { transform: translateY(0) rotate(360deg); opacity: 0.2; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         /* Custom scrollbar */
@@ -237,128 +278,127 @@
         
         /* Responsive */
         @media (max-width: 768px) {
-            .profile {
-                flex-direction: column-reverse;
-                text-align: center;
-            }
-            
-            .profile-info {
-                text-align: center;
-            }
-            
-            .container {
+            .shutdown-container {
                 padding: 1rem;
             }
             
-            .song-title {
+            .shutdown-icon {
+                font-size: 5rem;
+            }
+            
+            .shutdown-title {
+                font-size: 2.5rem;
+            }
+            
+            .shutdown-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .shutdown-message {
                 font-size: 1.1rem;
+                padding: 1.5rem;
             }
             
-            .song-artist {
-                font-size: 0.9rem;
-            }
-            
-            .song-desc {
-                font-size: 1.2rem;
-            }
-            
-            .next-btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
+            .features-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <a href="#" class="logo">Welcome Mutiara</a>
-            <div class="profile">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSTjUHIoVtshlUO4Ms2w4xweLFDL07-1zz3aq5gG1vDhdnNkVDnmm-cCp7&s=10" alt="Profile" class="profile-img">
-                <div class="profile-info">
-                    <div class="profile-name">Lyora</div>
-                </div>
-            </div>
-        </header>
-        
-        <main>
-            <div class="player-container">
-                <div class="video-container">
-                    <video id="catboxVideo" controls autoplay>
-                        <source src="https://files.catbox.moe/v4rhow.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                
-                <div class="song-box">
-                    <h1 class="song-title">halo mutia, luangin waktunya 5 menit aja ya</h1>
-                    <p class="song-artist">dalam 5 menit itu aku bakal ungkapin semua isi hatiku sama kamu</p>
-                    <p class="song-desc">dalam 5 tahun ini</p>
-                </div>
-                
-                <div class="message-container" id="message-container">
-                    <h2 class="message-title">Haii...</h2>
-                    <div class="message-content">
-                        maaf ya kalo aku lancang.. cuma pengen ngungkapin aja biar lega.. i have crush on you, aku ga berharap lebih soal jawaban kamu.. di terima alhamdulilah, di tolak yaudah gapapa. 
-
-uda lama banget aku crushin kamu diem - diem, setiap mau confess selalu mikirin endingnya.. tapii kali ini aku coba beraniin buat jujur ke kamu. 
-
-kalo kamu nanya, "suka aku dari apa?".. aku suka semua tentang kamu, kamu baik, ramah, cantik, semuanya aku suka. u perfect, dimata aku kamu gaada kurangnya, sempurna ! 
-
-aku gengsii sebenernya bilang gini ke kamu, tapi aku juga muak kalo harus terus-terusan mendem perasaan ini diem - diem.. 
-
-kalo aku buat kamu risih atau ilfeell, aku minta maaf yaa, hehe.. lucky banget bisa kenall sama cewe kaya kamu, kadang aku suka nyari tau tentang kamu diem - diem, wkwk. 
-
-semoga setelah ini gaada yang menjauh diantara kita berdua yaa? jaga diri kamu baik-baik, sehat selalu
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <div class="next-btn-container">
-            <a href="reason.html" class="next-btn">
-                Next <i class=""></i>
-            </a>
+    <div class="shutdown-container">
+        <div class="floating-elements">
+            <div class="floating-element"><i class="fas fa-globe"></i></div>
+            <div class="floating-element"><i class="fas fa-cloud"></i></div>
+            <div class="floating-element"><i class="fas fa-star"></i></div>
+            <div class="floating-element"><i class="fas fa-heart"></i></div>
+            <div class="floating-element"><i class="fas fa-bolt"></i></div>
         </div>
+        
+        <div class="shutdown-icon">
+            <i class="fas fa-power-off"></i>
+        </div>
+        
+        <h1 class="shutdown-title">Website Shutdown</h1>
+        
+        <h2 class="shutdown-subtitle">This website has been permanently closed</h2>
+        
+        <div class="shutdown-message">
+<p>Makasih ya sudah baca semua yang aku tulis dan kasih respon. Aku ngerasa plong banget akhirnya bisa ngungkapin semuanya ke kamu.</p>
+<p>Website ini udah selesai tugasnya bantu aku ngomongin yang selamaku disimpan. Aku bersyukur banget punya kesempatan buat jujur dan dapet respon dari kamu. Semoga setelah ini kita tetap bisa berteman baik.</p>
+        </div>
+        
+       <div class="features-grid">
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-heart"></i>
+        </div>
+        <h3 class="feature-title">Keberanian</h3>
+        <p class="feature-desc">Terima kasih sudah memberi aku keberanian untuk jujur tentang perasaan yang kupendam selama ini.</p>
     </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-hand-holding-heart"></i>
+        </div>
+        <h3 class="feature-title">Responmu</h3>
+        <p class="feature-desc">Aku menghargai setiap kata dalam responmu. Kejujuranmu sangat berarti bagiku.</p>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">
+            <i class="fas fa-seedling"></i>
+        </div>
+        <h3 class="feature-title">Halaman Baru</h3>
+        <p class="feature-desc">Meski dengan jawaban ini, aku bersyukur bisa mulai membuka halaman baru dalam hidupku.</p>
+    </div>
+</div>
+        
+        <div class="social-links">
+            <a href="https://www.instagram.com/og_kyluesky?igsh=OHd6a3NpZ3BodHF6" class="social-link">
+                <i class="fab fa-instagram"></i>
 
     <script>
-        // Video player functionality
-        const video = document.getElementById('catboxVideo');
-        
-        // Auto-play video when page loads
+        // Add staggered animation to elements
         document.addEventListener('DOMContentLoaded', function() {
-            video.play().catch(function(error) {
-                console.log('Autoplay prevented by browser:', error);
-                // Show play button or message if autoplay is blocked
+            const elements = [
+                '.shutdown-icon',
+                '.shutdown-title', 
+                '.shutdown-subtitle',
+                '.shutdown-message',
+                '.features-grid',
+                '.social-links',
+                '.contact-info',
+                '.footer'
+            ];
+            
+            elements.forEach((selector, index) => {
+                const element = document.querySelector(selector);
+                if (element) {
+                    element.style.opacity = '0';
+                    element.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }, index * 200);
+                }
             });
+            
+            // Add random color change to floating elements
+            const floatingElements = document.querySelectorAll('.floating-element');
+            const colors = ['#ff6b6b', '#4d96ff', '#6bcf7f', '#9d65c9', '#ff9e7d'];
+            
+            setInterval(() => {
+                floatingElements.forEach(el => {
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    el.style.color = randomColor;
+                });
+            }, 3000);
         });
-        
-        // Optional: Add event listeners for video controls
-        video.addEventListener('play', function() {
-            console.log('Video is playing');
-        });
-        
-        video.addEventListener('pause', function() {
-            console.log('Video is paused');
-        });
-        
-        video.addEventListener('ended', function() {
-            console.log('Video has ended');
-        });
-        
-        // Function to change video source easily
-        function changeVideo(newVideoUrl) {
-            video.src = newVideoUrl;
-            video.load();
-            video.play().catch(function(error) {
-                console.log('Autoplay prevented:', error);
-            });
-        }
-        
-        // Example usage: changeVideo('https://files.catbox.moe/NEW_VIDEO_ID.mp4');
     </script>
 </body>
 </html>
