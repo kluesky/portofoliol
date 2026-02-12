@@ -1,0 +1,393 @@
+/* style.css - modern, dark, glassmorphic, neon accents */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: #0a0c14;
+  background-image: radial-gradient(circle at 25% 0%, #1e2a3a 0%, #0b0e14 75%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  position: relative;
+  overflow-x: hidden;
+  color: #e2e9ff;
+}
+
+/* animated orbs for "kawaii" but powerful effect */
+.orb {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  left: -150px;
+  top: -100px;
+  background: radial-gradient(circle at center, rgba(88, 130, 255, 0.2) 0%, rgba(15, 25, 45, 0) 70%);
+  border-radius: 50%;
+  z-index: 0;
+  animation: orbFloat 18s infinite alternate ease-in-out;
+}
+
+.orb2 {
+  width: 550px;
+  height: 550px;
+  right: -200px;
+  bottom: -150px;
+  left: auto;
+  top: auto;
+  background: radial-gradient(circle at center, rgba(192, 96, 255, 0.18) 0%, rgba(10, 10, 20, 0) 70%);
+  animation: orbFloat 22s infinite alternate-reverse;
+}
+
+.grid-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(120, 180, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 180, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes orbFloat {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+  100% { transform: translate(40px, 40px) scale(1.1); opacity: 0.7; }
+}
+
+.container {
+  max-width: 1300px;
+  width: 100%;
+  z-index: 10;
+  position: relative;
+}
+
+/* header chips */
+.app-header {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  background: rgba(20, 30, 55, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(78, 159, 255, 0.25);
+  padding: 0.45rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #b5d6ff;
+  text-transform: uppercase;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+}
+
+.chip.outline {
+  background: transparent;
+  border: 1.5px solid #4e9fff;
+  color: #d6eaff;
+}
+
+/* hero */
+.hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hero-icon {
+  font-size: 3.8rem;
+  color: #7aaaff;
+  text-shadow: 0 0 15px #3f7eff;
+  margin-bottom: 0.3rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #f0f5ff 0%, #b2d9ff 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+  filter: drop-shadow(0 5px 10px rgba(0,40,100,0.5));
+}
+
+.accent {
+  background: linear-gradient(135deg, #9bc6ff, #5f9eff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subhead {
+  font-size: 1.2rem;
+  color: #b8ceff;
+  margin-bottom: 1.8rem;
+  opacity: 0.9;
+}
+
+.invite-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(145deg, #5865f2, #4752c4);
+  border: none;
+  padding: 0.9rem 2.5rem;
+  border-radius: 60px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 15px 30px -5px #1e2f6e, 0 0 0 1px rgba(255,255,255,0.1);
+  transition: all 0.2s ease;
+  margin-bottom: 1.8rem;
+  position: relative;
+}
+
+.invite-btn:hover {
+  transform: scale(1.04);
+  background: linear-gradient(145deg, #6370ff, #4a56c7);
+  box-shadow: 0 20px 35px -5px #263a8f, 0 0 0 1.5px rgba(255,255,255,0.2);
+}
+
+.permission-badge {
+  background: rgba(255,255,255,0.2);
+  padding: 0.25rem 0.8rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border: 0.5px solid rgba(255,255,255,0.3);
+}
+
+.command-stats {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 0.95rem;
+  color: #c7dcff;
+}
+
+.command-stats i {
+  color: #62b5ff;
+  margin-right: 5px;
+}
+
+.welcome-badge i {
+  color: #ffb86b;
+}
+
+/* category grid */
+.categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.8rem;
+  margin: 2.5rem 0 2rem;
+}
+
+.card {
+  background: rgba(16, 22, 36, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(72, 120, 255, 0.2);
+  border-radius: 30px;
+  padding: 1.6rem 1.4rem;
+  transition: all 0.25s;
+  box-shadow: 0 15px 25px -15px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  border-color: rgba(100, 160, 255, 0.6);
+  background: rgba(22, 30, 48, 0.85);
+  transform: translateY(-6px);
+  box-shadow: 0 25px 35px -12px #00000080, 0 0 0 1px rgba(75, 140, 255, 0.2);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.card-header i {
+  font-size: 1.7rem;
+}
+
+.card-header h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ecf2ff;
+}
+
+.cmd-count {
+  background: rgba(0,0,0,0.4);
+  border-radius: 60px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #b3dcff;
+  border: 0.5px solid #4f96ff;
+}
+
+.commands {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.cmd {
+  background: rgba(8, 20, 40, 0.7);
+  border: 1px solid #2f4b7c;
+  padding: 0.3rem 1rem;
+  border-radius: 40px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #d3e2ff;
+  letter-spacing: 0.2px;
+  transition: 0.1s;
+  box-shadow: inset 0 1px 2px #00000055;
+}
+
+.cmd.special {
+  background: #2f4570;
+  border-color: #79aeff;
+  color: white;
+}
+
+.more {
+  background: rgba(42, 82, 152, 0.35);
+  border: 1px dashed #6e9eff;
+  color: #b7d6ff;
+}
+
+/* card header colors */
+.security i { color: #73abff; }
+.games i { color: #ff9f7c; }
+.economy i { color: #ffe570; }
+.ticket i { color: #4ad9b4; }
+.monitoring i { color: #a97aff; }
+.giveaway i { color: #ff8dae; }
+.utility i { color: #66cc99; }
+.automod i { color: #ff9f5b; }
+.welcome i { color: #b0a0ff; }
+
+/* highlight for welcome card */
+.highlight-card {
+  background: linear-gradient(145deg, rgba(42, 60, 105, 0.8), rgba(26, 40, 70, 0.9));
+  border: 1px solid #789eff;
+  position: relative;
+}
+
+.highlight-card::before {
+  content: "✨ NEW";
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  background: #6b8cff;
+  color: black;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.2rem 1rem;
+  border-radius: 40px;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px #3f5fbf;
+}
+
+.feature-note {
+  margin-top: 0.8rem;
+  width: 100%;
+  color: #ffecbb;
+  font-size: 0.8rem;
+  border-top: 1px dashed #7788cc;
+  padding-top: 0.7rem;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.feature-note i {
+  color: #ffd966;
+}
+
+/* footer */
+.footer-info {
+  text-align: center;
+  background: rgba(8, 14, 27, 0.7);
+  backdrop-filter: blur(6px);
+  border-radius: 60px;
+  padding: 1.3rem 2rem;
+  margin-top: 2rem;
+  border: 1px solid #2f4880;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.total-commands {
+  font-size: 1rem;
+  color: #cde1ff;
+}
+
+.total-commands strong {
+  color: white;
+  background: #2a4580;
+  padding: 0.2rem 0.8rem;
+  border-radius: 40px;
+  margin-left: 5px;
+}
+
+.help-hint {
+  background: rgba(30, 60, 130, 0.5);
+  padding: 0.3rem 1.3rem;
+  border-radius: 60px;
+  font-size: 0.9rem;
+  border: 0.5px solid #6a8dff;
+}
+
+.help-hint code {
+  background: #1b1e3c;
+  padding: 0.2rem 0.4rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  color: #c3d6ff;
+}
+
+.credit {
+  font-size: 0.9rem;
+  color: #aac3ff;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* responsiveness */
+@media (max-width: 760px) {
+  .hero h1 { font-size: 2.2rem; }
+  .footer-info { flex-direction: column; gap: 15px; }
+  .categories { grid-template-columns: 1fr; }
+  .invite-btn { font-size: 1rem; padding: 0.8rem 1.8rem; }
+  .orb { width: 300px; height: 300px; }
+}
+
+@media (max-width: 480px) {
+  .command-stats { flex-direction: column; gap: 6px; }
+  .chip { font-size: 0.7rem; }
+}
